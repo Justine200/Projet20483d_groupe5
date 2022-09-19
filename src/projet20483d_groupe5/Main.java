@@ -9,7 +9,7 @@ package projet20483d_groupe5;
  *
  * @author justineherolt
  */
-public class Projet20483d_groupe5 {
+public class Main {
 
     /**
      * @param args the command line arguments
