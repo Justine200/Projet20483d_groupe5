@@ -24,9 +24,11 @@ public class Grille implements Parametres {
     private final HashSet<Case> grille;
     private int valeurMax = 0;
     private boolean deplacement;
+    private int score;
 
     public Grille() {
         this.grille = new HashSet<>();
+        this.score = 0;
     }
 
     @Override
@@ -41,7 +43,7 @@ public class Grille implements Parametres {
         }
         return result;
     }
-    
+
     public String toHTML() {
         int[][] tableau = new int[TAILLE][TAILLE];
         for (Case c : this.grille) {
@@ -108,6 +110,11 @@ public class Grille implements Parametres {
             this.valeurMax = c.getValeur();
         }
         deplacement = true;
+        this.score = c.getValeur() + this.score; // Score
+    }
+
+    public int getScore() {
+        return this.score;
     }
 
     private void deplacerCasesRecursif(Case[] extremites, int rangee, int direction, int compteur) {
@@ -223,5 +230,3 @@ public class Grille implements Parametres {
         }
     }
 }
-
-

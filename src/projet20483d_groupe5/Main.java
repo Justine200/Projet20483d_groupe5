@@ -78,6 +78,7 @@ public class Main implements Parametres {
         
         Grille3D grilleTest=new Grille3D();
         System.out.println(grilleTest);
+        System.out.println("Score : " + grilleTest.score());
     }
 
 }
