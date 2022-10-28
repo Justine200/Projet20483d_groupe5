@@ -45,4 +45,8 @@ public class Grille3D {
         this.grilles[0].nouvelleCase();
         return result;
     }
+    
+     public boolean conditionFin(){//mets fin à la partie si les 3 Grilles sont rempli et qu'il n'y a plus de possibilité de jouer 
+      return (this.grilles[0].partieFinie() && this.grilles[1].partieFinie() && this.grilles[2].partieFinie());  
+    }
 }
