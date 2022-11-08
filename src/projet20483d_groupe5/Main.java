@@ -32,7 +32,7 @@ public class Main implements Parametres {
         Case c = new Case(x,y,valeur);
         g.getGrille().remove(c);
         System.out.println(g);
-        
+
         while (!g.partieFinie()) {
             System.out.println("Déplacer vers la Droite (d), Gauche (g), Haut (h), ou Bas (b) ?");
             String s = sc.nextLine();
@@ -75,11 +75,11 @@ public class Main implements Parametres {
         System.out.println("test1=" + g.getGrille().contains(c));
         System.out.println("test2=" + g.getGrille().contains(c2));
          */
-        
+
         Grille3D grilleTest=new Grille3D();
         System.out.println(grilleTest);
         System.out.println("Score : " + grilleTest.score());
-        
+
         Scanner sc=new Scanner(System.in);
         while(!grilleTest.conditionFin()){
             System.out.println("Voulez-vous déplacer les cases vers le haut (h), vers le bas (b), vers la droite (d) ou vers la gauche (g)");
@@ -88,21 +88,21 @@ public class Main implements Parametres {
             if( ! (s.equals("b") || s.equals("bas") || s.equals("h") || s.equals("haut") || s.equals("d") || s.equals("droite") || s.equals("g") || s.equals("gauche"))){
                 System.out.println("Veuillez écrire \"d\" pour droite, \"h\" pour haut, \"b\" pour bas et \"g\" pour gauche");
             }else{
-                int direction; 
+                int direction;
                 switch (s){
-                    case "h" : 
-                    case "haut" : 
+                    case "h" :
+                    case "haut" :
                         direction = HAUT;
                         break;
-                    case "b" : 
-                    case "bas" : 
+                    case "b" :
+                    case "bas" :
                         direction = BAS;
                         break;
-                    case "d" : 
-                    case "droite" : 
+                    case "d" :
+                    case "droite" :
                         direction = DROITE;
                         break;
-                    default : 
+                    default :
                         direction = GAUCHE;
                         break;
                 }
@@ -117,5 +117,3 @@ public class Main implements Parametres {
     }
 
 }
-
-
