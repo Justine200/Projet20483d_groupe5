@@ -12,7 +12,7 @@ import static projet20483d_groupe5.Parametres.TAILLE;
  *
  * @author justineherolt
  */
-public class Grille3D {
+public class Grille3D implements Parametres {
 
     private Grille[] grilles = new Grille[3];
     private int valeurMax = 0;
@@ -63,5 +63,11 @@ public class Grille3D {
 
     public int score() { // score des 3 grilles
         return (this.grilles[0].getScore() + this.grilles[1].getScore() + this.grilles[2].getScore());
+    }
+    
+    public void deplacement(int direction){
+        for(int i=0; i<3; i++){
+            this.grilles[i].lanceurDeplacerCases(direction);
+        }
     }
 }

@@ -79,6 +79,42 @@ public class Main implements Parametres {
         Grille3D grilleTest=new Grille3D();
         System.out.println(grilleTest);
         System.out.println("Score : " + grilleTest.score());
+        
+        Scanner sc=new Scanner(System.in);
+        while(!grilleTest.conditionFin()){
+            System.out.println("Voulez-vous déplacer les cases vers le haut (h), vers le bas (b), vers la droite (d) ou vers la gauche (g)");
+            String s = sc.nextLine();
+            s.toLowerCase();
+            if( ! (s.equals("b") || s.equals("bas") || s.equals("h") || s.equals("haut") || s.equals("d") || s.equals("droite") || s.equals("g") || s.equals("gauche"))){
+                System.out.println("Veuillez écrire \"d\" pour droite, \"h\" pour haut, \"b\" pour bas et \"g\" pour gauche");
+            }else{
+                int direction; 
+                switch (s){
+                    case "h" : 
+                    case "haut" : 
+                        direction = HAUT;
+                        break;
+                    case "b" : 
+                    case "bas" : 
+                        direction = BAS;
+                        break;
+                    case "d" : 
+                    case "droite" : 
+                        direction = DROITE;
+                        break;
+                    default : 
+                        direction = GAUCHE;
+                        break;
+                }
+                grilleTest.deplacement(direction);
+                System.out.println("Score : " + grilleTest.score());
+                System.out.println(grilleTest);
+                if(grilleTest.victoire()){
+                    System.out.println("Félicitation, vous avez gagné ! ");
+                }
+            }
+        }
+        
     }
 
 }
