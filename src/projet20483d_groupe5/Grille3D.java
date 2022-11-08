@@ -53,9 +53,12 @@ public class Grille3D {
     public boolean conditionFin() {//mets fin à la partie si les 3 Grilles sont rempli et qu'il n'y a plus de possibilité de jouer
         return (this.grilles[0].partieFinie() && this.grilles[1].partieFinie() && this.grilles[2].partieFinie());
     }
+    
+    
+   
 
     public boolean victoire() {//Renvoie vrai si les score est à 2048
-        if (this.valeurMax == 2048) {
+        if (this.getValeurMax() == 2048) {
             return true;
         } else {
             return false;
@@ -71,4 +74,20 @@ public class Grille3D {
             this.grilles[i].lanceurDeplacerCases(direction);
         }
     }
+
+    /**
+     * @return the valeurMax
+     */
+    public int getValeurMax() {
+        return Math.max( Math.max(this.grilles[0].getValeurMax(), this.grilles[1].getValeurMax()) , this.grilles[2].getValeurMax());
+    }
+
+    /**
+     * @param valeurMax the valeurMax to set
+     */
+    public void setValeurMax(int valeurMax) {
+        this.valeurMax = valeurMax;
+    }
+    
+    
 }
