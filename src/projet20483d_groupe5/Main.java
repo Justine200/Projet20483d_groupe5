@@ -77,6 +77,7 @@ public class Main implements Parametres {
          */
 
         Grille3D grilleTest=new Grille3D();
+        grilleTest.nouvellesCases();
         System.out.println(grilleTest);
         System.out.println("Score : " + grilleTest.score());
 
@@ -108,6 +109,7 @@ public class Main implements Parametres {
                 }
                 grilleTest.deplacement(direction);
                 System.out.println("Score : " + grilleTest.score());
+                grilleTest.nouvellesCases();
                 System.out.println(grilleTest);
                 if(grilleTest.victoire()){
                     System.out.println("Félicitation, vous avez gagné ! ");
