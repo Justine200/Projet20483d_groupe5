@@ -109,6 +109,7 @@ public class Main implements Parametres {
                 }
                 grilleTest.deplacement(direction);
                 System.out.println("Score : " + grilleTest.score());
+                System.out.println("Vmax : " + grilleTest.getValeurMax());
                 grilleTest.nouvellesCases();
                 System.out.println(grilleTest);
                 if(grilleTest.victoire()){
