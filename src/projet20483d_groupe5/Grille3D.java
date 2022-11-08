@@ -5,16 +5,19 @@
  */
 package projet20483d_groupe5;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
+
 import static projet20483d_groupe5.Parametres.TAILLE;
 
 /**
  *
  * @author justineherolt
  */
-public class Grille3D implements Parametres {
 
-    private Grille[] grilles = new Grille[3];
+public class Grille3D {
+    private Grille[] grilles=new Grille[3];
     private int valeurMax = 0;
     private int score;
 
@@ -25,7 +28,7 @@ public class Grille3D implements Parametres {
             this.grilles[i] = new Grille();
         }
     }
-
+    
     //Méthode qui permet l'affichage des grilles côtes à côtes dans la console
     @Override
     public String toString() {
@@ -45,7 +48,6 @@ public class Grille3D implements Parametres {
         for (int i = 0; i < tableau0.length; i++) {
             result += Arrays.toString(tableau0[i]) + "\t" + Arrays.toString(tableau1[i]) + "\t" + Arrays.toString(tableau2[i]) + "\n";
         }
-        this.grilles[0].nouvelleCase();
         return result;
     }
 
