@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package projet20483d_groupe5;
+package model;
 
 import java.util.Scanner;
 
