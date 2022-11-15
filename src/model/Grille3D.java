@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package projet20483d_groupe5;
+package model;
 
 import java.util.Arrays;
-import static projet20483d_groupe5.Parametres.OBJECTIF;
-import static projet20483d_groupe5.Parametres.TAILLE;
+import static model.Parametres.OBJECTIF;
+import static model.Parametres.TAILLE;
 
 /**
  *

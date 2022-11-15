@@ -3,15 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package projet20483d_groupe5;
+package model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -41,19 +41,19 @@ public class ConnexionBDD {
     }
     
     //Permet de se connecter à la base de données 
-    public void openConnexion(){
-        String url="jdbc:mysql://" + this.host + ":" + this.port + "/" + this.dbname;
-        if(this.con != null){
+    private void openConnexion() {
+        String connectUrl = "jdbc:mysql://" + this.host + ":" + this.port + "/" + this.dbname;
+        if (this.con != null) {
             this.closeConnexion();
         }
-        try{
+        try {
             Class.forName("com.mysql.jdbc.Driver").getDeclaredConstructor().newInstance();
-            this.con = DriverManager.getConnection(url, this.username, this.password);
+            this.con = DriverManager.getConnection(connectUrl, this.username, this.password);
             System.out.println("Database connection established.");
-        }catch(ClassNotFoundException cnfe){
+        } catch (ClassNotFoundException cnfe) {
             System.out.println("Cannot load db driver: com.mysql.jdbc.Driver");
             cnfe.printStackTrace();
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println("Erreur inattendue");
             e.printStackTrace();
         }
