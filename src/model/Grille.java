@@ -3,17 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package projet20483d_groupe5;
+package model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Random;
-import static projet20483d_groupe5.Parametres.BAS;
-import static projet20483d_groupe5.Parametres.DROITE;
-import static projet20483d_groupe5.Parametres.GAUCHE;
-import static projet20483d_groupe5.Parametres.HAUT;
-import static projet20483d_groupe5.Parametres.TAILLE;
+import static model.Parametres.BAS;
+import static model.Parametres.DROITE;
+import static model.Parametres.GAUCHE;
+import static model.Parametres.HAUT;
+import static model.Parametres.TAILLE;
 
 /**
  *
