@@ -6,6 +6,7 @@
 package projet20483d_groupe5;
 
 import java.util.Arrays;
+import static projet20483d_groupe5.Parametres.OBJECTIF;
 import static projet20483d_groupe5.Parametres.TAILLE;
 
 /**
@@ -103,7 +104,7 @@ public class Grille3D {
    
 
     public boolean victoire() {//Renvoie vrai si les score est à 2048
-        if (this.getValeurMax() == 2048) {
+        if (this.getValeurMax() == OBJECTIF) {
             return true;
         } else {
             return false;
