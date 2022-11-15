@@ -62,7 +62,7 @@ public class ConnexionBDD {
     //Permet de récupérer le classement des joueurs de l'application 
     public ArrayList<String> getClassement(){
         ArrayList<String> classement=null;
-        String query = "SELECT Pseudo FROM Joueur ORDER BY Nombre_deplacements DESC;";
+        String query = "SELECT Pseudo FROM Joueur ORDER BY Nombre_deplacements ASC;";
         try{
             this.openConnexion();
             Statement stmt = this.con.createStatement();
@@ -91,16 +91,17 @@ public class ConnexionBDD {
     
     //Permet d'ajouter un joueur dans la base de donnée
     public void insertJoueur(String pseudo, int nbDeplacements){
-        String query = "INSERT INTO Joueur VALUES ('"+pseudo+","+nbDeplacements+"');";
+        String query = "INSERT INTO Joueur VALUES ('"+pseudo+"' ,"+nbDeplacements+");";
         try{
             this.openConnexion();
             Statement stmt = this.con.createStatement();
             int n = stmt.executeUpdate(query);
-            System.out.println(n+" joueur inséré");
+            System.out.println("joueur inséré");
             stmt.close();
         }catch(SQLException e){
             System.out.println("Probleme avec la requete d'insertion");
             System.out.println("Joueur deja existant");
+            System.out.println(e);
         }finally{
             this.closeConnexion();
         }

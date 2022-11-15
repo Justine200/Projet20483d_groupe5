@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -61,6 +62,8 @@ public class Main implements Parametres {
             }
         }*/
         ConnexionBDD ex = new ConnexionBDD("localhost", "8889", "g5_2048_3D", "root", "root");
-        ex.insertJoueur("JustineTest", 185);
+        //ex.insertJoueur("JustineTest", 185);
+        ArrayList<String> classement = ex.getClassement();
+        System.out.println(classement);
     }
 }
