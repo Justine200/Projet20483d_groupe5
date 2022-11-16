@@ -19,7 +19,7 @@ public class Main implements Parametres {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        /*Grille3D grilleTest=new Grille3D();
+        Grille3D grilleTest=new Grille3D();
         grilleTest.nouvellesCases();
         System.out.println(grilleTest);
         System.out.println("Score : " + grilleTest.score());
@@ -60,7 +60,7 @@ public class Main implements Parametres {
                     System.exit(0);
                 }
             }
-        }*/
+        }
         ConnexionBDD ex = new ConnexionBDD("localhost", "8889", "g5_2048_3D", "root", "root");
         //ex.insertJoueur("JustineTest", 185);
         ArrayList<String> classement = ex.getClassement();

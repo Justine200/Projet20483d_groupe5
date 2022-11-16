@@ -23,7 +23,7 @@ import model.Grille;
  *
  * @author Admin
  */
-public class FXMLDocumentController implements Initializable {
+public class JeuFXController implements Initializable {
 
     /*
      * Variables globales correspondant à des objets définis dans la vue (fichier .fxml)

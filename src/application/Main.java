@@ -22,11 +22,6 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/application/FXMLDocument.fxml"));
-        //FXMLDocumentController controller = new FXMLDocumentController();//avec les éventuels paramètres s'il y en a, mais si vous avez laissé le constructeur par défaut il n'y aura pas de paramètre
-        //FXMLLoader loader = new FXMLLoader();
-        //loader.setLocation(getClass().getResource("/application/FXMLDocument.fxml"));
-        //loader.setController(controller);
-        //Parent root = loader.load();
         
         Scene scene = new Scene(root);
         boolean add = scene.getStylesheets().add("css/styles.css");

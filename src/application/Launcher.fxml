@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LauncherController">
+    <stylesheets>
+        <URL value="@/application/style/launcherStyle.css" />
+    </stylesheets>
+   <children>
+      <Pane layoutX="6.0" layoutY="6.0" prefHeight="388.0" prefWidth="590.0" style="-fx-background-color: #ffff00;">
+         <children>
+            <Button layoutX="371.0" layoutY="201.0" mnemonicParsing="false" onMouseClicked="#exitClicked" text="Exit" />
+            <Button layoutX="181.0" layoutY="201.0" mnemonicParsing="false" onMouseClicked="#startClicked" text="Start" />
+         </children></Pane>
+   </children>
+</AnchorPane>
