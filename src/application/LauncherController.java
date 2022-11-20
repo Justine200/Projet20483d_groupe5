@@ -25,6 +25,9 @@ public class LauncherController implements Initializable {
 
     /**
      * Initializes the controller class.
+     *
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -39,13 +42,15 @@ public class LauncherController implements Initializable {
     @FXML
     private void startClicked(MouseEvent event) throws IOException {
 
-        Parent rootJeu = FXMLLoader.load(getClass().getResource("/application/FXMLDocument.fxml"));
-
         Stage stage = new Stage();
 
-        Scene sceneJeu = new Scene(rootJeu);
+        Parent root = FXMLLoader.load(getClass().getResource("/application/JeuFX.fxml"));
+
+        Scene sceneJeu = new Scene(root);
 
         boolean add = sceneJeu.getStylesheets().add("style/JeuStyle.css");
+
+        stage.setScene(sceneJeu);
 
         stage.show();
 
