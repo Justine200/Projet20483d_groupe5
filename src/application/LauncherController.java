@@ -35,18 +35,18 @@ public class LauncherController implements Initializable {
     }
 
     @FXML
-    private void exitClicked(MouseEvent event) {
-        System.exit(0);
-    }
+    private void startClicked(MouseEvent event) throws IOException { //bouton Start
 
-    @FXML
-    private void startClicked(MouseEvent event) throws IOException {
+        Stage launcher = Main.getPrimaryStage(); //Stage du lanceur
+        
+        launcher.hide();//cacher le lanceur
 
-        Stage stage = new Stage();
-
-        Parent root = FXMLLoader.load(getClass().getResource("/application/JeuFX.fxml"));
+        
+        Parent root = FXMLLoader.load(getClass().getResource("/application/JeuFX.fxml")); 
 
         Scene sceneJeu = new Scene(root);
+        
+        Stage stage = new Stage(); //stage du jeu
 
         boolean add = sceneJeu.getStylesheets().add("style/JeuStyle.css");
 

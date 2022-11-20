@@ -16,19 +16,26 @@ import javafx.stage.Stage;
  * @author Admin
  */
 public class Main extends Application {
- 
+
+    private static Stage pStage; //stage statique pour le cacher depuis le controlleur
+
     @Override
     public void start(Stage stage) throws Exception {
+
+        setPrimaryStage(stage);
 
         Parent root = FXMLLoader.load(getClass().getResource("/application/Launcher.fxml"));
 
         Scene scene = new Scene(root);
 
-       // boolean add = scene.getStylesheets().add("css/styles.css");
-
+        // boolean add = scene.getStylesheets().add("css/styles.css");
+        
         stage.setScene(scene);
 
+        pStage = stage;
+
         stage.show();
+
     }
 
     /**
@@ -36,6 +43,17 @@ public class Main extends Application {
      */
     public static void main(String[] args) {
         launch(args);
+    }
+
+    /*
+    *Getters et Setters
+     */
+    public static Stage getPrimaryStage() {
+        return pStage;
+    }
+
+    private void setPrimaryStage(Stage pStage) {
+        Main.pStage = pStage;
     }
 
 }
