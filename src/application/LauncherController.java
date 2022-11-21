@@ -48,7 +48,7 @@ public class LauncherController implements Initializable {
         
         Stage stage = new Stage(); //stage du jeu
 
-        boolean add = sceneJeu.getStylesheets().add("style/JeuStyle.css");
+        boolean add = sceneJeu.getStylesheets().add("/application/style/JeuStyle.css");
 
         stage.setScene(sceneJeu);
 

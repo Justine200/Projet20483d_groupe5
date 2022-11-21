@@ -28,8 +28,6 @@ public class Main extends Application {
 
         Scene scene = new Scene(root);
 
-        // boolean add = scene.getStylesheets().add("css/styles.css");
-        
         stage.setScene(scene);
 
         pStage = stage;
