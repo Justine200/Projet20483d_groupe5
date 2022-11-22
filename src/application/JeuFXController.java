@@ -12,6 +12,7 @@ import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -43,6 +44,9 @@ public class JeuFXController implements Initializable {
     private GridPane grille2; //3eme grille 
     @FXML
     private Pane fond; // panneau recouvrant toute la fenêtre
+    @FXML
+    private Button startButton; // boutons
+
 
     //variables globales non définies dans la vue (fichier .fxml)
     private final Pane p = new Pane(); // panneau utilisé pour dessiner une tuile "2"
@@ -78,11 +82,15 @@ public class JeuFXController implements Initializable {
 
         System.out.println("le contrôleur initialise la vue");
         fond.getStyleClass().add("fond");
+        startButton.getStyleClass().add("button");
+        grille0.getStyleClass().add("gridpane");
+        grille1.getStyleClass().add("gridpane");
+        grille2.getStyleClass().add("gridpane");
 
         // utilisation de styles pour la grille et la tuile (voir styles.css)
         p.getStyleClass().add("pane");
         c.getStyleClass().add("tuile");
-        grille0.getStyleClass().add("gridpane");
+
         GridPane.setHalignment(c, HPos.CENTER);
         fond.getChildren().add(p);
         p.getChildren().add(c);
@@ -95,7 +103,6 @@ public class JeuFXController implements Initializable {
         // utilisation de styles pour la grille et la tuile (voir styles.css)
         p1.getStyleClass().add("pane");
         c1.getStyleClass().add("tuile");
-        grille1.getStyleClass().add("gridpane");
         GridPane.setHalignment(c1, HPos.CENTER);
         fond.getChildren().add(p1);
         p1.getChildren().add(c1);
@@ -108,7 +115,6 @@ public class JeuFXController implements Initializable {
         // utilisation de styles pour la grille et la tuile (voir styles.css)
         p2.getStyleClass().add("pane");
         c2.getStyleClass().add("tuile");
-        grille2.getStyleClass().add("gridpane");
         GridPane.setHalignment(c2, HPos.CENTER);
         fond.getChildren().add(p2);
         p2.getChildren().add(c2);
@@ -162,8 +168,23 @@ public class JeuFXController implements Initializable {
     }
 
     @FXML
-    private void handleButtonAction(MouseEvent event) {
-        System.out.println("Clic de souris sur le bouton menu");
+    private void start(MouseEvent event) {
+        System.out.println("start");
+    }
+    
+    @FXML
+    private void stop(MouseEvent event) {
+        System.out.println("stop");
+    }
+    
+    @FXML
+    private void newGame(MouseEvent event) {
+        System.out.println("newGame");
+    }
+    
+    @FXML
+    private void undo(MouseEvent event) {
+        System.out.println("undo");
     }
 
     /**
@@ -192,7 +213,7 @@ public class JeuFXController implements Initializable {
         //Grille 1
         if (touche.compareTo("q") == 0) { // utilisateur appuie sur "q" pour envoyer la tuile vers la gauche
             if (objectifx1 > 452) { // 452 : x de la grille1
-                objectifx1 -= (int) this.tailleCase; 
+                objectifx1 -= (int) this.tailleCase;
             }
         } else if (touche.compareTo("d") == 0) { //vers la droite
             if (objectifx1 < (int) this.taillePane - 6 * this.tailleCase - 24 * 2) { // possible uniquement si on est pas dans la colonne la plus à droite (taille de la fenêtre - 6*taille d'une case - taille entre la grille et le bord de la fenêtre*2)

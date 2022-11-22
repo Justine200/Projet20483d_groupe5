@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -23,6 +24,9 @@ import javafx.stage.Stage;
  */
 public class LauncherController implements Initializable {
 
+    @FXML
+    private Button startButton; // boutons
+    
     /**
      * Initializes the controller class.
      *
@@ -32,6 +36,7 @@ public class LauncherController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        startButton.getStyleClass().add("button");
     }
 
     @FXML
@@ -51,6 +56,8 @@ public class LauncherController implements Initializable {
         boolean add = sceneJeu.getStylesheets().add("/application/style/JeuStyle.css");
 
         stage.setScene(sceneJeu);
+        
+        stage.resizableProperty().setValue(false);
 
         stage.show();
 

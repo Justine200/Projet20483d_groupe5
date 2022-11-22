@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  *
@@ -28,7 +29,11 @@ public class Main extends Application {
 
         Scene scene = new Scene(root);
 
+        boolean add = scene.getStylesheets().add("/application/style/JeuStyle.css");
+
         stage.setScene(scene);
+
+        stage.resizableProperty().setValue(false); // pour que l'utilisateur ne pourrai pas changer la taille de la fenetre
 
         pStage = stage;
 

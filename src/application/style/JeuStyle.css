@@ -12,6 +12,8 @@ and open the template in the editor.
 .pane {
     -fx-background-color: #1a8cff;
     -fx-border-color: White;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
 }
 
 .gridpane {
@@ -22,8 +24,26 @@ and open the template in the editor.
     -fx-background-insets: 0, 1 ;
     -fx-halignment: center;
     -fx-alignment: CENTER;  
-
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
 }
+
+.button {
+    -fx-background-color: linear-gradient(to right bottom, #ccffff,#1a8cff);
+    -fx-border-color: White;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-font-family: "Book Antiqua";
+    -fx-font-size: 20px;
+    -fx-font-smoothing-type: "LCD";
+    -fx-fill: white;
+    -fx-transition-duration: 0.4s;
+}
+.button:hover {
+  -fx-background-color: #1a8cff;
+  -fx-color: white;
+}
+
 
 .tuile {
     -fx-text-fill: #ffffff;
@@ -32,25 +52,24 @@ and open the template in the editor.
 }
 
 .fond {
-    -fx-background-color: #cce6ff;
+    -fx-background-color: linear-gradient(to right bottom,#cce6ff, #ccffff);
 }
 
 /* Menu Bar */
-
 .menu-bar {
-    -fx-background-color: #b3b3b3 ;
-    -fx-opacity: 0.5;
+    -fx-background-color: linear-gradient(to right bottom,white, #f2f2f2);
     -fx-border-width: 1.0;
 }
 .menu-bar .label {
-    -fx-font-size: 12px;
-    -fx-font-family: "Book Antiqua";
-    -fx-text-fill: #f2ffe6;
-    -fx-padding: 5.0px;
+    -fx-font-size: 13px;
+    -fx-font-family: "sans herif";
+    -fx-text-fill: black;
+    -fx-padding: 2.0px;
     -fx-font-smooth: auto;
 }
 .menu-bar .menu-button:hover, .menu-bar .menu-button:focused, .menu-bar .menu-button:showing {
-    -fx-background: black;
+
+    -fx-background-color: linear-gradient(to right bottom,#cce6ff, #ccffff);
     -fx-opacity: 0.5;
     -fx-text-fill: white;
 }
@@ -59,7 +78,8 @@ and open the template in the editor.
 .menu-item {
     -fx-padding: 0.0em 0.0em 0.0em 0.0em;
     -fx-text-fill: black;
-    -fx-background: darkgray ;
+    -fx-background: linear-gradient(to right bottom,white, #f2f2f2);
+
 }
 .menu-item .label{
     -fx-font-size: 12.0 pt;
@@ -67,6 +87,6 @@ and open the template in the editor.
 }
 .menu-item .label:hover{
     -fx-font-size: 12.0 pt;
-    -fx-background: black ;
+    -fx-background: linear-gradient(to right bottom,#cce6ff, #ccffff);
     -fx-text-fill: white;
 }
