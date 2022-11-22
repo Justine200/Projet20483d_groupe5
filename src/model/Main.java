@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -24,13 +25,29 @@ public class Main implements Parametres {
         System.out.println("Score : " + grilleTest.score());
 
         Scanner sc=new Scanner(System.in);
+        ArrayList<Grille3D> grilles3d = new ArrayList<Grille3D>();
+        grilles3d = grilleTest.addListGrille(grilles3d);
         while(!grilleTest.conditionFin()){
             System.out.println("Voulez-vous déplacer les cases vers le haut (h), vers le bas (b), vers la droite (d) ou vers la gauche (g)");
             String s = sc.nextLine();
             s.toLowerCase();
-            if( ! (s.equals("b") || s.equals("bas") || s.equals("h") || s.equals("haut") || s.equals("d") || s.equals("droite") || s.equals("g") || s.equals("gauche"))){
+            if( ! (s.equals("b") || s.equals("bas") || s.equals("h") || s.equals("haut") || s.equals("d") || s.equals("droite") || s.equals("g") || s.equals("gauche") || s.equals("retour")|| s.equals("save")||s.equals("load"))){
                 System.out.println("Veuillez écrire \"d\" pour droite, \"h\" pour haut, \"b\" pour bas et \"g\" pour gauche");
-            }else{
+                System.out.println("Ecrire \"retour\" pour annuler le dernier coup, \"save\" pour sauvegarder et quitter, \"load\" pour charger une ancienne partie");
+            }else if (s.equals("retour")|| s.equals("save")||s.equals("load")) {
+                switch (s){
+                    case "retour" :
+                        grilleTest.removeListGrille(grilles3d);
+                        grilleTest = grilleTest.dernierCoup(grilles3d);
+                        System.out.println(grilleTest);
+                        break;
+                    case "load" :
+
+                        break;
+                    default:
+                        break;
+                }
+            } else {
                 int direction;
                 switch (s){
                     case "h" :
@@ -50,6 +67,7 @@ public class Main implements Parametres {
                         break;
                 }
                 grilleTest.deplacement(direction);
+                grilles3d.add(grilleTest);
                 System.out.println("Score : " + grilleTest.score());
                 System.out.println("Vmax : " + grilleTest.getValeurMax());
                 grilleTest.nouvellesCases();

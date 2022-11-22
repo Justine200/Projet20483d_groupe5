@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import static model.Parametres.OBJECTIF;
 import static model.Parametres.TAILLE;
@@ -14,7 +15,7 @@ import static model.Parametres.TAILLE;
  * @author justineherolt
  */
 
-public class Grille3D {
+public class Grille3D implements java.io.Serializable {
 
     private Grille[] grilles = new Grille[3];
     private int valeurMax = 0;
@@ -46,7 +47,6 @@ public class Grille3D {
         for (int i = 0; i < tableau0.length; i++) {
             result += Arrays.toString(tableau0[i]) + "\t" + Arrays.toString(tableau1[i]) + "\t" + Arrays.toString(tableau2[i]) + "\n";
         }
-        this.grilles[0].nouvelleCase();
         return result;
     }
 
@@ -99,9 +99,9 @@ public class Grille3D {
     public boolean conditionFin() {//mets fin à la partie si les 3 Grilles sont rempli et qu'il n'y a plus de possibilité de jouer
         return (this.grilles[0].partieFinie() && this.grilles[1].partieFinie() && this.grilles[2].partieFinie());
     }
-    
-    
-   
+
+
+
 
     public boolean victoire() {//Renvoie vrai si les score est à 2048
         if (this.getValeurMax() == OBJECTIF) {
@@ -134,6 +134,24 @@ public class Grille3D {
     public void setValeurMax(int valeurMax) {
         this.valeurMax = valeurMax;
     }
-    
-    
+
+    public ArrayList<Grille3D> addListGrille(ArrayList<Grille3D> grilles3){
+        grilles3.add(this);
+        if (grilles3.size()==5)
+            grilles3.remove(0);
+        return grilles3;
+    }
+    public ArrayList<Grille3D> removeListGrille(ArrayList<Grille3D> grilles3){
+        grilles3.remove(grilles3.size()-1);
+        return grilles3;
+    }
+
+    public Grille3D dernierCoup(ArrayList<Grille3D> grilles3){
+        if (grilles3.size()==0){
+            System.out.println("Retour impossible");
+            return grilles3.get(0);
+        }
+        return grilles3.get(grilles3.size()-2);
+    }
+
 }
