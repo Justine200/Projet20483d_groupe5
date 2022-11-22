@@ -46,7 +46,8 @@ public class JeuFXController implements Initializable {
     private Pane fond; // panneau recouvrant toute la fenêtre
     @FXML
     private Button startButton; // boutons
-
+    @FXML
+    private Pane movesPane;  // boutons
 
     //variables globales non définies dans la vue (fichier .fxml)
     private final Pane p = new Pane(); // panneau utilisé pour dessiner une tuile "2"
@@ -82,6 +83,7 @@ public class JeuFXController implements Initializable {
 
         System.out.println("le contrôleur initialise la vue");
         fond.getStyleClass().add("fond");
+        movesPane.getStyleClass().add("fond");
         startButton.getStyleClass().add("button");
         grille0.getStyleClass().add("gridpane");
         grille1.getStyleClass().add("gridpane");
@@ -171,21 +173,60 @@ public class JeuFXController implements Initializable {
     private void start(MouseEvent event) {
         System.out.println("start");
     }
-    
+
     @FXML
     private void stop(MouseEvent event) {
         System.out.println("stop");
     }
-    
+
     @FXML
     private void newGame(MouseEvent event) {
         System.out.println("newGame");
     }
-    
+
     @FXML
     private void undo(MouseEvent event) {
         System.out.println("undo");
     }
+    
+    //Méthodes de MenuBar
+    @FXML
+    private void newGame0() {
+        System.out.println("newGame0");
+    }
+    
+    @FXML
+    private void save() {
+        System.out.println("save");
+    }
+    @FXML
+    private void load() {
+        System.out.println("load");
+    }
+    @FXML
+    private void close() {
+        System.exit(0);
+    }
+    
+    @FXML
+    private void cssClassique() {
+        System.out.println("cssClassique");
+    }
+    @FXML
+    private void cssDark() {
+        System.out.println("cssDark");
+    }
+    
+    @FXML
+    private void howToPlay() {
+        System.out.println("howToPlay");
+    }
+    @FXML
+    private void aboutUs() {
+        System.out.println("aboutUs");
+    }
+
+  
 
     /**
      *

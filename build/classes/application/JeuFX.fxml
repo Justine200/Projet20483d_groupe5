@@ -148,23 +148,22 @@
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-                  <MenuItem mnemonicParsing="false" text="New Game" />
-                  <MenuItem mnemonicParsing="false" text="Save" />
-                  <MenuItem mnemonicParsing="false" text="Load" />
-              <MenuItem mnemonicParsing="false" text="Close" />
+                  <MenuItem mnemonicParsing="false" onAction="#newGame0" text="New Game" />
+                  <MenuItem mnemonicParsing="false" onAction="#save" text="Save" />
+                  <MenuItem mnemonicParsing="false" onAction="#load" text="Load" />
+              <MenuItem mnemonicParsing="false" onAction="#close" text="Close" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Apparence">
             <items>
-                  <MenuItem mnemonicParsing="false" text="Classic" />
-                  <MenuItem mnemonicParsing="false" text="Dark" />
-              <MenuItem mnemonicParsing="false" text="Delete" />
+                  <MenuItem mnemonicParsing="false" onAction="#cssClassique" text="Classic" />
+                  <MenuItem mnemonicParsing="false" onAction="#cssDark" text="Dark" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
-              <MenuItem mnemonicParsing="false" text="How to Play" />
-                  <MenuItem mnemonicParsing="false" text="About Us" />
+              <MenuItem mnemonicParsing="false" onAction="#howToPlay" text="How to Play" />
+                  <MenuItem mnemonicParsing="false" onAction="#aboutUs" text="About Us" />
             </items>
           </Menu>
         </menus>
