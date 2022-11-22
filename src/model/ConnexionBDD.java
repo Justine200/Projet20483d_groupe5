@@ -60,9 +60,9 @@ public class ConnexionBDD {
     }
     
     //Permet de récupérer le classement des joueurs de l'application 
-    public ArrayList<String> getClassement(){
+    private ArrayList<String> getClassement(){
         ArrayList<String> classement=null;
-        String query = "SELECT Pseudo FROM Joueur ORDER BY Nombre_deplacements ASC;";
+        String query = "SELECT Pseudo FROM Joueur WHERE Nombre_deplacements != 0 ORDER BY Nombre_deplacements ASC;";
         try{
             this.openConnexion();
             Statement stmt = this.con.createStatement();
@@ -82,7 +82,7 @@ public class ConnexionBDD {
             }
             stmt.close();
         }catch (SQLException e) {
-            System.out.println("Probleme avec la requete");
+            System.out.println("Problème avec la requete");
         } finally {
             this.closeConnexion();
         }
@@ -99,11 +99,75 @@ public class ConnexionBDD {
             System.out.println("joueur inséré");
             stmt.close();
         }catch(SQLException e){
-            System.out.println("Probleme avec la requete d'insertion");
+            System.out.println("Problème avec la requete d'insertion");
             System.out.println("Joueur deja existant");
-            System.out.println(e);
         }finally{
             this.closeConnexion();
         }
+    }
+    
+    //Inscription d'un nouveau joueur avec seulement son pseudo (avant qu'il ne commence à jouer) 
+    //Le nombre de déplacements est à 0 par défaut, mais le nouveau joueur ne sera pas pris en compte dans le classement
+    public void nouveauJoueur(String pseudo){
+        String query = "INSERT INTO Joueur VALUES ('"+pseudo+"' ,0);";
+        try{
+            this.openConnexion();
+            Statement stmt = this.con.createStatement();
+            int n = stmt.executeUpdate(query);
+            System.out.println("joueur inséré");
+            stmt.close();
+        }catch(SQLException e){
+            System.out.println("Problème avec la requete d'insertion");
+            System.out.println("Joueur deja existant");
+        }finally{
+            this.closeConnexion();
+        }
+    }
+    
+    //Affiche le classement
+    public void affichageClassement(){
+        ArrayList classement = this.getClassement();
+        System.out.println("Classement des joueurs : ");
+        for(int i=0; i<classement.size();i++){
+            int j=i+1;
+            System.out.println(j+". "+classement.get(i));
+        }
+    }
+    
+    //Permet d'actualiser le nombre de déplacements une fois que le joueur a gagné
+    public void updateNbDeplacements(String pseudo, int nb){
+        String query = "UPDATE Joueur SET Nombre_deplacements="+nb+" WHERE Pseudo='"+pseudo+"';";
+        try{
+            this.openConnexion();
+            Statement stmt = this.con.createStatement();
+            int n = stmt.executeUpdate(query);
+            System.out.println("valeur modifiée");
+            stmt.close();
+        }catch(SQLException e){
+            System.out.println("Problème avec la requete");
+        }finally{
+            this.closeConnexion();
+        }
+    }
+    
+    public String meilleurScore(){
+        String query = "SELECT MIN(Nombre_deplacements) FROM Joueur WHERE Nombre_deplacements > 0;";
+        String bestScore="";
+        try{
+            this.openConnexion();
+            Statement stmt = this.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            /*ResultSetMetaData metadata = rs.getMetaData();
+            String tuple;*/
+            if(rs.next()){
+                bestScore=rs.getString(1);
+            }
+            stmt.close();
+        }catch (SQLException e) {
+            System.out.println("Problème avec la requete");
+        } finally {
+            this.closeConnexion();
+        }
+        return bestScore;
     }
 }
