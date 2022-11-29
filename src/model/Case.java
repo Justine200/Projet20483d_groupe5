@@ -9,7 +9,7 @@ package model;
  *
  * @author justineherolt
  */
-public class Case implements Parametres {
+public class Case implements Parametres,java.io.Serializable {
 
     private int x, y, valeur;
     private Grille grille;
@@ -18,6 +18,16 @@ public class Case implements Parametres {
         this.x = abs;
         this.y = ord;
         this.valeur = v;
+    }
+
+    public Case(Case c){
+        this.x=c.x;
+        this.y=c.x;
+        this.valeur=c.valeur;
+    }
+
+    public Case copy(){
+        return new Case(this);
     }
 
     public void setGrille(Grille g) {

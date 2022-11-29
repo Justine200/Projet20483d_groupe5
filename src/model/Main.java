@@ -5,7 +5,6 @@
  */
 package model;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -20,15 +19,19 @@ public class Main implements Parametres {
     public static void main(String[] args) {
         // TODO code application logic here
         Grille3D grilleTest=new Grille3D();
+        Grille3D oldGrille = new Grille3D();
         grilleTest.nouvellesCases();
         System.out.println(grilleTest);
         System.out.println("Score : " + grilleTest.score());
 
         Scanner sc=new Scanner(System.in);
-        ArrayList<Grille3D> grilles3d = new ArrayList<Grille3D>();
-        grilles3d = grilleTest.addListGrille(grilles3d);
+
+        oldGrille=grilleTest.copy();
+        //ArrayList<Grille3D> grilles3d = new ArrayList<Grille3D>();
+        //grilles3d.add(oldGrille);
         while(!grilleTest.conditionFin()){
             System.out.println("Voulez-vous déplacer les cases vers le haut (h), vers le bas (b), vers la droite (d) ou vers la gauche (g)");
+            System.out.println("Ecrire \"retour\" pour annuler le dernier coup, \"save\" pour sauvegarder et quitter, \"load\" pour charger une ancienne partie");
             String s = sc.nextLine();
             s.toLowerCase();
             if( ! (s.equals("b") || s.equals("bas") || s.equals("h") || s.equals("haut") || s.equals("d") || s.equals("droite") || s.equals("g") || s.equals("gauche") || s.equals("retour")|| s.equals("save")||s.equals("load"))){
@@ -37,14 +40,16 @@ public class Main implements Parametres {
             }else if (s.equals("retour")|| s.equals("save")||s.equals("load")) {
                 switch (s){
                     case "retour" :
-                        grilleTest.removeListGrille(grilles3d);
-                        grilleTest = grilleTest.dernierCoup(grilles3d);
+                        //grilles3d = grilleTest.removeListGrille(grilles3d);
+                        grilleTest = oldGrille;
                         System.out.println(grilleTest);
                         break;
                     case "load" :
-
+                        grilleTest = new DeserGrilles3D().main();
                         break;
                     default:
+                        SerializerGrilles3D sg3 = new SerializerGrilles3D(grilleTest);
+                        sg3.main();
                         break;
                 }
             } else {
@@ -67,10 +72,11 @@ public class Main implements Parametres {
                         break;
                 }
                 grilleTest.deplacement(direction);
-                grilles3d.add(grilleTest);
+                grilleTest.nouvellesCases();
                 System.out.println("Score : " + grilleTest.score());
                 System.out.println("Vmax : " + grilleTest.getValeurMax());
-                grilleTest.nouvellesCases();
+                oldGrille=grilleTest.copy();
+                //grilles3d = grilleTest.addListGrille(grilles3d,oldGrille);
                 System.out.println(grilleTest);
                 if(grilleTest.victoire()){
                     System.out.println("Félicitation, vous avez gagné ! ");

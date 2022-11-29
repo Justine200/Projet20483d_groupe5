@@ -7,6 +7,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+
 import static model.Parametres.OBJECTIF;
 import static model.Parametres.TAILLE;
 
@@ -15,17 +16,37 @@ import static model.Parametres.TAILLE;
  * @author justineherolt
  */
 
-public class Grille3D implements java.io.Serializable {
+public class Grille3D implements java.io.Serializable{
 
     private Grille[] grilles = new Grille[3];
     private int valeurMax = 0;
     private int score;
+
     //Constructeur
     public Grille3D() {
         this.score = 0;
         for (int i = 0; i < 3; i++) {
             this.grilles[i] = new Grille();
         }
+    }
+
+    public Grille[] getGrilles() {
+        return grilles;
+    }
+
+
+    public Grille3D(Grille3D g){
+        Grille[] copyGrille = new Grille[3];
+        for (int i = 0; i<3;i++){
+            copyGrille[i]=g.grilles[i].copy();
+        }
+        this.valeurMax=g.valeurMax;
+        this.score=g.score;
+
+    }
+
+    public Grille3D copy(){
+        return new Grille3D(this);
     }
 
     //Méthode qui permet l'affichage des grilles côtes à côtes dans la console
@@ -135,8 +156,8 @@ public class Grille3D implements java.io.Serializable {
         this.valeurMax = valeurMax;
     }
 
-    public ArrayList<Grille3D> addListGrille(ArrayList<Grille3D> grilles3){
-        grilles3.add(this);
+    public ArrayList<Grille3D> addListGrille(ArrayList<Grille3D> grilles3,Grille3D g){
+        grilles3.add(g);
         if (grilles3.size()==5)
             grilles3.remove(0);
         return grilles3;
@@ -151,7 +172,7 @@ public class Grille3D implements java.io.Serializable {
             System.out.println("Retour impossible");
             return grilles3.get(0);
         }
-        return grilles3.get(grilles3.size()-2);
+        return grilles3.get(grilles3.size()-1);
     }
 
 }

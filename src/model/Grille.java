@@ -5,21 +5,13 @@
  */
 package model;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Random;
-import static model.Parametres.BAS;
-import static model.Parametres.DROITE;
-import static model.Parametres.GAUCHE;
-import static model.Parametres.HAUT;
-import static model.Parametres.TAILLE;
+import java.util.*;
 
 /**
  *
  * @author justineherolt
  */
-public class Grille implements Parametres {
+public class Grille implements Parametres,java.io.Serializable {
 
     private final HashSet<Case> grille;
     private int valeurMax = 0;
@@ -29,6 +21,23 @@ public class Grille implements Parametres {
     public Grille() {
         this.grille = new HashSet<>();
         this.score = 0;
+    }
+
+    public Grille(Grille g){
+        HashSet<Case> copyG = new HashSet<Case>();
+        g.getListCase().forEach(aCase -> copyG.add((aCase.copy())));
+        this.grille=copyG;
+        this.valeurMax=g.valeurMax;
+        this.deplacement=g.deplacement;
+        this.score=g.score;
+    }
+
+    public HashSet<Case> getListCase(){
+        return grille;
+    }
+
+    public Grille copy(){
+        return new Grille(this);
     }
 
     @Override
