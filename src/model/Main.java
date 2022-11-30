@@ -30,11 +30,12 @@ public class Main implements Parametres {
         //ArrayList<Grille3D> grilles3d = new ArrayList<Grille3D>();
         //grilles3d.add(oldGrille);
         while(!grilleTest.conditionFin()){
-            System.out.println("Voulez-vous déplacer les cases vers le haut (h), vers le bas (b), vers la droite (d) ou vers la gauche (g)");
+            System.out.println("Voulez-vous déplacer les cases vers le haut (h), vers le bas (b), vers la droite dans la même grille (d) ou vers la gauche dans la même grille (g)");
+            System.out.println("Ou bien déplacer les tuiles dans la grille à droite (f) ou dans la grille à gauche (r) ?");
             System.out.println("Ecrire \"retour\" pour annuler le dernier coup, \"save\" pour sauvegarder et quitter, \"load\" pour charger une ancienne partie");
             String s = sc.nextLine();
             s.toLowerCase();
-            if( ! (s.equals("b") || s.equals("bas") || s.equals("h") || s.equals("haut") || s.equals("d") || s.equals("droite") || s.equals("g") || s.equals("gauche") || s.equals("retour")|| s.equals("save")||s.equals("load"))){
+            if( ! (s.equals("b") || s.equals("bas") || s.equals("h") || s.equals("haut") || s.equals("d") || s.equals("droite") || s.equals("g") || s.equals("gauche") || s.equals("retour")|| s.equals("save")||s.equals("load")||s.equals("f")||s.equals("r"))){
                 System.out.println("Veuillez écrire \"d\" pour droite, \"h\" pour haut, \"b\" pour bas et \"g\" pour gauche");
                 System.out.println("Ecrire \"retour\" pour annuler le dernier coup, \"save\" pour sauvegarder et quitter, \"load\" pour charger une ancienne partie");
             }else if (s.equals("retour")|| s.equals("save")||s.equals("load")) {
@@ -67,12 +68,22 @@ public class Main implements Parametres {
                     case "droite" :
                         direction = DROITE;
                         break;
+                    case "f" :
+                        direction = GRILLEDROITE;
+                        break;
+                    case "r" :
+                        direction = GRILLEGAUCHE;
+                        break;
                     default :
                         direction = GAUCHE;
                         break;
                 }
-                grilleTest.deplacement(direction);
-                grilleTest.nouvellesCases();
+                if(direction==GRILLEGAUCHE || direction==GRILLEDROITE){
+                    grilleTest.deplacementCaseGrille3D(direction);
+                }else{
+                    grilleTest.deplacement(direction);
+                }
+                //grilles3d.add(grilleTest);
                 System.out.println("Score : " + grilleTest.score());
                 System.out.println("Vmax : " + grilleTest.getValeurMax());
                 oldGrille=grilleTest.copy();

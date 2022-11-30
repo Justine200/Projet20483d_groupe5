@@ -69,6 +69,10 @@ public class Grille implements Parametres,java.io.Serializable {
     public HashSet<Case> getGrille() {
         return grille;
     }
+    
+    public void setGrille(Case c){
+        this.grille.add(c);
+    }
 
     public int getValeurMax() {
         return valeurMax;
@@ -219,7 +223,7 @@ public class Grille implements Parametres,java.io.Serializable {
             // on crée toutes les cases encore libres
             for (int x = 0; x < TAILLE; x++) {
                 for (int y = 0; y < TAILLE; y++) {
-                    Case c = new Case(x, y, valeur);
+                    Case c = new Case(x, y, valeur, this);
                     if (!this.grille.contains(c)) { // contains utilise la méthode equals dans Case
                         casesLibres.add(c);
                     }
@@ -238,4 +242,22 @@ public class Grille implements Parametres,java.io.Serializable {
             return false;
         }
     }
+    
+    public boolean caseOccupe(int x,int y){
+        for(Case c:this.grille){
+            if(c.getY() == y && c.getX() == x){
+                return true;
+            }
+        }
+        return false ;
+    }
+
+    /*public int valeurCase(int x, int y){
+        for(Case c:this.grille){
+            if(c.getX()==x && c.getY()==y){
+                return c.getValeur();
+            }
+        }
+        return (-1);
+    }*/
 }

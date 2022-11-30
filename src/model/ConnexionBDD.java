@@ -21,13 +21,21 @@ public class ConnexionBDD {
     private final String host, port, dbname, username, password;
     private Connection con = null;
     
-    //Constructeur
+    //Constructeurs
     public ConnexionBDD(String host, String port, String dbname, String password, String username){
         this.host=host;
         this.port=port;
         this.dbname=dbname;
         this.password=password;
         this.username=username;
+    }
+    
+    public ConnexionBDD(){
+        this.host = "mysql-groupe5.alwaysdata.net";
+        this.port = "3306";
+        this.dbname = "groupe5_20483d";
+        this.username = "groupe5_520483";
+        this.password = "g520483D";
     }
     
     //Termine la connection avec la base de données 
@@ -151,14 +159,12 @@ public class ConnexionBDD {
     }
     
     public String meilleurScore(){
-        String query = "SELECT MIN(Nombre_deplacements) FROM Joueur WHERE Nombre_deplacements > 0;";
+        String query = "SELECT MAX(score) FROM Joueur WHERE Nombre_deplacements > 0;";
         String bestScore="";
         try{
             this.openConnexion();
             Statement stmt = this.con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
-            /*ResultSetMetaData metadata = rs.getMetaData();
-            String tuple;*/
             if(rs.next()){
                 bestScore=rs.getString(1);
             }

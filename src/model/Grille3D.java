@@ -8,15 +8,12 @@ package model;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static model.Parametres.OBJECTIF;
-import static model.Parametres.TAILLE;
-
 /**
  *
  * @author justineherolt
  */
 
-public class Grille3D implements java.io.Serializable{
+public class Grille3D implements java.io.Serializable, Parametres {
 
     private Grille[] grilles = new Grille[3];
     private int valeurMax = 0;
@@ -28,6 +25,11 @@ public class Grille3D implements java.io.Serializable{
         for (int i = 0; i < 3; i++) {
             this.grilles[i] = new Grille();
         }
+    }
+
+    //Getters et setters :
+    public Grille getGrille(int i){
+        return this.grilles[i];
     }
 
     public Grille[] getGrilles() {
@@ -175,4 +177,126 @@ public class Grille3D implements java.io.Serializable{
         return grilles3.get(grilles3.size()-1);
     }
 
+    public void deplacementCaseGrille3D( int direction){
+        switch(direction){
+            case GRILLEDROITE:
+               for(Case c:this.grilles[1].getGrille()){
+                    if(this.grilles[2].caseOccupe(c.getX(), c.getY())){
+                        for(Case c1 : this.grilles[2].getGrille()){
+                            System.out.println("Je suis dans les for");
+                            if((c1.getX()==c.getX()) && (c1.getY()==c.getY()) && (c1.getValeur()==c.getValeur())){
+                                c1.setValeur(c.getValeur()*2);
+                                c.setValeur(0);
+                                System.out.println("condition");
+                            }else if((c1.getX()==c.getX()) && (c1.getY()==c.getY()) && (c1.getValeur()==0)){
+                                c1.setValeur(c.getValeur());
+                                c.setValeur(0);
+                                System.out.println("condition");
+                            }
+                        }
+                    }else{
+                        Case c1 = new Case(c.getX(), c.getY(), c.getValeur(), this.grilles[2]);
+                        this.grilles[2].setGrille(c1);
+                        c.setValeur(0);
+                    }
+                }
+               for(Case c : this.grilles[0].getGrille()){
+                    if(this.grilles[1].caseOccupe(c.getX(), c.getY())){
+                        for(Case c1 : this.grilles[1].getGrille()){
+                        if((c1.getX()==c.getX()) && (c1.getY()==c.getY()) && (c1.getValeur()==c.getValeur())){
+                            c1.setValeur(c.getValeur()*2);
+                            c.setValeur(0);
+                        }else if((c1.getX()==c.getX()) && (c1.getY()==c.getY()) && (c1.getValeur()==0)){
+                            c1.setValeur(c.getValeur());
+                            c.setValeur(0);
+                        }
+                    }
+                }else{
+                        Case c1 = new Case(c.getX(), c.getY(), c.getValeur(), this.grilles[1]);
+                        this.grilles[1].setGrille(c1);
+                        c.setValeur(0);
+                    }
+                }
+               for(Case c:this.grilles[1].getGrille()){
+                    if(this.grilles[2].caseOccupe(c.getX(), c.getY())){
+                        for(Case c1 : this.grilles[2].getGrille()){
+                            System.out.println("Je suis dans les for");
+                            if((c1.getX()==c.getX()) && (c1.getY()==c.getY()) && (c1.getValeur()==c.getValeur())){
+                                c1.setValeur(c.getValeur()*2);
+                                c.setValeur(0);
+                                System.out.println("condition");
+                            }else if((c1.getX()==c.getX()) && (c1.getY()==c.getY()) && (c1.getValeur()==0)){
+                                c1.setValeur(c.getValeur());
+                                c.setValeur(0);
+                                System.out.println("condition");
+                            }
+                        }
+                    }else{
+                        Case c1 = new Case(c.getX(), c.getY(), c.getValeur(), this.grilles[2]);
+                        this.grilles[2].setGrille(c1);
+                        c.setValeur(0);
+                    }
+                }
+               break;
+            case GRILLEGAUCHE:
+                for(Case c:this.grilles[2].getGrille()){
+                    if(this.grilles[1].caseOccupe(c.getX(), c.getY())){
+                        for(Case c1 : this.grilles[1].getGrille()){
+                            System.out.println("Je suis dans les for");
+                            if((c1.getX()==c.getX()) && (c1.getY()==c.getY()) && (c1.getValeur()==c.getValeur())){
+                                c1.setValeur(c.getValeur()*2);
+                                c.setValeur(0);
+                                System.out.println("condition");
+                            }else if((c1.getX()==c.getX()) && (c1.getY()==c.getY()) && (c1.getValeur()==0)){
+                                c1.setValeur(c.getValeur());
+                                c.setValeur(0);
+                                System.out.println("condition");
+                            }
+                        }
+                    }else{
+                        Case c1 = new Case(c.getX(), c.getY(), c.getValeur(), this.grilles[1]);
+                        this.grilles[1].setGrille(c1);
+                        c.setValeur(0);
+                    }
+                }
+                for(Case c : this.grilles[1].getGrille()){
+                    if(this.grilles[0].caseOccupe(c.getX(), c.getY())){
+                        for(Case c1 : this.grilles[0].getGrille()){
+                        if((c1.getX()==c.getX()) && (c1.getY()==c.getY()) && (c1.getValeur()==c.getValeur())){
+                            c1.setValeur(c.getValeur()*2);
+                            c.setValeur(0);
+                        }else if((c1.getX()==c.getX()) && (c1.getY()==c.getY()) && (c1.getValeur()==0)){
+                            c1.setValeur(c.getValeur());
+                            c.setValeur(0);
+                        }
+                    }
+                }else{
+                        Case c1 = new Case(c.getX(), c.getY(), c.getValeur(), this.grilles[0]);
+                        this.grilles[0].setGrille(c1);
+                        c.setValeur(0);
+                    }
+                }
+                for(Case c:this.grilles[2].getGrille()){
+                    if(this.grilles[1].caseOccupe(c.getX(), c.getY())){
+                        for(Case c1 : this.grilles[1].getGrille()){
+                            System.out.println("Je suis dans les for");
+                            if((c1.getX()==c.getX()) && (c1.getY()==c.getY()) && (c1.getValeur()==c.getValeur())){
+                                c1.setValeur(c.getValeur()*2);
+                                c.setValeur(0);
+                                System.out.println("condition");
+                            }else if((c1.getX()==c.getX()) && (c1.getY()==c.getY()) && (c1.getValeur()==0)){
+                                c1.setValeur(c.getValeur());
+                                c.setValeur(0);
+                                System.out.println("condition");
+                            }
+                        }
+                    }else{
+                        Case c1 = new Case(c.getX(), c.getY(), c.getValeur(), this.grilles[1]);
+                        this.grilles[1].setGrille(c1);
+                        c.setValeur(0);
+                    }
+                }
+                break;
+        }
+    }
 }

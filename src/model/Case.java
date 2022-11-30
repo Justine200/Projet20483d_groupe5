@@ -14,10 +14,11 @@ public class Case implements Parametres,java.io.Serializable {
     private int x, y, valeur;
     private Grille grille;
 
-    public Case(int abs, int ord, int v) {
+    public Case(int abs, int ord, int v, Grille g) {
         this.x = abs;
         this.y = ord;
         this.valeur = v;
+        this.grille=g;
     }
 
     public Case(Case c){
@@ -122,7 +123,7 @@ public class Case implements Parametres,java.io.Serializable {
     public String toString() {
         return "Case(" + this.x + "," + this.y + "," + this.valeur + ")";
     }
-
+    
 }
 
 
