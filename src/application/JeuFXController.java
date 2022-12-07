@@ -18,7 +18,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 import model.Case;
+import model.ConnexionBDD;
 import model.Grille;
 import model.Modele2048;
 //import javafx.scene.paint.Color;
@@ -48,6 +50,8 @@ public class JeuFXController implements Initializable {
     private Button startButton; // boutons
     @FXML
     private Pane movesPane;  // boutons
+    @FXML
+    private Text topScore;
 
     //variables globales non définies dans la vue (fichier .fxml)
     private final Pane p = new Pane(); // panneau utilisé pour dessiner une tuile "2"
@@ -88,6 +92,10 @@ public class JeuFXController implements Initializable {
         grille0.getStyleClass().add("gridpane");
         grille1.getStyleClass().add("gridpane");
         grille2.getStyleClass().add("gridpane");
+        
+        ConnexionBDD con=new ConnexionBDD();
+        System.out.println(con.meilleurScore());
+        topScore.setText(con.meilleurScore());
 
         // utilisation de styles pour la grille et la tuile (voir styles.css)
         p.getStyleClass().add("pane");

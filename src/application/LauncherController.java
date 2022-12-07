@@ -15,7 +15,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import model.ConnexionBDD;
 
 /**
  * FXML Controller class
@@ -26,6 +28,8 @@ public class LauncherController implements Initializable {
 
     @FXML
     private Button startButton; // boutons
+    @FXML
+    private Text topScore;
     
     /**
      * Initializes the controller class.
@@ -37,6 +41,9 @@ public class LauncherController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         startButton.getStyleClass().add("button");
+        ConnexionBDD con=new ConnexionBDD();
+        System.out.println(con.meilleurScore());
+        topScore.setText(con.meilleurScore());
     }
 
     @FXML

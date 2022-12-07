@@ -111,7 +111,7 @@
             </Pane>
             <Pane layoutX="228.0" layoutY="49.0" prefHeight="43.0" prefWidth="66.0" style="-fx-background-color: #ff8080; -fx-background-radius: 10px;">
                <children>
-                  <Text layoutX="17.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="150" textAlignment="CENTER">
+                  <Text fx:id="topScore" layoutX="17.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="150" textAlignment="CENTER">
                      <font>
                         <Font size="20.0" />
                      </font>
