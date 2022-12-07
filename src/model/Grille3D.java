@@ -47,6 +47,7 @@ public class Grille3D implements java.io.Serializable, Parametres {
         for (int i = 0; i<3;i++){
             copyGrille[i]=g.grilles[i].copy();
         }
+        this.grilles=copyGrille;
         this.valeurMax=g.valeurMax;
         this.score=g.score;
 
@@ -169,18 +170,7 @@ public class Grille3D implements java.io.Serializable, Parametres {
             grilles3.remove(0);
         return grilles3;
     }
-    public ArrayList<Grille3D> removeListGrille(ArrayList<Grille3D> grilles3){
-        grilles3.remove(grilles3.size()-1);
-        return grilles3;
-    }
 
-    public Grille3D dernierCoup(ArrayList<Grille3D> grilles3){
-        if (grilles3.size()==0){
-            System.out.println("Retour impossible");
-            return grilles3.get(0);
-        }
-        return grilles3.get(grilles3.size()-1);
-    }
 
     public void deplacementCaseGrille3D( int direction){
         LinkedList<Case> toremove = new LinkedList<>();

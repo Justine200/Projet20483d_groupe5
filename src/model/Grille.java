@@ -25,7 +25,7 @@ public class Grille implements Parametres,java.io.Serializable {
 
     public Grille(Grille g){
         HashSet<Case> copyG = new HashSet<Case>();
-        g.getListCase().forEach(aCase -> copyG.add((aCase.copy())));
+        g.getListCase().forEach(Case -> copyG.add((Case.copy())));
         this.grille=copyG;
         this.valeurMax=g.valeurMax;
         this.deplacement=g.deplacement;

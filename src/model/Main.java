@@ -6,6 +6,7 @@
 package model;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 /**
  *
@@ -24,7 +25,7 @@ public class Main implements Parametres {
         System.out.println("Score : " + grilleTest.score());
 
         Scanner sc=new Scanner(System.in);
-        
+
         boolean estconnecte = false;
         int nbdeplacements=0;
         ConnexionBDD con = new ConnexionBDD();
@@ -48,11 +49,13 @@ public class Main implements Parametres {
                 estconnecte=true;
             }
         }
-        
+
         System.out.println(grilleTest);
         oldGrille=grilleTest.copy();
         //ArrayList<Grille3D> grilles3d = new ArrayList<Grille3D>();
         //grilles3d.add(oldGrille);
+
+        ArrayList<Grille3D> grilles3d = new ArrayList<Grille3D>();
         while(!grilleTest.conditionFin()){
             System.out.println("Voulez-vous déplacer les cases vers le haut (h), vers le bas (b), vers la droite dans la même grille (d) ou vers la gauche dans la même grille (g)");
             System.out.println("Ou bien déplacer les tuiles dans la grille à droite (f) ou dans la grille à gauche (r) ?");
@@ -65,9 +68,13 @@ public class Main implements Parametres {
             }else if (s.equals("retour")|| s.equals("save")||s.equals("load")) {
                 switch (s){
                     case "retour" :
-                        //grilles3d = grilleTest.removeListGrille(grilles3d);
-                        grilleTest = oldGrille;
-                        System.out.println(grilleTest);
+                        if (grilles3d.size()!=0) {
+                            grilleTest = grilles3d.get(grilles3d.size() - 1);
+                            grilles3d.remove(grilles3d.size() - 1);
+                            System.out.println(grilleTest);
+                        }else{
+                            System.out.println("retour impossible");
+                        }
                         break;
                     case "load" :
                         grilleTest = new DeserGrilles3D().main();
@@ -102,6 +109,10 @@ public class Main implements Parametres {
                         direction = GAUCHE;
                         break;
                 }
+                oldGrille=new Grille3D(grilleTest);
+                grilles3d = grilleTest.addListGrille(grilles3d,oldGrille);
+                grilleTest.deplacement(direction);
+                grilleTest.nouvellesCases();
                 if(direction==GRILLEGAUCHE || direction==GRILLEDROITE){
                     grilleTest.deplacementCaseGrille3D(direction);
                 }else{
@@ -113,8 +124,6 @@ public class Main implements Parametres {
                 //grilles3d.add(grilleTest);
                 System.out.println("Score : " + grilleTest.score());
                 System.out.println("Vmax : " + grilleTest.getValeurMax());
-                oldGrille=grilleTest.copy();
-                //grilles3d = grilleTest.addListGrille(grilles3d,oldGrille);
                 System.out.println(grilleTest);
                 if(grilleTest.victoire()){
                     System.out.println("Félicitation, vous avez gagné ! ");

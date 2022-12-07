@@ -23,8 +23,9 @@ public class Case implements Parametres,java.io.Serializable {
 
     public Case(Case c){
         this.x=c.x;
-        this.y=c.x;
+        this.y=c.y;
         this.valeur=c.valeur;
+        this.grille=c.grille;
     }
 
     public Case copy(){
