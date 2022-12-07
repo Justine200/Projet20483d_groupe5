@@ -28,6 +28,7 @@ and open the template in the editor.
     -fx-border-radius: 5px;
 }
 
+
 .button {
     -fx-background-color: linear-gradient(to right bottom, #ccffff,#1a8cff);
     -fx-border-color: White;
@@ -40,15 +41,15 @@ and open the template in the editor.
     -fx-transition-duration: 0.4s;
 }
 .button:hover {
-  -fx-background-color: #1a8cff;
-  -fx-color: white;
+    -fx-background-color: #1a8cff;
+    -fx-color: white;
 }
 
 
 .tuile {
     -fx-text-fill: #ffffff;
     -fx-font-size: 32;
-    -fx-padding: 26 40 26 40;
+    -fx-padding: 43 57 43 57;
 }
 
 .fond {

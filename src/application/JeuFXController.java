@@ -6,6 +6,7 @@
 package application;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
@@ -19,9 +20,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
-import model.Case;
 import model.ConnexionBDD;
-import model.Grille;
 import model.Modele2048;
 //import javafx.scene.paint.Color;
 //import javafx.scene.text.Font;
@@ -54,20 +53,22 @@ public class JeuFXController implements Initializable {
     private Text topScore;
 
     //variables globales non définies dans la vue (fichier .fxml)
-    private final Pane p = new Pane(); // panneau utilisé pour dessiner une tuile "2"
+    private ArrayList<Pane> panes = new ArrayList<>();
+
+    private final Pane p = new Pane();
     private final Label c = new Label("0");
 
-    private final Pane p1 = new Pane(); // panneau utilisé pour dessiner une tuile "2"
+    private final Pane p1 = new Pane();
     private final Label c1 = new Label("1");
 
-    private final Pane p2 = new Pane(); // panneau utilisé pour dessiner une tuile "2"
+    private final Pane p2 = new Pane();
     private final Label c2 = new Label("2");
 
     private int x = 29, y = 173;//tuile de la 1ere grille
-    private int x1 = 452, y1 = 173;//tuile de la 2ere grille
+    private int x1 = 29 + 57, y1 = 173 + 43;//tuile de la 2ere grille
     private int x2 = 875, y2 = 173;//tuile de la 3ere grille
 
-    private final int taillePane = 1300, hauteurPanes = 650, tailleCase = 397 / 4; //taille de la fenêtre, //hauteur de la fenêtre, //taille d'une case
+    private final int taillePane = 1300, hauteurPanes = 650, tailleCase = 397 / 3; //taille de la fenêtre, //hauteur de la fenêtre, //taille d'une case
 
     private int objectifx = 29, objectify = 173;
     private int objectifx1 = 452, objectify1 = 173;
@@ -92,8 +93,8 @@ public class JeuFXController implements Initializable {
         grille0.getStyleClass().add("gridpane");
         grille1.getStyleClass().add("gridpane");
         grille2.getStyleClass().add("gridpane");
-        
-        ConnexionBDD con=new ConnexionBDD();
+
+        ConnexionBDD con = new ConnexionBDD();
         System.out.println(con.meilleurScore());
         topScore.setText(con.meilleurScore());
 
@@ -137,6 +138,7 @@ public class JeuFXController implements Initializable {
         //fond.getScene().setOnKeyPressed(this::keyPressed);
         // création du modèle
         m = new Modele2048();
+        m.toString();
     }
 
     /*
@@ -196,45 +198,47 @@ public class JeuFXController implements Initializable {
     private void undo(MouseEvent event) {
         System.out.println("undo");
     }
-    
+
     //Méthodes de MenuBar
     @FXML
     private void newGame0() {
         System.out.println("newGame0");
     }
-    
+
     @FXML
     private void save() {
         System.out.println("save");
     }
+
     @FXML
     private void load() {
         System.out.println("load");
     }
+
     @FXML
     private void close() {
         System.exit(0);
     }
-    
+
     @FXML
     private void cssClassique() {
         System.out.println("cssClassique");
     }
+
     @FXML
     private void cssDark() {
         System.out.println("cssDark");
     }
-    
+
     @FXML
     private void howToPlay() {
         System.out.println("howToPlay");
     }
+
     @FXML
     private void aboutUs() {
         System.out.println("aboutUs");
     }
-
-  
 
     /**
      *
@@ -248,35 +252,38 @@ public class JeuFXController implements Initializable {
         String touche = ke.getText();
         //Grille 0
         if (touche.compareTo("q") == 0) { // utilisateur appuie sur "q" pour envoyer la tuile vers la gauche
+
             if (objectifx > 29) { // possible uniquement si on est pas dans la colonne la plus à gauche
                 objectifx -= (int) this.tailleCase; // on définit la position que devra atteindre la tuile en abscisse (modèle). Le thread se chargera de mettre la vue à jour
                 score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1)); // mise à jour du compteur de mouvement
             }
+
         } else if (touche.compareTo("d") == 0) { // utilisateur appuie sur "d" pour envoyer la tuile vers la droite
-            if (objectifx < (int) this.taillePane - 10 * this.tailleCase - 24 * 3) { // possible uniquement si on est pas dans la colonne la plus à droite (taille de la fenêtre - 10*taille d'une case - taille entre la grille et le bord de la fenêtre*3)
+            if (objectifx < (int) this.taillePane - 8 * this.tailleCase - 24 * 3) { // possible uniquement si on est pas dans la colonne la plus à droite (taille de la fenêtre - 10*taille d'une case - taille entre la grille et le bord de la fenêtre*3)
                 objectifx += (int) this.tailleCase;
                 score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1));
             }
+
         }
 
         //Grille 1
         if (touche.compareTo("q") == 0) { // utilisateur appuie sur "q" pour envoyer la tuile vers la gauche
-            if (objectifx1 > 452) { // 452 : x de la grille1
+            if (objectifx1 > 29) { // 452 : x de la grille1
                 objectifx1 -= (int) this.tailleCase;
             }
         } else if (touche.compareTo("d") == 0) { //vers la droite
-            if (objectifx1 < (int) this.taillePane - 6 * this.tailleCase - 24 * 2) { // possible uniquement si on est pas dans la colonne la plus à droite (taille de la fenêtre - 6*taille d'une case - taille entre la grille et le bord de la fenêtre*2)
+            if (objectifx1 < (int) this.taillePane - 8 * this.tailleCase - 24 * 3) { // possible uniquement si on est pas dans la colonne la plus à droite (taille de la fenêtre - 6*taille d'une case - taille entre la grille et le bord de la fenêtre*2)
                 objectifx1 += (int) this.tailleCase;
             }
         }
 
         //Grille 2
         if (touche.compareTo("q") == 0) { // utilisateur appuie sur "q" pour envoyer la tuile vers la gauche
-            if (objectifx2 > 875) { // 875 : x de la grille2
+            if (objectifx2 > 29) { // 875 : x de la grille2
                 objectifx2 -= (int) this.tailleCase;
             }
         } else if (touche.compareTo("d") == 0) { // utilisateur appuie sur "d" pour envoyer la tuile vers la droite
-            if (objectifx2 < (int) this.taillePane - 2 * this.tailleCase - 24) { // possible uniquement si on est pas dans la colonne la plus à droite (taille de la fenêtre - 2*taille d'une case - taille entre la grille et le bord de la fenêtre)
+            if (objectifx2 < (int) this.taillePane - 8 * this.tailleCase - 24 * 3) { // possible uniquement si on est pas dans la colonne la plus à droite (taille de la fenêtre - 2*taille d'une case - taille entre la grille et le bord de la fenêtre)
                 objectifx2 += (int) this.tailleCase;
             }
         }
@@ -315,7 +322,7 @@ public class JeuFXController implements Initializable {
                         }
                     }
                     );
-                    //Thread.sleep(5);  **Decalage aux positions des tuiles après le thread!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    //Thread.sleep(5);
 
                 } // end while
                 return null; // la méthode call doit obligatoirement retourner un objet. Ici on n'a rien de particulier à retourner. Du coup, on utilise le type Void (avec un V majuscule) : c'est un type spécial en Java auquel on ne peut assigner que la valeur null
