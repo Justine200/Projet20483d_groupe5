@@ -7,6 +7,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 
 /**
  *
@@ -34,6 +35,10 @@ public class Grille3D implements java.io.Serializable, Parametres {
 
     public Grille[] getGrilles() {
         return grilles;
+    }
+    
+    public int getScore(){
+        return this.score;
     }
 
 
@@ -178,124 +183,155 @@ public class Grille3D implements java.io.Serializable, Parametres {
     }
 
     public void deplacementCaseGrille3D( int direction){
+        LinkedList<Case> toremove = new LinkedList<>();
         switch(direction){
             case GRILLEDROITE:
                for(Case c:this.grilles[1].getGrille()){
                     if(this.grilles[2].caseOccupe(c.getX(), c.getY())){
                         for(Case c1 : this.grilles[2].getGrille()){
-                            System.out.println("Je suis dans les for");
                             if((c1.getX()==c.getX()) && (c1.getY()==c.getY()) && (c1.getValeur()==c.getValeur())){
                                 c1.setValeur(c.getValeur()*2);
-                                c.setValeur(0);
-                                System.out.println("condition");
-                            }else if((c1.getX()==c.getX()) && (c1.getY()==c.getY()) && (c1.getValeur()==0)){
+                                toremove.add(c);
+                                //this.grilles[1].getGrille().remove(c);
+                                //c.setValeur(0);
+                            }/*else if((c1.getX()==c.getX()) && (c1.getY()==c.getY()) && (c1.getValeur()==0)){
                                 c1.setValeur(c.getValeur());
-                                c.setValeur(0);
-                                System.out.println("condition");
-                            }
+                                this.grilles[1].getGrille().remove(c);
+                                //c.setValeur(0);
+                            }*/
                         }
                     }else{
                         Case c1 = new Case(c.getX(), c.getY(), c.getValeur(), this.grilles[2]);
                         this.grilles[2].setGrille(c1);
-                        c.setValeur(0);
+                        toremove.add(c);
+                        //this.grilles[1].getGrille().remove(c);
+                        //c.setValeur(0);
                     }
                 }
+               this.grilles[1].getGrille().removeAll(toremove);
+               toremove.clear();
                for(Case c : this.grilles[0].getGrille()){
                     if(this.grilles[1].caseOccupe(c.getX(), c.getY())){
                         for(Case c1 : this.grilles[1].getGrille()){
                         if((c1.getX()==c.getX()) && (c1.getY()==c.getY()) && (c1.getValeur()==c.getValeur())){
                             c1.setValeur(c.getValeur()*2);
-                            c.setValeur(0);
-                        }else if((c1.getX()==c.getX()) && (c1.getY()==c.getY()) && (c1.getValeur()==0)){
+                            toremove.add(c);
+                            //this.grilles[1].getGrille().remove(c);
+                            //c.setValeur(0);
+                        }/*else if((c1.getX()==c.getX()) && (c1.getY()==c.getY()) && (c1.getValeur()==0)){
                             c1.setValeur(c.getValeur());
-                            c.setValeur(0);
-                        }
+                            this.grilles[0].getGrille().remove(c);
+                            //c.setValeur(0);
+                        }*/
                     }
                 }else{
                         Case c1 = new Case(c.getX(), c.getY(), c.getValeur(), this.grilles[1]);
                         this.grilles[1].setGrille(c1);
-                        c.setValeur(0);
+                        toremove.add(c);
+                        //this.grilles[0].getGrille().remove(c);
+                        //c.setValeur(0);
                     }
                 }
+               this.grilles[0].getGrille().removeAll(toremove);
+               toremove.clear();
                for(Case c:this.grilles[1].getGrille()){
                     if(this.grilles[2].caseOccupe(c.getX(), c.getY())){
                         for(Case c1 : this.grilles[2].getGrille()){
-                            System.out.println("Je suis dans les for");
                             if((c1.getX()==c.getX()) && (c1.getY()==c.getY()) && (c1.getValeur()==c.getValeur())){
                                 c1.setValeur(c.getValeur()*2);
-                                c.setValeur(0);
-                                System.out.println("condition");
-                            }else if((c1.getX()==c.getX()) && (c1.getY()==c.getY()) && (c1.getValeur()==0)){
+                                toremove.add(c);
+                                //this.grilles[1].getGrille().remove(c);
+                                //c.setValeur(0);
+                            }/*else if((c1.getX()==c.getX()) && (c1.getY()==c.getY()) && (c1.getValeur()==0)){
                                 c1.setValeur(c.getValeur());
-                                c.setValeur(0);
-                                System.out.println("condition");
-                            }
+                                this.grilles[1].getGrille().remove(c);
+                                //c.setValeur(0);
+                            }*/
                         }
                     }else{
                         Case c1 = new Case(c.getX(), c.getY(), c.getValeur(), this.grilles[2]);
                         this.grilles[2].setGrille(c1);
-                        c.setValeur(0);
+                        toremove.add(c);
+                        //this.grilles[1].getGrille().remove(c);
+                        //c.setValeur(0);
                     }
                 }
+               this.grilles[1].getGrille().removeAll(toremove);
+               toremove.clear();
                break;
             case GRILLEGAUCHE:
                 for(Case c:this.grilles[2].getGrille()){
                     if(this.grilles[1].caseOccupe(c.getX(), c.getY())){
                         for(Case c1 : this.grilles[1].getGrille()){
-                            System.out.println("Je suis dans les for");
                             if((c1.getX()==c.getX()) && (c1.getY()==c.getY()) && (c1.getValeur()==c.getValeur())){
                                 c1.setValeur(c.getValeur()*2);
-                                c.setValeur(0);
-                                System.out.println("condition");
-                            }else if((c1.getX()==c.getX()) && (c1.getY()==c.getY()) && (c1.getValeur()==0)){
+                                toremove.add(c);
+                                //this.grilles[2].getGrille().remove(c);
+                                //c.setValeur(0);
+                            }/*else if((c1.getX()==c.getX()) && (c1.getY()==c.getY()) && (c1.getValeur()==0)){
                                 c1.setValeur(c.getValeur());
-                                c.setValeur(0);
-                                System.out.println("condition");
-                            }
+                                this.grilles[2].getGrille().remove(c);
+                                //c.setValeur(0);
+                            }*/
                         }
                     }else{
                         Case c1 = new Case(c.getX(), c.getY(), c.getValeur(), this.grilles[1]);
                         this.grilles[1].setGrille(c1);
-                        c.setValeur(0);
+                        toremove.add(c);
+                        //this.grilles[2].getGrille().remove(c);
+                        //c.setValeur(0);
                     }
                 }
+                this.grilles[2].getGrille().removeAll(toremove);
+                toremove.clear();
                 for(Case c : this.grilles[1].getGrille()){
                     if(this.grilles[0].caseOccupe(c.getX(), c.getY())){
                         for(Case c1 : this.grilles[0].getGrille()){
                         if((c1.getX()==c.getX()) && (c1.getY()==c.getY()) && (c1.getValeur()==c.getValeur())){
                             c1.setValeur(c.getValeur()*2);
-                            c.setValeur(0);
-                        }else if((c1.getX()==c.getX()) && (c1.getY()==c.getY()) && (c1.getValeur()==0)){
+                            toremove.add(c);
+                            //this.grilles[1].getGrille().remove(c);
+                            //c.setValeur(0);
+                        }/*else if((c1.getX()==c.getX()) && (c1.getY()==c.getY()) && (c1.getValeur()==0)){
                             c1.setValeur(c.getValeur());
-                            c.setValeur(0);
-                        }
+                            this.grilles[1].getGrille().remove(c);
+                            //c.setValeur(0);
+                        }*/
                     }
                 }else{
                         Case c1 = new Case(c.getX(), c.getY(), c.getValeur(), this.grilles[0]);
                         this.grilles[0].setGrille(c1);
-                        c.setValeur(0);
+                        toremove.add(c);
+                        //this.grilles[1].getGrille().remove(c);
+                        //c.setValeur(0);
                     }
                 }
+                this.grilles[1].getGrille().removeAll(toremove);
+                toremove.clear();
                 for(Case c:this.grilles[2].getGrille()){
                     if(this.grilles[1].caseOccupe(c.getX(), c.getY())){
                         for(Case c1 : this.grilles[1].getGrille()){
-                            System.out.println("Je suis dans les for");
                             if((c1.getX()==c.getX()) && (c1.getY()==c.getY()) && (c1.getValeur()==c.getValeur())){
                                 c1.setValeur(c.getValeur()*2);
-                                c.setValeur(0);
-                                System.out.println("condition");
-                            }else if((c1.getX()==c.getX()) && (c1.getY()==c.getY()) && (c1.getValeur()==0)){
+                                toremove.add(c);
+                                this.grilles[2].getGrille().remove(c);
+                                //c.setValeur(0);
+                            }/*else if((c1.getX()==c.getX()) && (c1.getY()==c.getY()) && (c1.getValeur()==0)){
                                 c1.setValeur(c.getValeur());
-                                c.setValeur(0);
-                                System.out.println("condition");
-                            }
+                                this.grilles[2].getGrille().remove(c);
+                                //c.setValeur(0);
+                            }*/
                         }
                     }else{
                         Case c1 = new Case(c.getX(), c.getY(), c.getValeur(), this.grilles[1]);
                         this.grilles[1].setGrille(c1);
-                        c.setValeur(0);
+                        toremove.add(c);
+                        //this.grilles[2].getGrille().remove(c);
+                        //c.setValeur(0);
                     }
                 }
+                this.grilles[2].getGrille().removeAll(toremove);
+                toremove.clear();
                 break;
         }
     }

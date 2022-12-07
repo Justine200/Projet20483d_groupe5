@@ -117,7 +117,7 @@ public class ConnexionBDD {
     //Inscription d'un nouveau joueur avec seulement son pseudo (avant qu'il ne commence à jouer) 
     //Le nombre de déplacements est à 0 par défaut, mais le nouveau joueur ne sera pas pris en compte dans le classement
     public void nouveauJoueur(String pseudo){
-        String query = "INSERT INTO Joueur VALUES ('"+pseudo+"' ,0);";
+        String query = "INSERT INTO Joueur VALUES ('"+pseudo+"' ,0,0);";
         try{
             this.openConnexion();
             Statement stmt = this.con.createStatement();
@@ -158,6 +158,22 @@ public class ConnexionBDD {
         }
     }
     
+    public void updateScore(String pseudo, int nb){
+        String query = "UPDATE Joueur SET score="+nb+" WHERE Pseudo='"+pseudo+"';";
+        try{
+            this.openConnexion();
+            Statement stmt = this.con.createStatement();
+            int n = stmt.executeUpdate(query);
+            System.out.println("valeur modifiée");
+            stmt.close();
+        }catch(SQLException e){
+            System.out.println("Problème avec la requete");
+        }finally{
+            this.closeConnexion();
+        }
+    }
+    
+    //Retourne le meilleur score
     public String meilleurScore(){
         String query = "SELECT MAX(score) FROM Joueur WHERE Nombre_deplacements > 0;";
         String bestScore="";
@@ -175,5 +191,31 @@ public class ConnexionBDD {
             this.closeConnexion();
         }
         return bestScore;
+    }
+    
+    //renvoie vrai si le pseudo est libre, faux sinon
+    public boolean availableUsername(String s){
+        boolean a=false;
+        int i=1;
+        String query = "SELECT COUNT(Pseudo) FROM Joueur WHERE Pseudo=\""+s+"\";";
+        try{
+            this.openConnexion();
+            Statement stmt = this.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            if(rs.next()){
+                i=Integer.parseInt(rs.getString(1));
+            }
+            if(i==0){
+                a = true;
+            }else{
+                a = false;
+            }
+            stmt.close();
+        }catch (SQLException e) {
+            System.out.println("Problème avec la requete");
+        } finally {
+            this.closeConnexion();
+        }
+        return(a);
     }
 }
