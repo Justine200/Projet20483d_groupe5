@@ -7,6 +7,7 @@ package application;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -22,10 +23,15 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import model.Case;
 import model.ConnexionBDD;
+import model.Grille;
 import model.Grille3D;
 import model.Modele2048;
+import static model.Parametres.BAS;
 import static model.Parametres.DROITE;
+import static model.Parametres.GAUCHE;
+import static model.Parametres.HAUT;
 //import javafx.scene.paint.Color;
 //import javafx.scene.text.Font;
 
@@ -70,11 +76,11 @@ public class JeuFXController implements Initializable {
     private final Pane p2 = new Pane();
     private final Label c2 = new Label("2");
 
-    private int x = 29 + tailleCase, y = 173;//tuile de la 1ere grille
+    private int x = 29, y = 173;//tuile de la 1ere grille
     private int x1 = 452, y1 = 173;//tuile de la 2ere grille
     private int x2 = 875 + tailleCase + tailleCase, y2 = 173 + tailleCase + tailleCase;//tuile de la 3ere grille
 
-    private int objectifx = 29 + tailleCase, objectify = 173;
+    private int objectifx = 29, objectify = 173;
     private int objectifx1 = 452, objectify1 = 173;
     private int objectifx2 = 875 + tailleCase + tailleCase, objectify2 = 173 + tailleCase + tailleCase;
 
@@ -95,20 +101,7 @@ public class JeuFXController implements Initializable {
         ConnexionBDD con = new ConnexionBDD();
         System.out.println(con.meilleurScore());
         topScore.setText(con.meilleurScore());
-
-        // utilisation de styles pour la grille et la tuile (voir styles.css)
-        p.getStyleClass().add("pane");
-        c.getStyleClass().add("tuile");
-
-        GridPane.setHalignment(c, HPos.CENTER);
-        fond.getChildren().add(p);
-        p.getChildren().add(c);
-        // on place la tuile en précisant les coordonnées (x,y) du coin supérieur gauche
-        p.setLayoutX(x);
-        p.setLayoutY(y);
-        p.setVisible(true);
-        c.setVisible(true);
-
+        /*
         // utilisation de styles pour la grille et la tuile (voir styles.css)
         p1.getStyleClass().add("pane");
         c1.getStyleClass().add("tuile");
@@ -132,14 +125,214 @@ public class JeuFXController implements Initializable {
         p2.setLayoutY(y2);
         p2.setVisible(true);
         c2.setVisible(true);
-
+         */
         //fond.getScene().setOnKeyPressed(this::keyPressed);
         // création du modèle
         m = new Modele2048();
+
+        m.getGrille3D().getGrilles()[0].nouvelleCase();
+        m.getGrille3D().getGrilles()[0].nouvelleCase();
+
+        p.getStyleClass().add("pane");
+        c.getStyleClass().add("tuile");
+
+        GridPane.setHalignment(c, HPos.CENTER);
+        fond.getChildren().add(p);
+        p.getChildren().add(c);
+
         
-        m.getGrille3D().deplacement(DROITE);
-        
+        Iterator value = m.getGrille3D().getGrilles()[0].getGrille().iterator();
+
+        while (value.hasNext()) {
+
+            Case cas = (Case) value.next();
+
+            Pane a = new Pane();
+            Label z = new Label("cas");
+
+            a.getStyleClass().add("pane");
+            z.getStyleClass().add("tuile");
+            GridPane.setHalignment(z, HPos.CENTER);
+            fond.getChildren().add(a);
+            a.getChildren().add(z);
+
+            this.grille0.add(a, cas.getX(), cas.getY());
+            a.setLayoutX(cas.getX());
+            a.setLayoutY(cas.getY());
+
+            switch (cas.getX()) {
+                case 0:
+                    p.setLayoutX(this.x);
+                    this.objectifx = this.x;
+                    break;
+                case 1:
+                    p.setLayoutX(this.x + this.tailleCase);
+                    this.objectifx = this.x + this.tailleCase;
+                    break;
+                default:
+                    p.setLayoutX(this.x + this.tailleCase * 2);
+                    this.objectifx = this.x + this.tailleCase * 2;
+                    break;
+            }
+            switch (cas.getY()) {
+                case 0:
+                    p.setLayoutY(this.y);
+                    this.objectify = this.y;
+                    break;
+                case 1:
+                    p.setLayoutY(this.y + this.tailleCase);
+                    this.objectify = this.y + this.tailleCase;
+                    break;
+                default:
+                    p.setLayoutY(this.y + this.tailleCase * 2);
+                    this.objectify = this.y + this.tailleCase * 2;
+                    break;
+            }
+
+            this.panes.add(a);
+
+            p.setVisible(true);
+            c.setVisible(true);
+            a.setVisible(true);
+            z.setVisible(true);
+
+            System.out.println(m.getGrille3D());
+
+        }
+
+        System.out.println(this.panes.get(0).getLayoutX());
+        System.out.println(this.panes.get(1).getLayoutX());
+        System.out.println(this.panes.get(2).getLayoutX());
+
+        /*
+        for (int i = 0; i < 3; i++) {
+
+            Iterator value = m.getGrille3D().getGrilles()[i].getGrille().iterator();
+
+            while (value.hasNext()) {
+
+                Case cas = (Case) value.next();
+
+                if (i == 0) {//1eme Grille
+
+                    p.getStyleClass().add("pane");
+                    c.getStyleClass().add("tuile");
+
+                    GridPane.setHalignment(c, HPos.CENTER);
+                    fond.getChildren().add(p);
+                    p.getChildren().add(c);
+
+                    switch (cas.getX()) {
+                        case 0:
+                            p.setLayoutX(this.x);
+                            break;
+                        case 1:
+                            p.setLayoutX(this.x + this.tailleCase);
+                            break;
+                        default:
+                            p.setLayoutX(this.x + this.tailleCase * 2);
+                            break;
+                    }
+                    switch (cas.getY()) {
+                        case 0:
+                            p.setLayoutY(this.y);
+                            break;
+                        case 1:
+                            p.setLayoutY(this.y + this.tailleCase);
+                            break;
+                        default:
+                            p.setLayoutY(this.y + this.tailleCase * 2);
+                            break;
+                    }
+
+                    p.setVisible(true);
+                    c.setVisible(true);
+
+                }
+                
+                else if (i == 1) { //2eme Grille
+
+                    p1.getStyleClass().add("pane");
+                    c1.getStyleClass().add("tuile");
+
+                    GridPane.setHalignment(c1, HPos.CENTER);
+                    fond.getChildren().add(p1);
+                    p1.getChildren().add(c1);
+
+                    switch (cas.getX()) {
+                        case 0:
+                            p1.setLayoutX(this.x1);
+                            break;
+                        case 1:
+                            p1.setLayoutX(this.x1 + this.tailleCase);
+                            break;
+                        default:
+                            p1.setLayoutX(this.x1 + this.tailleCase * 2);
+                            break;
+                    }
+                    switch (cas.getY()) {
+                        case 0:
+                            p1.setLayoutY(this.y1);
+                            break;
+                        case 1:
+                            p1.setLayoutY(this.y1 + this.tailleCase);
+                            break;
+                        default:
+                            p1.setLayoutY(this.y1 + this.tailleCase * 2);
+                            break;
+                    }
+
+                    p1.setVisible(true);
+                    c1.setVisible(true);
+
+                } else { //3eme Grille
+
+                    p2.getStyleClass().add("pane");
+                    c2.getStyleClass().add("tuile");
+
+                    GridPane.setHalignment(c2, HPos.CENTER);
+                    fond.getChildren().add(p2);
+                    p2.getChildren().add(c);
+
+                    switch (cas.getX()) {
+                        case 0:
+                            p2.setLayoutX(this.x2);
+                            break;
+                        case 1:
+                            p2.setLayoutX(this.x2 + this.tailleCase);
+                            break;
+                        default:
+                            p2.setLayoutX(this.x2 + this.tailleCase * 2);
+                            break;
+                    }
+                    switch (cas.getY()) {
+                        case 0:
+                            p2.setLayoutY(this.y2);
+                            break;
+                        case 1:
+                            p2.setLayoutY(this.y2 + this.tailleCase);
+                            break;
+                        default:
+                            p2.setLayoutY(this.y2 + this.tailleCase * 2);
+                            break;
+                    }
+
+                    p2.setVisible(true);
+                    c2.setVisible(true);
+
+                }
+                System.out.println("value.next() : " + value.next());
+                 
+            }
+
+            System.out.println(m.getGrille3D());
+
+            // utilisation de styles pour la grille et la tuile (voir styles.css)
+        }
+
         System.out.println(m.getGrille3D());
+
+        // utilisation de styles pour la grille et la tuile (voir styles.css)*/
     }
 
     /*
@@ -335,7 +528,37 @@ public class JeuFXController implements Initializable {
         System.out.println(y);
 
     }
+/*
+    private void deplacement(int direction) {
 
+        if (direction == GAUCHE) { // utilisateur appuie sur "q" pour envoyer la tuile vers la gauche
+
+            for (int i = 0; i < this.panes.size(); i++) {
+                if (this.panes.get(i) > 29) { // possible uniquement si on est pas dans la colonne la plus à gauche
+                    objectifx -= (int) this.tailleCase; // on définit la position que devra atteindre la tuile en abscisse (modèle). Le thread se chargera de mettre la vue à jour
+                    score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1)); // mise à jour du compteur de mouvement
+                }
+            }
+
+        } else if (direction == DROITE) { // utilisateur appuie sur "d" pour envoyer la tuile vers la droite
+            if (objectifx < (int) this.taillePane - 8 * this.tailleCase - 24 * 3) { // possible uniquement si on est pas dans la colonne la plus à droite (taille de la fenêtre - 10*taille d'une case - taille entre la grille et le bord de la fenêtre*3)
+                objectifx += (int) this.tailleCase;
+                score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1));
+            }
+        } else if (direction == HAUT) {
+            if (objectify > 173) {
+                objectify -= (int) this.tailleCase;
+                score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1));
+            }
+        } else if (direction == BAS) { // utilisateur appuie sur "s" pour envoyer la tuile en bas
+            if (objectify < (int) this.taillePane - 6 * this.tailleCase - 24 * 3) {
+                objectify += (int) this.tailleCase;
+                score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1));
+            }
+        }
+
+    }
+*/
     /**
      *
      * @param ke

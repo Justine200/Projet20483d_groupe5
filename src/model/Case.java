@@ -11,7 +11,7 @@ import javafx.scene.layout.GridPane;
  *
  * @author justineherolt
  */
-public class Case implements Parametres,java.io.Serializable {
+public class Case implements Parametres, java.io.Serializable {
 
     private int x, y, valeur;
     private Grille grille;
@@ -20,21 +20,22 @@ public class Case implements Parametres,java.io.Serializable {
         this.x = abs;
         this.y = ord;
         this.valeur = v;
-        this.grille=g;
+        this.grille = g;
     }
 
-    public Case(Case c){
-        this.x=c.x;
-        this.y=c.y;
-        this.valeur=c.valeur;
-        this.grille=c.grille;
+    public Case(Case c) {
+        this.x = c.x;
+        this.y = c.y;
+        this.valeur = c.valeur;
+        this.grille = c.grille;
+
     }
 
     public Case(int row, int col, int i, GridPane grille0) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public Case copy(){
+    public Case copy() {
         return new Case(this);
     }
 
@@ -130,7 +131,5 @@ public class Case implements Parametres,java.io.Serializable {
     public String toString() {
         return "Case(" + this.x + "," + this.y + "," + this.valeur + ")";
     }
-    
+
 }
-
-

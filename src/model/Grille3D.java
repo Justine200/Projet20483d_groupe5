@@ -7,8 +7,10 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.LinkedList;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -64,7 +66,25 @@ public class Grille3D implements java.io.Serializable, Parametres {
         this.score = g.score;
 
     }
-
+    
+ /*
+    public ArrayList<Case> getValeurs() {
+        
+        ArrayList<Case> res = new ArrayList<Case>();
+        
+        for (int i = 0; i < 3; i++) {
+            
+            Iterator value = this.grilles[i].getGrille().iterator();
+            while (value.hasNext()) {
+                res.add((Case)value.next());
+                System.out.println(value.next());
+                
+            }
+        }
+        return res;
+    }
+*/
+    
     public Grille3D copy() {
         return new Grille3D(this);
     }
