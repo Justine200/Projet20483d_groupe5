@@ -101,6 +101,7 @@ public class JeuFXController implements Initializable {
         ConnexionBDD con = new ConnexionBDD();
         System.out.println(con.meilleurScore());
         topScore.setText(con.meilleurScore());
+
         /*
         // utilisation de styles pour la grille et la tuile (voir styles.css)
         p1.getStyleClass().add("pane");
@@ -132,15 +133,17 @@ public class JeuFXController implements Initializable {
 
         m.getGrille3D().getGrilles()[0].nouvelleCase();
         m.getGrille3D().getGrilles()[0].nouvelleCase();
+        m.getGrille3D().getGrilles()[0].nouvelleCase();
 
         p.getStyleClass().add("pane");
         c.getStyleClass().add("tuile");
 
         GridPane.setHalignment(c, HPos.CENTER);
+
         fond.getChildren().add(p);
+
         p.getChildren().add(c);
 
-        
         Iterator value = m.getGrille3D().getGrilles()[0].getGrille().iterator();
 
         while (value.hasNext()) {
@@ -161,34 +164,42 @@ public class JeuFXController implements Initializable {
             a.setLayoutY(cas.getY());
 
             switch (cas.getX()) {
+
                 case 0:
                     p.setLayoutX(this.x);
                     this.objectifx = this.x;
+                    //    cas.setX(this.x);
                     break;
                 case 1:
                     p.setLayoutX(this.x + this.tailleCase);
                     this.objectifx = this.x + this.tailleCase;
+                    //   cas.setX(this.x + this.tailleCase);
                     break;
                 default:
                     p.setLayoutX(this.x + this.tailleCase * 2);
                     this.objectifx = this.x + this.tailleCase * 2;
+                    //  cas.setX(this.x + this.tailleCase * 2);
                     break;
             }
+
             switch (cas.getY()) {
                 case 0:
                     p.setLayoutY(this.y);
                     this.objectify = this.y;
+                    //   cas.setY(this.y);
                     break;
                 case 1:
                     p.setLayoutY(this.y + this.tailleCase);
                     this.objectify = this.y + this.tailleCase;
+                    //   cas.setY(this.y + this.tailleCase);
                     break;
                 default:
                     p.setLayoutY(this.y + this.tailleCase * 2);
                     this.objectify = this.y + this.tailleCase * 2;
+                    //  cas.setY(this.y + this.tailleCase * 2);
                     break;
             }
-
+            
             this.panes.add(a);
 
             p.setVisible(true);
@@ -416,27 +427,6 @@ public class JeuFXController implements Initializable {
     private void stop(MouseEvent event) {
         System.out.println("stop");
 
-        /*
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-
-                ImageView img1 = new ImageView(new Image("/application/style/icon1.png"));
-
-                Pane a = new Pane();
-                Label z = new Label("z");
-
-                a.getStyleClass().add("pane");
-                z.getStyleClass().add("tuile");
-                GridPane.setHalignment(z, HPos.CENTER);
-                fond.getChildren().add(a);
-                a.getChildren().add(z);
-                a.setVisible(true);
-                z.setVisible(true);
-
-                this.grille0.add(a, i, j);
-
-            }
-        }*/
     }
 
     @FXML
@@ -528,7 +518,102 @@ public class JeuFXController implements Initializable {
         System.out.println(y);
 
     }
-/*
+
+    // Apparition tuile début    
+    private void apparitionTuiles(KeyEvent but) {
+        System.out.println("ApparitionTuiles");
+
+        Random r1 = new Random();
+        Random r2 = new Random();
+        Random r3 = new Random();
+        Random r4 = new Random();
+
+        int x = r1.nextInt(3);// variable pour choisir aléatoirement à quelle coordonées de x la tuile va apparaitre
+        int y = r2.nextInt(3);// variable pour choisir aléatoirement à quelle coordonées de y la tuile va apparaitre
+        int numGrille = r3.nextInt(3);// variable pour choisir aléatoirement dans quelle grille la tuille va apparaitre
+
+        int nbSpawnChoisi = (1 + r4.nextInt(2)) * 2; // variable qui vient choisir aléatoirement 2 ou 4 dans la liste nbspawn
+        String nbSpawnChoisi2 = String.valueOf(nbSpawnChoisi); // On convertie nbSpawnChoisi en String pour qu'il puisse être accepté pour le Label 
+
+        switch (numGrille) {
+            case 1: // la tuile va apparaitre dans la grille 0
+                for (int i = 0; i < 3; i++) {
+                    for (int j = 0; j < 3; j++) {
+                        if (i == x && j == y) {
+                            Pane a = new Pane();
+                            Label z = new Label(nbSpawnChoisi2);
+
+                            a.getStyleClass().add("pane");
+                            z.getStyleClass().add("tuile");
+                            GridPane.setHalignment(z, HPos.CENTER);
+                            fond.getChildren().add(a);
+                            a.getChildren().add(z);
+
+                            a.setLayoutX(x);
+                            a.setLayoutY(y);
+
+                            a.setVisible(true);
+                            z.setVisible(true);
+
+                            this.grille0.add(a, i, j);
+                        }
+                    }
+                }
+                break;
+            case 2: // La tuile va apparaitre dans la grille 1
+                for (int i = 0; i < 3; i++) {
+                    for (int j = 0; j < 3; j++) {
+                        if (i == x && j == y) {
+                            Pane a = new Pane();
+                            Label z = new Label(nbSpawnChoisi2);
+
+                            a.getStyleClass().add("pane");
+                            z.getStyleClass().add("tuile");
+                            GridPane.setHalignment(z, HPos.CENTER);
+                            fond.getChildren().add(a);
+                            a.getChildren().add(z);
+
+                            a.setLayoutX(x);
+                            a.setLayoutY(y);
+
+                            a.setVisible(true);
+                            z.setVisible(true);
+
+                            this.grille1.add(a, i, j);
+                        }
+                    }
+                }
+                break;
+            case 3: // La tuile va appaitre dans la grille 2
+                for (int i = 0; i < 3; i++) {
+                    for (int j = 0; j < 3; j++) {
+                        if (i == x && j == y) {
+                            Pane a = new Pane();
+                            Label z = new Label(nbSpawnChoisi2);
+
+                            a.getStyleClass().add("pane");
+                            z.getStyleClass().add("tuile");
+                            GridPane.setHalignment(z, HPos.CENTER);
+                            fond.getChildren().add(a);
+                            a.getChildren().add(z);
+
+                            a.setLayoutX(x);
+                            a.setLayoutY(y);
+
+                            a.setVisible(true);
+                            z.setVisible(true);
+
+                            this.grille2.add(a, i, j);
+                        }
+                    }
+                }
+
+        }
+
+    }
+//Apparition tuile fin
+
+    /*
     private void deplacement(int direction) {
 
         if (direction == GAUCHE) { // utilisateur appuie sur "q" pour envoyer la tuile vers la gauche
@@ -558,7 +643,38 @@ public class JeuFXController implements Initializable {
         }
 
     }
-*/
+    
+    
+    
+    
+            //Grille 0
+        if (touche.compareTo("q") == 0) { // utilisateur appuie sur "q" pour envoyer la tuile vers la gauche
+            if (objectifx > 29) { // possible uniquement si on est pas dans la colonne la plus à gauche
+                objectifx -= (int) this.tailleCase; // on définit la position que devra atteindre la tuile en abscisse (modèle). Le thread se chargera de mettre la vue à jour
+                score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1)); // mise à jour du compteur de mouvement
+            }
+        } else if (touche.compareTo("d") == 0) { // utilisateur appuie sur "d" pour envoyer la tuile vers la droite
+            if (objectifx < (int) this.taillePane - 8 * this.tailleCase - 24 * 3) { // possible uniquement si on est pas dans la colonne la plus à droite (taille de la fenêtre - 10*taille d'une case - taille entre la grille et le bord de la fenêtre*3)
+                objectifx += (int) this.tailleCase;
+                score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1));
+            }
+        } else if (touche.compareTo("z") == 0) { // utilisateur appuie sur "d" pour envoyer la tuile en haut
+            if (objectify > 173) {
+                objectify -= (int) this.tailleCase;
+                score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1));
+            }
+        } else if (touche.compareTo("s") == 0) { // utilisateur appuie sur "s" pour envoyer la tuile en bas
+            if (objectify < (int) this.taillePane - 6 * this.tailleCase - 24 * 3) {
+                objectify += (int) this.tailleCase;
+                score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1));
+            }
+        }
+    
+    
+    
+    
+    
+     */
     /**
      *
      * @param ke
@@ -633,38 +749,51 @@ public class JeuFXController implements Initializable {
 
         System.out.println("objectifx=" + objectifx);
         System.out.println("objectify=" + objectify);
-        System.out.println("objectifx1=" + objectifx1);
-        System.out.println("objectifx2=" + objectifx2);
-
-        if (touche.compareTo("n") == 0) {
-
-            nouvelleCase();
-        }
 
         Task task0 = new Task<Void>() { // on définit une tâche parallèle pour mettre à jour la vue
             @Override
             public Void call() throws Exception { // implémentation de la méthode protected abstract V call() dans la classe Task
-                while (x != objectifx || y != objectify) { // si les tuiles n'est pas à la place qu'on souhaite attendre en abscisse
 
-                    if (x < objectifx) {
-                        x += 1; // si on va vers la droite, on modifie la position des tuiles pixel par pixel vers la droite
-                    } else if (y < objectify) {
-                        y += 1;
-                    } else if (x > objectifx) {
-                        x -= 1;
-                    } else if (y > objectify) {
-                        y -= 1;
-                    }
-                    Platform.runLater(new Runnable() { // classe anonyme
-                        @Override
-                        public void run() {
-                            p.relocate(x, y); // on déplace la tuile d'un pixel sur la vue, on attend 5ms et on recommence jusqu'à atteindre l'objectif
-                            p.setVisible(true);
+                Iterator value = m.getGrille3D().getGrilles()[0].getGrille().iterator();
+
+                while (value.hasNext()) {
+
+                    Case cas = (Case) value.next();
+
+                    while (cas.getX() != objectifx || cas.getY() != objectify) { // si les tuiles n'est pas à la place qu'on souhaite attendre en abscisse
+
+                        if (cas.getX() < objectifx) {
+
+                            cas.setX(cas.getX() + 1); // si on va vers la droite, on modifie la position des tuiles pixel par pixel vers la droite
+                        } else if (cas.getY() < objectify) {
+                            cas.setY(cas.getY() + 1);
+                        } else if (cas.getX() > objectifx) {
+                            cas.setX(cas.getX() - 1);
+                        } else if (cas.getY() > objectify) {
+                            cas.setY(cas.getY() - 1);
                         }
-                    }
-                    );
-                    Thread.sleep(3);
 
+                        x = (int) cas.getX();
+                        y = (int) cas.getY();
+
+                        Platform.runLater(new Runnable() { // classe anonyme
+                            @Override
+                            public void run() {
+
+                                for (int i = 0; i < panes.size(); i++) {
+                                    if (panes.get(i).getLayoutX() == x && panes.get(i).getLayoutY() == y) {
+                                        panes.get(i).relocate(x, y);
+                                        panes.get(i).setVisible(true);
+                                    }
+
+                                }
+
+                            }
+                        }
+                        );
+                        Thread.sleep(3);
+
+                    }
                 }
                 return null;
             }
