@@ -5,6 +5,8 @@
  */
 package model;
 
+import javafx.scene.layout.GridPane;
+
 /**
  *
  * @author justineherolt
@@ -26,6 +28,10 @@ public class Case implements Parametres,java.io.Serializable {
         this.y=c.y;
         this.valeur=c.valeur;
         this.grille=c.grille;
+    }
+
+    public Case(int row, int col, int i, GridPane grille0) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public Case copy(){

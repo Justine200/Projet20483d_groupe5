@@ -15,25 +15,37 @@ import java.util.Scanner;
  * @author Admin
  */
 public class Modele2048 {
-    private int[][] grille = new int[4][4];
+    private Grille3D grille3D = new Grille3D(); 
     
-    @Override
-    public String toString() {
-        String result = "";
-        for (int i=0; i<grille.length;i++) {
-            result+=Arrays.toString(this.grille[i])+"\n";
-        }
-        return result;
-    }
-    
+
     public Modele2048(){
-        Random ra = new Random();
-        grille[ra.nextInt(4)][ra.nextInt(4)]=(1+ra.nextInt(2))*2; 
-        /*Scanner sc = new Scanner(System.in);
+        
+        this.grille3D.nouvellesCases();
+        
+        System.out.println(this.grille3D);
+
+        /*Random ra = new Random();
+        grille[ra.nextInt(3)][ra.nextInt(3)]=(1+ra.nextInt(2))*2; 
+        Scanner sc = new Scanner(System.in);
         System.out.println("Quel déplacement souhaitez-vous ?");
         String s = sc.nextLine();
         if (s.equals("q")) {
             System.out.println("Déplacement vers la gauche");
         }*/
     }
+
+    /**
+     * @return the grille3D
+     */
+    public Grille3D getGrille3D() {
+        return grille3D;
+    }
+
+    /**
+     * @param grille3D the grille3D to set
+     */
+    public void setGrille3D(Grille3D grille3D) {
+        this.grille3D = grille3D;
+    }
+    
 }

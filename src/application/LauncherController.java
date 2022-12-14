@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -63,6 +64,10 @@ public class LauncherController implements Initializable {
         boolean add = sceneJeu.getStylesheets().add("/application/style/JeuStyle.css");
 
         stage.setScene(sceneJeu);
+        
+        stage.getIcons().add(new Image("/application/style/icon.png"));
+        
+        stage.setTitle("2048 3D");
         
         stage.resizableProperty().setValue(false);
 
