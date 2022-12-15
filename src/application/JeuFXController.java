@@ -7,6 +7,7 @@ package application;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -596,6 +597,8 @@ public class JeuFXController implements Initializable {
                 }
 
                 System.out.println(cas.toString() + ".getObjectifx() : " + cas.getObjectifx());
+                //grille0.getChildren().removeAll(panes);
+                //grille0.getChildren().addAll(panes);
             }
 
         } else if (touche.compareTo("d") == 0) { // utilisateur appuie sur "d" pour envoyer la tuile vers la droite
@@ -725,7 +728,6 @@ public class JeuFXController implements Initializable {
                     Case cas = (Case) value.next();
 
                     while (cas.getX() != cas.getObjectifx() || cas.getY() != cas.getObjectify()) { // si les tuiles n'est pas à la place qu'on souhaite attendre en abscisse
-
                         if (cas.getX() < cas.getObjectifx()) {
                             cas.setX(cas.getX() + 1);// si on va vers la droite, on modifie la position des tuiles pixel par pixel vers la droite
                         } else if (cas.getY() < cas.getObjectify()) {
@@ -741,11 +743,12 @@ public class JeuFXController implements Initializable {
                         Platform.runLater(new Runnable() { // classe anonyme
                             @Override
                             public void run() {
-                                
-                                
+                                //System.out.println(cas);
                                 panes.get(index).relocate(cas.getX(), cas.getY()); // on déplace la tuile d'un pixel sur la vue, on attend 5ms et on recommence jusqu'à atteindre l'objectif
                                 panes.get(index).setVisible(true);
-
+                                //panes.get(index).toFront();
+                                System.out.println(panes.get(index).isVisible());
+                                //System.out.println(panes.get(index).getLayoutX()+"    "+panes.get(index).getLayoutY());
                             }
                         }
                         );
