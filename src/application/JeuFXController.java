@@ -64,7 +64,11 @@ public class JeuFXController implements Initializable {
     private Text topScore;
 
     //variables globales non définies dans la vue (fichier .fxml)
-    private ArrayList<Pane> panes = new ArrayList<>();
+    private ArrayList<ArrayList<Pane>> panes = new ArrayList<>();
+
+    private ArrayList<Pane> panes0 = new ArrayList<>();
+    private ArrayList<Pane> panes1 = new ArrayList<>();
+    private ArrayList<Pane> panes2 = new ArrayList<>();
 
     private final int taillePane = 1300, hauteurPane = 650, tailleCase = 397 / 3; //taille de la fenêtre, //hauteur de la fenêtre, //taille d'une case
 
@@ -108,7 +112,7 @@ public class JeuFXController implements Initializable {
                 Case cas = (Case) value.next();
 
                 Pane p = new Pane();
-                Label c = new Label("cas");
+                Label c = new Label(""+cas.getValeur());
 
                 p.getStyleClass().add("pane");
                 c.getStyleClass().add("tuile");
@@ -156,6 +160,7 @@ public class JeuFXController implements Initializable {
                                 cas.setObjectify(this.y + this.tailleCase * 2);
                                 break;
                         }
+                        this.panes0.add(p);
                         break;
 
                     case 1:
@@ -198,7 +203,7 @@ public class JeuFXController implements Initializable {
                                 cas.setObjectify(this.y1 + this.tailleCase * 2);
                                 break;
                         }
-
+                        this.panes1.add(p);
                         break;
                     default:
 
@@ -239,13 +244,11 @@ public class JeuFXController implements Initializable {
                                 cas.setObjectify(this.y2 + this.tailleCase * 2);
                                 break;
                         }
-
+                        this.panes2.add(p);
                         break;
                 }
 
                 //cas.ObjectifToCoord();
-                this.panes.add(p);
-
                 p.setVisible(true);
                 c.setVisible(true);
 
@@ -253,7 +256,6 @@ public class JeuFXController implements Initializable {
                 System.out.println("P.Y Layout : " + p.getLayoutY());
 
                 //System.out.println(m.getGrille3D());
-
             }
 
         }
@@ -755,19 +757,20 @@ public class JeuFXController implements Initializable {
                             cas.setY(cas.getY() - 1);
                         }
 
-                        int index = 1;
+                        int index = 0;
 
                         Platform.runLater(new Runnable() { // classe anonyme
                             @Override
                             public void run() {
-                                //System.out.println(cas);
-                                panes.get(index).relocate(cas.getX(), cas.getY()); // on déplace la tuile d'un pixel sur la vue, on attend 5ms et on recommence jusqu'à atteindre l'objectif
-                                panes.get(index).setVisible(true);
-                                //panes.get(index).toFront();
-                                System.out.println(panes.get(index).isVisible());
-                                System.out.println(panes.get(index).getLayoutX()+"    "+panes.get(index).getLayoutY());
-                                grille0.getChildren().remove(panes.get(0));
-                                grille0.getChildren().add(panes.get(0));
+                                System.out.println(cas);
+                                panes0.get(index).relocate(cas.getX(), cas.getY()); // on déplace la tuile d'un pixel sur la vue, on attend 5ms et on recommence jusqu'à atteindre l'objectif
+                                panes0.get(index).setVisible(true);
+                               // panes.get(index).toFront();
+                                System.out.println(panes0.get(index).isVisible());
+                                System.out.println(panes0.get(index).getLayoutX() + "    " + panes0.get(index).getLayoutY());
+                                grille0.getChildren().removeAll(panes0);
+                                grille0.getChildren().addAll(panes0);
+
                             }
                         }
                         );
