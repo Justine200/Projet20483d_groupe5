@@ -67,30 +67,20 @@ public class JeuFXController implements Initializable {
 
     private final int taillePane = 1300, hauteurPane = 650, tailleCase = 397 / 3; //taille de la fenêtre, //hauteur de la fenêtre, //taille d'une case
 
-    private final Pane p = new Pane();
-    private final Label c = new Label("0");
-
-    private final Pane p1 = new Pane();
-    private final Label c1 = new Label("1");
-
-    private final Pane p2 = new Pane();
-    private final Label c2 = new Label("2");
-
     private int x = 29, y = 173;//tuile de la 1ere grille
     private int x1 = 452, y1 = 173;//tuile de la 2ere grille
-    private int x2 = 875 + tailleCase + tailleCase, y2 = 173 + tailleCase + tailleCase;//tuile de la 3ere grille
+    private int x2 = 875, y2 = 173;//tuile de la 3ere grille
 
     private int objectifx = 29, objectify = 173;
     private int objectifx1 = 452, objectify1 = 173;
-    private int objectifx2 = 875 + tailleCase + tailleCase, objectify2 = 173 + tailleCase + tailleCase;
+    private int objectifx2 = 875, objectify2 = 173;
 
     private Modele2048 m;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
 
-        System.out.println("le contrôleur initialise la vue");
+        //CSS
         fond.getStyleClass().add("fond");
         movesPane.getStyleClass().add("fond");
         startButton.getStyleClass().add("button");
@@ -98,124 +88,16 @@ public class JeuFXController implements Initializable {
         grille1.getStyleClass().add("gridpane");
         grille2.getStyleClass().add("gridpane");
 
+        // Connextion BDD
         ConnexionBDD con = new ConnexionBDD();
         System.out.println(con.meilleurScore());
         topScore.setText(con.meilleurScore());
 
-        /*
-        // utilisation de styles pour la grille et la tuile (voir styles.css)
-        p1.getStyleClass().add("pane");
-        c1.getStyleClass().add("tuile");
-        GridPane.setHalignment(c1, HPos.CENTER);
-        fond.getChildren().add(p1);
-        p1.getChildren().add(c1);
-        // on place la tuile en précisant les coordonnées (x,y) du coin supérieur gauche
-        p1.setLayoutX(x1);
-        p1.setLayoutY(y1);
-        p1.setVisible(true);
-        c1.setVisible(true);
-
-        // utilisation de styles pour la grille et la tuile (voir styles.css)
-        p2.getStyleClass().add("pane");
-        c2.getStyleClass().add("tuile");
-        GridPane.setHalignment(c2, HPos.CENTER);
-        fond.getChildren().add(p2);
-        p2.getChildren().add(c2);
-        // on place la tuile en précisant les coordonnées (x,y) du coin supérieur gauche
-        p2.setLayoutX(x2);
-        p2.setLayoutY(y2);
-        p2.setVisible(true);
-        c2.setVisible(true);
-         */
-        //fond.getScene().setOnKeyPressed(this::keyPressed);
         // création du modèle
         m = new Modele2048();
 
         m.getGrille3D().getGrilles()[0].nouvelleCase();
-        m.getGrille3D().getGrilles()[0].nouvelleCase();
-        m.getGrille3D().getGrilles()[0].nouvelleCase();
-
-        p.getStyleClass().add("pane");
-        c.getStyleClass().add("tuile");
-
-        GridPane.setHalignment(c, HPos.CENTER);
-
-        fond.getChildren().add(p);
-
-        p.getChildren().add(c);
-
-        Iterator value = m.getGrille3D().getGrilles()[0].getGrille().iterator();
-
-        while (value.hasNext()) {
-
-            Case cas = (Case) value.next();
-
-            Pane a = new Pane();
-            Label z = new Label("cas");
-
-            a.getStyleClass().add("pane");
-            z.getStyleClass().add("tuile");
-            GridPane.setHalignment(z, HPos.CENTER);
-            fond.getChildren().add(a);
-            a.getChildren().add(z);
-
-            this.grille0.add(a, cas.getX(), cas.getY());
-            a.setLayoutX(cas.getX());
-            a.setLayoutY(cas.getY());
-
-            switch (cas.getX()) {
-
-                case 0:
-                    p.setLayoutX(this.x);
-                    this.objectifx = this.x;
-                    //    cas.setX(this.x);
-                    break;
-                case 1:
-                    p.setLayoutX(this.x + this.tailleCase);
-                    this.objectifx = this.x + this.tailleCase;
-                    //   cas.setX(this.x + this.tailleCase);
-                    break;
-                default:
-                    p.setLayoutX(this.x + this.tailleCase * 2);
-                    this.objectifx = this.x + this.tailleCase * 2;
-                    //  cas.setX(this.x + this.tailleCase * 2);
-                    break;
-            }
-
-            switch (cas.getY()) {
-                case 0:
-                    p.setLayoutY(this.y);
-                    this.objectify = this.y;
-                    //   cas.setY(this.y);
-                    break;
-                case 1:
-                    p.setLayoutY(this.y + this.tailleCase);
-                    this.objectify = this.y + this.tailleCase;
-                    //   cas.setY(this.y + this.tailleCase);
-                    break;
-                default:
-                    p.setLayoutY(this.y + this.tailleCase * 2);
-                    this.objectify = this.y + this.tailleCase * 2;
-                    //  cas.setY(this.y + this.tailleCase * 2);
-                    break;
-            }
-            
-            this.panes.add(a);
-
-            p.setVisible(true);
-            c.setVisible(true);
-            a.setVisible(true);
-            z.setVisible(true);
-
-            System.out.println(m.getGrille3D());
-
-        }
-
-        System.out.println(this.panes.get(0).getLayoutX());
-        System.out.println(this.panes.get(1).getLayoutX());
-        System.out.println(this.panes.get(2).getLayoutX());
-
-        /*
+        //Afficher les tuiles du modele sur le view
         for (int i = 0; i < 3; i++) {
 
             Iterator value = m.getGrille3D().getGrilles()[i].getGrille().iterator();
@@ -224,126 +106,138 @@ public class JeuFXController implements Initializable {
 
                 Case cas = (Case) value.next();
 
-                if (i == 0) {//1eme Grille
+                Pane p = new Pane();
+                Label c = new Label("cas");
 
-                    p.getStyleClass().add("pane");
-                    c.getStyleClass().add("tuile");
+                p.getStyleClass().add("pane");
+                c.getStyleClass().add("tuile");
+                GridPane.setHalignment(c, HPos.CENTER);
+                fond.getChildren().add(p);
+                p.getChildren().add(c);
 
-                    GridPane.setHalignment(c, HPos.CENTER);
-                    fond.getChildren().add(p);
-                    p.getChildren().add(c);
+                switch (i) {
+                    case 0:
 
-                    switch (cas.getX()) {
-                        case 0:
-                            p.setLayoutX(this.x);
-                            break;
-                        case 1:
-                            p.setLayoutX(this.x + this.tailleCase);
-                            break;
-                        default:
-                            p.setLayoutX(this.x + this.tailleCase * 2);
-                            break;
-                    }
-                    switch (cas.getY()) {
-                        case 0:
-                            p.setLayoutY(this.y);
-                            break;
-                        case 1:
-                            p.setLayoutY(this.y + this.tailleCase);
-                            break;
-                        default:
-                            p.setLayoutY(this.y + this.tailleCase * 2);
-                            break;
-                    }
+                        this.grille0.add(p, cas.getX(), cas.getY());
 
-                    p.setVisible(true);
-                    c.setVisible(true);
+                        switch (cas.getX()) {
 
+                            case 0:
+                                p.setLayoutX(this.x);
+                                cas.setObjectifx(this.x);
+                                break;
+                            case 1:
+                                p.setLayoutX(this.x + this.tailleCase);
+                                cas.setObjectifx(this.x + this.tailleCase);
+                                break;
+                            default:
+                                p.setLayoutX(this.x + this.tailleCase * 2);
+                                cas.setObjectifx(this.x + this.tailleCase * 2);
+                                break;
+                        }
+                        switch (cas.getY()) {
+                            case 0:
+                                p.setLayoutY(this.y);
+                                cas.setObjectify(this.y);
+                                break;
+                            case 1:
+                                p.setLayoutY(this.y + this.tailleCase);
+                                cas.setObjectify(this.y + this.tailleCase);
+                                break;
+                            default:
+                                p.setLayoutY(this.y + this.tailleCase * 2);
+                                cas.setObjectify(this.y + this.tailleCase * 2);
+                                break;
+                        }
+                        break;
+
+                    case 1:
+
+                        this.grille1.add(p, cas.getX(), cas.getY());
+
+                        switch (cas.getX()) {
+
+                            case 0:
+                                p.setLayoutX(this.x1);
+                                cas.setObjectifx(this.x1);
+                                break;
+                            case 1:
+                                p.setLayoutX(this.x1 + this.tailleCase);
+                                cas.setObjectifx(this.x1 + this.tailleCase);
+                                break;
+                            default:
+                                p.setLayoutX(this.x1 + this.tailleCase * 2);
+                                cas.setObjectifx(this.x1 + this.tailleCase * 2);
+                                break;
+                        }
+
+                        switch (cas.getY()) {
+                            case 0:
+                                p.setLayoutY(this.y1);
+                                cas.setObjectify(this.y1);
+                                break;
+                            case 1:
+                                p.setLayoutY(this.y1 + this.tailleCase);
+                                cas.setObjectify(this.y1 + this.tailleCase);
+                                break;
+                            default:
+                                p.setLayoutY(this.y1 + this.tailleCase * 2);
+                                cas.setObjectify(this.y1 + this.tailleCase * 2);
+                                break;
+                        }
+
+                        break;
+                    default:
+
+                        this.grille2.add(p, cas.getX(), cas.getY());
+                        switch (cas.getX()) {
+
+                            case 0:
+                                p.setLayoutX(this.x2);
+                                cas.setObjectifx(this.x2);
+                                break;
+                            case 1:
+                                p.setLayoutX(this.x2 + this.tailleCase);
+                                cas.setObjectifx(this.x2 + this.tailleCase);
+                                break;
+                            default:
+                                p.setLayoutX(this.x2 + this.tailleCase * 2);
+                                cas.setObjectifx(this.x2 + this.tailleCase * 2);
+                                break;
+                        }
+
+                        switch (cas.getY()) {
+                            case 0:
+                                p.setLayoutY(this.y2);
+                                cas.setObjectify(this.y2);
+                                break;
+                            case 1:
+                                p.setLayoutY(this.y2 + this.tailleCase);
+                                cas.setObjectify(this.y2 + this.tailleCase);
+                                break;
+                            default:
+                                p.setLayoutY(this.y2 + this.tailleCase * 2);
+                                cas.setObjectify(this.y2 + this.tailleCase * 2);
+                                break;
+                        }
+
+                        break;
                 }
-                
-                else if (i == 1) { //2eme Grille
 
-                    p1.getStyleClass().add("pane");
-                    c1.getStyleClass().add("tuile");
+                //cas.ObjectifToCoord();
+                this.panes.add(p);
 
-                    GridPane.setHalignment(c1, HPos.CENTER);
-                    fond.getChildren().add(p1);
-                    p1.getChildren().add(c1);
+                p.setVisible(true);
+                c.setVisible(true);
 
-                    switch (cas.getX()) {
-                        case 0:
-                            p1.setLayoutX(this.x1);
-                            break;
-                        case 1:
-                            p1.setLayoutX(this.x1 + this.tailleCase);
-                            break;
-                        default:
-                            p1.setLayoutX(this.x1 + this.tailleCase * 2);
-                            break;
-                    }
-                    switch (cas.getY()) {
-                        case 0:
-                            p1.setLayoutY(this.y1);
-                            break;
-                        case 1:
-                            p1.setLayoutY(this.y1 + this.tailleCase);
-                            break;
-                        default:
-                            p1.setLayoutY(this.y1 + this.tailleCase * 2);
-                            break;
-                    }
+                System.out.println("P.X Layout : " + p.getLayoutX());
+                System.out.println("P.Y Layout : " + p.getLayoutY());
 
-                    p1.setVisible(true);
-                    c1.setVisible(true);
+                System.out.println(m.getGrille3D());
 
-                } else { //3eme Grille
-
-                    p2.getStyleClass().add("pane");
-                    c2.getStyleClass().add("tuile");
-
-                    GridPane.setHalignment(c2, HPos.CENTER);
-                    fond.getChildren().add(p2);
-                    p2.getChildren().add(c);
-
-                    switch (cas.getX()) {
-                        case 0:
-                            p2.setLayoutX(this.x2);
-                            break;
-                        case 1:
-                            p2.setLayoutX(this.x2 + this.tailleCase);
-                            break;
-                        default:
-                            p2.setLayoutX(this.x2 + this.tailleCase * 2);
-                            break;
-                    }
-                    switch (cas.getY()) {
-                        case 0:
-                            p2.setLayoutY(this.y2);
-                            break;
-                        case 1:
-                            p2.setLayoutY(this.y2 + this.tailleCase);
-                            break;
-                        default:
-                            p2.setLayoutY(this.y2 + this.tailleCase * 2);
-                            break;
-                    }
-
-                    p2.setVisible(true);
-                    c2.setVisible(true);
-
-                }
-                System.out.println("value.next() : " + value.next());
-                 
             }
 
-            System.out.println(m.getGrille3D());
-
-            // utilisation de styles pour la grille et la tuile (voir styles.css)
         }
-
-        System.out.println(m.getGrille3D());
-
-        // utilisation de styles pour la grille et la tuile (voir styles.css)*/
     }
 
     /*
@@ -688,10 +582,22 @@ public class JeuFXController implements Initializable {
 
         //Grille 0
         if (touche.compareTo("q") == 0) { // utilisateur appuie sur "q" pour envoyer la tuile vers la gauche
-            if (objectifx > 29) { // possible uniquement si on est pas dans la colonne la plus à gauche
-                objectifx -= (int) this.tailleCase; // on définit la position que devra atteindre la tuile en abscisse (modèle). Le thread se chargera de mettre la vue à jour
-                score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1)); // mise à jour du compteur de mouvement
+
+            Iterator value = m.getGrille3D().getGrilles()[0].getGrille().iterator();
+
+            while (value.hasNext()) {
+
+                Case cas = (Case) value.next();
+
+                if (cas.getObjectifx() > 29) { // possible uniquement si on est pas dans la colonne la plus à gauche
+                    cas.setObjectifx(cas.getObjectifx() - this.tailleCase); // on définit la position que devra atteindre la tuile en abscisse (modèle). Le thread se chargera de mettre la vue à jour
+                    score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1)); // mise à jour du compteur de mouvement
+
+                }
+
+                System.out.println(cas.toString() + ".getObjectifx() : " + cas.getObjectifx());
             }
+
         } else if (touche.compareTo("d") == 0) { // utilisateur appuie sur "d" pour envoyer la tuile vers la droite
             if (objectifx < (int) this.taillePane - 8 * this.tailleCase - 24 * 3) { // possible uniquement si on est pas dans la colonne la plus à droite (taille de la fenêtre - 10*taille d'une case - taille entre la grille et le bord de la fenêtre*3)
                 objectifx += (int) this.tailleCase;
@@ -747,9 +653,10 @@ public class JeuFXController implements Initializable {
             }
         }
 
+        /*
         System.out.println("objectifx=" + objectifx);
         System.out.println("objectify=" + objectify);
-
+         *
         Task task0 = new Task<Void>() { // on définit une tâche parallèle pour mettre à jour la vue
             @Override
             public Void call() throws Exception { // implémentation de la méthode protected abstract V call() dans la classe Task
@@ -760,30 +667,36 @@ public class JeuFXController implements Initializable {
 
                     Case cas = (Case) value.next();
 
-                    while (cas.getX() != objectifx || cas.getY() != objectify) { // si les tuiles n'est pas à la place qu'on souhaite attendre en abscisse
+                    while ((cas.getX() == 0 && cas.getObjectifx() != x)
+                            || (cas.getX() == 1 && cas.getObjectifx() != x + tailleCase)
+                            || (cas.getX() == 2 && cas.getObjectifx() != x + tailleCase + tailleCase)
+                            || (cas.getY() == 0 && cas.getObjectify() != y)
+                            || (cas.getY() == 1 && cas.getObjectify() != y + tailleCase)
+                            || (cas.getY() == 2 && cas.getObjectify() != y + tailleCase + tailleCase)) { // si les tuiles n'est pas à la place qu'on souhaite attendre
 
-                        if (cas.getX() < objectifx) {
+                        if ((cas.getX() == 0 && cas.getObjectifx() < x)
+                                || (cas.getX() == 1 && cas.getObjectifx() < x + tailleCase)
+                                || (cas.getX() == 2 && cas.getObjectifx() < x + tailleCase + tailleCase)) {
 
                             cas.setX(cas.getX() + 1); // si on va vers la droite, on modifie la position des tuiles pixel par pixel vers la droite
-                        } else if (cas.getY() < objectify) {
+                            
+                        } else if (cas.getY() < cas.getObjectify()) {
                             cas.setY(cas.getY() + 1);
-                        } else if (cas.getX() > objectifx) {
+                        } else if (cas.getX() > cas.getObjectifx()) {
                             cas.setX(cas.getX() - 1);
-                        } else if (cas.getY() > objectify) {
+                        } else if (cas.getY() > cas.getObjectify()) {
                             cas.setY(cas.getY() - 1);
                         }
-
-                        x = (int) cas.getX();
-                        y = (int) cas.getY();
 
                         Platform.runLater(new Runnable() { // classe anonyme
                             @Override
                             public void run() {
 
                                 for (int i = 0; i < panes.size(); i++) {
-                                    if (panes.get(i).getLayoutX() == x && panes.get(i).getLayoutY() == y) {
-                                        panes.get(i).relocate(x, y);
+                                    if (panes.get(i).getLayoutX() == cas.getX() && panes.get(i).getLayoutY() == cas.getY()) {
+                                        panes.get(i).relocate(cas.getX(), cas.getY()); // on déplace la tuile d'un pixel sur la vue, on attend 5ms et on recommence jusqu'à atteindre l'objectif
                                         panes.get(i).setVisible(true);
+                                        grille0.add(panes.get(i), (int) panes.get(i).getLayoutX(), (int) panes.get(i).getLayoutY());
                                     }
 
                                 }
@@ -799,37 +712,52 @@ public class JeuFXController implements Initializable {
             }
 
         };
-
+         */
         Task task1 = new Task<Void>() { // on définit une tâche parallèle pour mettre à jour la vue
             @Override
             public Void call() throws Exception { // implémentation de la méthode protected abstract V call() dans la classe Task
-                while (x1 != objectifx || y1 != objectify) { // si les tuiles n'est pas à la place qu'on souhaite attendre en abscisse
 
-                    if (x1 < objectifx1) {
-                        x1 += 1; // si on va vers la droite, on modifie la position des tuiles pixel par pixel vers la droite
-                    } else if (y1 < objectify1) {
-                        y1 += 1;
-                    } else if (x1 > objectifx1) {
-                        x1 -= 1;
-                    } else if (y1 > objectify1) {
-                        y1 -= 1;
-                    }
-                    Platform.runLater(new Runnable() { // classe anonyme
-                        @Override
-                        public void run() {
-                            p1.relocate(x1, y1); // on déplace la tuile d'un pixel sur la vue, on attend 5ms et on recommence jusqu'à atteindre l'objectif
-                            p1.setVisible(true);
+                //   for (int i = 0; i < panes.size(); i++) {
+                Iterator value = m.getGrille3D().getGrilles()[0].getGrille().iterator();
+
+                while (value.hasNext()) {
+
+                    Case cas = (Case) value.next();
+
+                    while (cas.getX() != cas.getObjectifx() || cas.getY() != cas.getObjectify()) { // si les tuiles n'est pas à la place qu'on souhaite attendre en abscisse
+
+                        if (cas.getX() < cas.getObjectifx()) {
+                            cas.setX(cas.getX() + 1);// si on va vers la droite, on modifie la position des tuiles pixel par pixel vers la droite
+                        } else if (cas.getY() < cas.getObjectify()) {
+                            cas.setY(cas.getY() + 1);
+                        } else if (cas.getX() > cas.getObjectifx()) {
+                            cas.setX(cas.getX() - 1);
+                        } else if (cas.getY() > cas.getObjectify()) {
+                            cas.setY(cas.getY() - 1);
                         }
-                    }
-                    );
-                    Thread.sleep(5);
 
+                        int index = 0;
+
+                        Platform.runLater(new Runnable() { // classe anonyme
+                            @Override
+                            public void run() {
+                                
+                                
+                                panes.get(index).relocate(cas.getX(), cas.getY()); // on déplace la tuile d'un pixel sur la vue, on attend 5ms et on recommence jusqu'à atteindre l'objectif
+                                panes.get(index).setVisible(true);
+
+                            }
+                        }
+                        );
+                        Thread.sleep(5);
+                    }
                 }
+                // }
                 return null;
             }
 
         };
-
+        /*
         Task task2 = new Task<Void>() {
             @Override
             public Void call() throws Exception { // implémentation de la méthode protected abstract V call() dans la classe Task
@@ -859,17 +787,17 @@ public class JeuFXController implements Initializable {
             }
 
         };
-
-        Thread th0 = new Thread(task0); // on crée un contrôleur de Thread
+         */
+        // Thread th0 = new Thread(task0); // on crée un contrôleur de Thread
         Thread th1 = new Thread(task1);
-        Thread th2 = new Thread(task2);
+        // Thread th2 = new Thread(task2);
 
-        th0.setDaemon(true);// le Thread s'exécutera en arrière-plan (démon informatique)
+        // th0.setDaemon(true);// le Thread s'exécutera en arrière-plan (démon informatique)
         th1.setDaemon(true);
-        th2.setDaemon(true);
+        // th2.setDaemon(true);*/
 
-        th0.start(); // et on exécute le Thread pour mettre à jour la vue (déplacement continu de la tuile horizontalement)
+        //  th0.start(); // et on exécute le Thread pour mettre à jour la vue (déplacement continu de la tuile horizontalement)
         th1.start();
-        th2.start();
+        //th2.start();
     }
 }

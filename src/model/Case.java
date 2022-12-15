@@ -15,12 +15,15 @@ public class Case implements Parametres, java.io.Serializable {
 
     private int x, y, valeur;
     private Grille grille;
+    private int objectifx, objectify;
 
     public Case(int abs, int ord, int v, Grille g) {
         this.x = abs;
         this.y = ord;
         this.valeur = v;
         this.grille = g;
+        this.objectifx = abs;
+        this.objectify = ord;
     }
 
     public Case(Case c) {
@@ -130,6 +133,42 @@ public class Case implements Parametres, java.io.Serializable {
     @Override
     public String toString() {
         return "Case(" + this.x + "," + this.y + "," + this.valeur + ")";
+    }
+
+    /**
+     * @return the objectifx
+     */
+    public int getObjectifx() {
+        return objectifx;
+    }
+
+    /**
+     * @param objectifx the objectifx to set
+     */
+    public void setObjectifx(int objectifx) {
+        this.objectifx = objectifx;
+    }
+
+    /**
+     * @return the objectify
+     */
+    public int getObjectify() {
+        return objectify;
+    }
+
+    /**
+     * @param objectify the objectify to set
+     */
+    public void setObjectify(int objectify) {
+        this.objectify = objectify;
+    }
+    
+    /**
+     * Methode pour mise à jour les coordonnées
+     */
+    public void ObjectifToCoord(){
+        this.x = this.objectifx;
+        this.y = this.objectify;
     }
 
 }
