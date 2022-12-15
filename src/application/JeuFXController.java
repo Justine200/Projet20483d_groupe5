@@ -125,28 +125,34 @@ public class JeuFXController implements Initializable {
 
                             case 0:
                                 p.setLayoutX(this.x);
+                                cas.setX(this.x);
                                 cas.setObjectifx(this.x);
                                 break;
                             case 1:
                                 p.setLayoutX(this.x + this.tailleCase);
+                                cas.setX(this.x + this.tailleCase);
                                 cas.setObjectifx(this.x + this.tailleCase);
                                 break;
                             default:
                                 p.setLayoutX(this.x + this.tailleCase * 2);
+                                cas.setX(this.x + this.tailleCase * 2);
                                 cas.setObjectifx(this.x + this.tailleCase * 2);
                                 break;
                         }
                         switch (cas.getY()) {
                             case 0:
                                 p.setLayoutY(this.y);
+                                cas.setY(this.y);
                                 cas.setObjectify(this.y);
                                 break;
                             case 1:
                                 p.setLayoutY(this.y + this.tailleCase);
+                                cas.setY(this.y + this.tailleCase);
                                 cas.setObjectify(this.y + this.tailleCase);
                                 break;
                             default:
                                 p.setLayoutY(this.y + this.tailleCase * 2);
+                                cas.setY(this.y + this.tailleCase * 2);
                                 cas.setObjectify(this.y + this.tailleCase * 2);
                                 break;
                         }
@@ -160,14 +166,17 @@ public class JeuFXController implements Initializable {
 
                             case 0:
                                 p.setLayoutX(this.x1);
+                                cas.setX(this.x1);
                                 cas.setObjectifx(this.x1);
                                 break;
                             case 1:
                                 p.setLayoutX(this.x1 + this.tailleCase);
+                                cas.setX(this.x1 + this.tailleCase);
                                 cas.setObjectifx(this.x1 + this.tailleCase);
                                 break;
                             default:
                                 p.setLayoutX(this.x1 + this.tailleCase * 2);
+                                cas.setX(this.x1 + this.tailleCase * 2);
                                 cas.setObjectifx(this.x1 + this.tailleCase * 2);
                                 break;
                         }
@@ -175,14 +184,17 @@ public class JeuFXController implements Initializable {
                         switch (cas.getY()) {
                             case 0:
                                 p.setLayoutY(this.y1);
+                                cas.setY(this.y1);
                                 cas.setObjectify(this.y1);
                                 break;
                             case 1:
                                 p.setLayoutY(this.y1 + this.tailleCase);
+                                cas.setY(this.y1 + this.tailleCase);
                                 cas.setObjectify(this.y1 + this.tailleCase);
                                 break;
                             default:
                                 p.setLayoutY(this.y1 + this.tailleCase * 2);
+                                cas.setY(this.y1 + this.tailleCase * 2);
                                 cas.setObjectify(this.y1 + this.tailleCase * 2);
                                 break;
                         }
@@ -195,14 +207,17 @@ public class JeuFXController implements Initializable {
 
                             case 0:
                                 p.setLayoutX(this.x2);
+                                cas.setX(this.x2);
                                 cas.setObjectifx(this.x2);
                                 break;
                             case 1:
                                 p.setLayoutX(this.x2 + this.tailleCase);
+                                cas.setX(this.x2 + this.tailleCase);
                                 cas.setObjectifx(this.x2 + this.tailleCase);
                                 break;
                             default:
                                 p.setLayoutX(this.x2 + this.tailleCase * 2);
+                                cas.setX(this.x2 + this.tailleCase * 2);
                                 cas.setObjectifx(this.x2 + this.tailleCase * 2);
                                 break;
                         }
@@ -210,14 +225,17 @@ public class JeuFXController implements Initializable {
                         switch (cas.getY()) {
                             case 0:
                                 p.setLayoutY(this.y2);
+                                cas.setY(this.y2);
                                 cas.setObjectify(this.y2);
                                 break;
                             case 1:
                                 p.setLayoutY(this.y2 + this.tailleCase);
+                                cas.setY(this.y2 + this.tailleCase);
                                 cas.setObjectify(this.y2 + this.tailleCase);
                                 break;
                             default:
                                 p.setLayoutY(this.y2 + this.tailleCase * 2);
+                                cas.setY(this.y2 + this.tailleCase * 2);
                                 cas.setObjectify(this.y2 + this.tailleCase * 2);
                                 break;
                         }
@@ -234,7 +252,7 @@ public class JeuFXController implements Initializable {
                 System.out.println("P.X Layout : " + p.getLayoutX());
                 System.out.println("P.Y Layout : " + p.getLayoutY());
 
-                System.out.println(m.getGrille3D());
+                //System.out.println(m.getGrille3D());
 
             }
 
@@ -597,8 +615,7 @@ public class JeuFXController implements Initializable {
                 }
 
                 System.out.println(cas.toString() + ".getObjectifx() : " + cas.getObjectifx());
-                //grille0.getChildren().removeAll(panes);
-                //grille0.getChildren().addAll(panes);
+
             }
 
         } else if (touche.compareTo("d") == 0) { // utilisateur appuie sur "d" pour envoyer la tuile vers la droite
@@ -738,7 +755,7 @@ public class JeuFXController implements Initializable {
                             cas.setY(cas.getY() - 1);
                         }
 
-                        int index = 0;
+                        int index = 1;
 
                         Platform.runLater(new Runnable() { // classe anonyme
                             @Override
@@ -748,7 +765,9 @@ public class JeuFXController implements Initializable {
                                 panes.get(index).setVisible(true);
                                 //panes.get(index).toFront();
                                 System.out.println(panes.get(index).isVisible());
-                                //System.out.println(panes.get(index).getLayoutX()+"    "+panes.get(index).getLayoutY());
+                                System.out.println(panes.get(index).getLayoutX()+"    "+panes.get(index).getLayoutY());
+                                grille0.getChildren().remove(panes.get(0));
+                                grille0.getChildren().add(panes.get(0));
                             }
                         }
                         );
