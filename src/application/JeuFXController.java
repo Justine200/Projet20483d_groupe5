@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.ResourceBundle;
+import java.util.concurrent.CountDownLatch;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
@@ -102,6 +103,11 @@ public class JeuFXController implements Initializable {
         m = new Modele2048();
 
         m.getGrille3D().getGrilles()[0].nouvelleCase();
+        m.getGrille3D().getGrilles()[0].nouvelleCase();
+        m.getGrille3D().getGrilles()[0].nouvelleCase();
+        m.getGrille3D().getGrilles()[0].nouvelleCase();
+        m.getGrille3D().getGrilles()[0].nouvelleCase();
+        m.getGrille3D().getGrilles()[0].nouvelleCase();
         //Afficher les tuiles du modele sur le view
         for (int i = 0; i < 3; i++) {
 
@@ -112,7 +118,7 @@ public class JeuFXController implements Initializable {
                 Case cas = (Case) value.next();
 
                 Pane p = new Pane();
-                Label c = new Label(""+cas.getValeur());
+                Label c = new Label("" + cas.getValeur());
 
                 p.getStyleClass().add("pane");
                 c.getStyleClass().add("tuile");
@@ -123,8 +129,7 @@ public class JeuFXController implements Initializable {
                 switch (i) {
                     case 0:
 
-                        this.grille0.add(p, cas.getX(), cas.getY());
-
+                        //this.grille0.add(p, cas.getX(), cas.getY());
                         switch (cas.getX()) {
 
                             case 0:
@@ -165,8 +170,7 @@ public class JeuFXController implements Initializable {
 
                     case 1:
 
-                        this.grille1.add(p, cas.getX(), cas.getY());
-
+                        //this.grille1.add(p, cas.getX(), cas.getY());
                         switch (cas.getX()) {
 
                             case 0:
@@ -207,7 +211,7 @@ public class JeuFXController implements Initializable {
                         break;
                     default:
 
-                        this.grille2.add(p, cas.getX(), cas.getY());
+                        // this.grille2.add(p, cas.getX(), cas.getY());
                         switch (cas.getX()) {
 
                             case 0:
@@ -595,7 +599,7 @@ public class JeuFXController implements Initializable {
      * @param ke
      */
     @FXML
-    private void keyPressed(KeyEvent ke) {
+    private void keyPressed(KeyEvent ke) throws InterruptedException {
 
         System.out.println("touche appuyée");
 
@@ -612,19 +616,30 @@ public class JeuFXController implements Initializable {
 
                 if (cas.getObjectifx() > 29) { // possible uniquement si on est pas dans la colonne la plus à gauche
                     cas.setObjectifx(cas.getObjectifx() - this.tailleCase); // on définit la position que devra atteindre la tuile en abscisse (modèle). Le thread se chargera de mettre la vue à jour
-                    score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1)); // mise à jour du compteur de mouvement
-
                 }
 
                 System.out.println(cas.toString() + ".getObjectifx() : " + cas.getObjectifx());
+                score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1)); // mise à jour du compteur de mouvement
 
             }
 
         } else if (touche.compareTo("d") == 0) { // utilisateur appuie sur "d" pour envoyer la tuile vers la droite
-            if (objectifx < (int) this.taillePane - 8 * this.tailleCase - 24 * 3) { // possible uniquement si on est pas dans la colonne la plus à droite (taille de la fenêtre - 10*taille d'une case - taille entre la grille et le bord de la fenêtre*3)
-                objectifx += (int) this.tailleCase;
+
+            Iterator value = m.getGrille3D().getGrilles()[0].getGrille().iterator();
+
+            while (value.hasNext()) {
+
+                Case cas = (Case) value.next();
+
+                if (cas.getObjectifx() < (int) this.taillePane - 8 * this.tailleCase - 24 * 3) { // possible uniquement si on est pas dans la colonne la plus à droite (taille de la fenêtre - 10*taille d'une case - taille entre la grille et le bord de la fenêtre*3)
+                    cas.setObjectifx(cas.getObjectifx() + this.tailleCase);
+
+                }
                 score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1));
+                System.out.println(cas.toString() + ".getObjectifx() : " + cas.getObjectifx());
+
             }
+
         } else if (touche.compareTo("z") == 0) { // utilisateur appuie sur "d" pour envoyer la tuile en haut
             if (objectify > 173) {
                 objectify -= (int) this.tailleCase;
@@ -736,49 +751,56 @@ public class JeuFXController implements Initializable {
         };
          */
         Task task1 = new Task<Void>() { // on définit une tâche parallèle pour mettre à jour la vue
+
+            // CountDownLatch latch = new CountDownLatch(panes0.size());
             @Override
             public Void call() throws Exception { // implémentation de la méthode protected abstract V call() dans la classe Task
 
-                //   for (int i = 0; i < panes.size(); i++) {
                 Iterator value = m.getGrille3D().getGrilles()[0].getGrille().iterator();
 
                 while (value.hasNext()) {
 
                     Case cas = (Case) value.next();
 
-                    while (cas.getX() != cas.getObjectifx() || cas.getY() != cas.getObjectify()) { // si les tuiles n'est pas à la place qu'on souhaite attendre en abscisse
-                        if (cas.getX() < cas.getObjectifx()) {
-                            cas.setX(cas.getX() + 1);// si on va vers la droite, on modifie la position des tuiles pixel par pixel vers la droite
-                        } else if (cas.getY() < cas.getObjectify()) {
-                            cas.setY(cas.getY() + 1);
-                        } else if (cas.getX() > cas.getObjectifx()) {
-                            cas.setX(cas.getX() - 1);
-                        } else if (cas.getY() > cas.getObjectify()) {
-                            cas.setY(cas.getY() - 1);
-                        }
+                    boolean allmoved = false;
 
-                        int index = 0;
+                    for (int i = 0; i < panes0.size(); i++) {
 
-                        Platform.runLater(new Runnable() { // classe anonyme
-                            @Override
-                            public void run() {
-                                System.out.println(cas);
-                                panes0.get(index).relocate(cas.getX(), cas.getY()); // on déplace la tuile d'un pixel sur la vue, on attend 5ms et on recommence jusqu'à atteindre l'objectif
-                                panes0.get(index).setVisible(true);
-                               // panes.get(index).toFront();
-                                System.out.println(panes0.get(index).isVisible());
-                                System.out.println(panes0.get(index).getLayoutX() + "    " + panes0.get(index).getLayoutY());
-                                grille0.getChildren().removeAll(panes0);
-                                grille0.getChildren().addAll(panes0);
+                        if (cas.getX() == panes0.get(i).getLayoutX() && cas.getY() == panes0.get(i).getLayoutY()) {
+
+                            while (cas.getX() != cas.getObjectifx() || cas.getY() != cas.getObjectify()) { // si les tuiles n'est pas à la place qu'on souhaite attendre en abscisse
+                                if (cas.getX() < cas.getObjectifx()) {
+                                    cas.setX(cas.getX() + 1);// si on va vers la droite, on modifie la position des tuiles pixel par pixel vers la droite
+                                } else if (cas.getY() < cas.getObjectify()) {
+                                    cas.setY(cas.getY() + 1);
+                                } else if (cas.getX() > cas.getObjectifx()) {
+                                    cas.setX(cas.getX() - 1);
+                                } else if (cas.getY() > cas.getObjectify()) {
+                                    cas.setY(cas.getY() - 1);
+                                }
+
+                                int index = i;
+
+                                Platform.runLater(new Runnable() { // classe anonyme
+                                    @Override
+                                    public void run() {
+                                        panes0.get(index).relocate(cas.getX(), cas.getY()); // on déplace la tuile d'un pixel sur la vue, on attend 5ms et on recommence jusqu'à atteindre l'objectif
+                                        panes0.get(index).setVisible(true);
+                                    }
+                                }
+                                );
+
+                                Thread.sleep(5);
 
                             }
                         }
-                        );
-                        Thread.sleep(5);
+
                     }
+
                 }
-                // }
+
                 return null;
+
             }
 
         };
@@ -824,5 +846,6 @@ public class JeuFXController implements Initializable {
         //  th0.start(); // et on exécute le Thread pour mettre à jour la vue (déplacement continu de la tuile horizontalement)
         th1.start();
         //th2.start();
+
     }
 }
