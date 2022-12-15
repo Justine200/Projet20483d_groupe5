@@ -104,10 +104,6 @@ public class JeuFXController implements Initializable {
 
         m.getGrille3D().getGrilles()[0].nouvelleCase();
         m.getGrille3D().getGrilles()[0].nouvelleCase();
-        m.getGrille3D().getGrilles()[0].nouvelleCase();
-        m.getGrille3D().getGrilles()[0].nouvelleCase();
-        m.getGrille3D().getGrilles()[0].nouvelleCase();
-        m.getGrille3D().getGrilles()[0].nouvelleCase();
         //Afficher les tuiles du modele sur le view
         for (int i = 0; i < 3; i++) {
 
@@ -307,39 +303,7 @@ public class JeuFXController implements Initializable {
     private void start(MouseEvent event) {
         System.out.println("start");
 
-        Random ra1 = new Random();
-        Random ra2 = new Random();
-
-        int x = ra1.nextInt(3);
-        int y = ra2.nextInt(3);
-
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (i == x && j == y) {
-
-                    Pane a = new Pane();
-                    Label z = new Label(x + "," + y);
-
-                    a.getStyleClass().add("pane");
-                    z.getStyleClass().add("tuile");
-                    GridPane.setHalignment(z, HPos.CENTER);
-                    fond.getChildren().add(a);
-                    a.getChildren().add(z);
-
-                    a.setLayoutX(x);
-                    a.setLayoutY(y);
-
-                    a.setVisible(true);
-                    z.setVisible(true);
-
-                    this.grille0.add(a, i, j);
-                    System.out.println("X : " + a.getLayoutX());
-                    System.out.println("Y : " + a.getLayoutY());
-                }
-            }
-        }
-        System.out.println(x);
-        System.out.println(y);
+        this.nouvelleCase();
     }
 
     @FXML
@@ -532,68 +496,6 @@ public class JeuFXController implements Initializable {
     }
 //Apparition tuile fin
 
-    /*
-    private void deplacement(int direction) {
-
-        if (direction == GAUCHE) { // utilisateur appuie sur "q" pour envoyer la tuile vers la gauche
-
-            for (int i = 0; i < this.panes.size(); i++) {
-                if (this.panes.get(i) > 29) { // possible uniquement si on est pas dans la colonne la plus à gauche
-                    objectifx -= (int) this.tailleCase; // on définit la position que devra atteindre la tuile en abscisse (modèle). Le thread se chargera de mettre la vue à jour
-                    score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1)); // mise à jour du compteur de mouvement
-                }
-            }
-
-        } else if (direction == DROITE) { // utilisateur appuie sur "d" pour envoyer la tuile vers la droite
-            if (objectifx < (int) this.taillePane - 8 * this.tailleCase - 24 * 3) { // possible uniquement si on est pas dans la colonne la plus à droite (taille de la fenêtre - 10*taille d'une case - taille entre la grille et le bord de la fenêtre*3)
-                objectifx += (int) this.tailleCase;
-                score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1));
-            }
-        } else if (direction == HAUT) {
-            if (objectify > 173) {
-                objectify -= (int) this.tailleCase;
-                score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1));
-            }
-        } else if (direction == BAS) { // utilisateur appuie sur "s" pour envoyer la tuile en bas
-            if (objectify < (int) this.taillePane - 6 * this.tailleCase - 24 * 3) {
-                objectify += (int) this.tailleCase;
-                score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1));
-            }
-        }
-
-    }
-    
-    
-    
-    
-            //Grille 0
-        if (touche.compareTo("q") == 0) { // utilisateur appuie sur "q" pour envoyer la tuile vers la gauche
-            if (objectifx > 29) { // possible uniquement si on est pas dans la colonne la plus à gauche
-                objectifx -= (int) this.tailleCase; // on définit la position que devra atteindre la tuile en abscisse (modèle). Le thread se chargera de mettre la vue à jour
-                score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1)); // mise à jour du compteur de mouvement
-            }
-        } else if (touche.compareTo("d") == 0) { // utilisateur appuie sur "d" pour envoyer la tuile vers la droite
-            if (objectifx < (int) this.taillePane - 8 * this.tailleCase - 24 * 3) { // possible uniquement si on est pas dans la colonne la plus à droite (taille de la fenêtre - 10*taille d'une case - taille entre la grille et le bord de la fenêtre*3)
-                objectifx += (int) this.tailleCase;
-                score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1));
-            }
-        } else if (touche.compareTo("z") == 0) { // utilisateur appuie sur "d" pour envoyer la tuile en haut
-            if (objectify > 173) {
-                objectify -= (int) this.tailleCase;
-                score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1));
-            }
-        } else if (touche.compareTo("s") == 0) { // utilisateur appuie sur "s" pour envoyer la tuile en bas
-            if (objectify < (int) this.taillePane - 6 * this.tailleCase - 24 * 3) {
-                objectify += (int) this.tailleCase;
-                score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1));
-            }
-        }
-    
-    
-    
-    
-    
-     */
     /**
      *
      * @param ke
@@ -619,8 +521,6 @@ public class JeuFXController implements Initializable {
                 }
 
                 System.out.println(cas.toString() + ".getObjectifx() : " + cas.getObjectifx());
-                score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1)); // mise à jour du compteur de mouvement
-
             }
 
         } else if (touche.compareTo("d") == 0) { // utilisateur appuie sur "d" pour envoyer la tuile vers la droite
@@ -632,127 +532,173 @@ public class JeuFXController implements Initializable {
                 Case cas = (Case) value.next();
 
                 if (cas.getObjectifx() < (int) this.taillePane - 8 * this.tailleCase - 24 * 3) { // possible uniquement si on est pas dans la colonne la plus à droite (taille de la fenêtre - 10*taille d'une case - taille entre la grille et le bord de la fenêtre*3)
-                    cas.setObjectifx(cas.getObjectifx() + this.tailleCase);
+                    cas.setObjectifx(cas.getObjectifx() + (int) this.tailleCase);
 
                 }
                 score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1));
-                System.out.println(cas.toString() + ".getObjectifx() : " + cas.getObjectifx());
-
             }
 
         } else if (touche.compareTo("z") == 0) { // utilisateur appuie sur "d" pour envoyer la tuile en haut
-            if (objectify > 173) {
-                objectify -= (int) this.tailleCase;
+
+            Iterator value = m.getGrille3D().getGrilles()[0].getGrille().iterator();
+
+            while (value.hasNext()) {
+
+                Case cas = (Case) value.next();
+
+                if (cas.getObjectify() > 173) {
+                    objectify -= (int) this.tailleCase;
+                    cas.setObjectify(cas.getObjectify() - (int) this.tailleCase);
+                }
                 score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1));
             }
+
         } else if (touche.compareTo("s") == 0) { // utilisateur appuie sur "s" pour envoyer la tuile en bas
-            if (objectify < (int) this.taillePane - 6 * this.tailleCase - 24 * 3) {
-                objectify += (int) this.tailleCase;
+
+            Iterator value = m.getGrille3D().getGrilles()[0].getGrille().iterator();
+
+            while (value.hasNext()) {
+
+                Case cas = (Case) value.next();
+
+                if (cas.getObjectify() < (int) this.taillePane - 6 * this.tailleCase - 24 * 3) {
+                    cas.setObjectify(cas.getObjectify() + (int) this.tailleCase);
+                }
                 score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1));
             }
+
         }
 
         //Grille 1
+        
         if (touche.compareTo("q") == 0) { // utilisateur appuie sur "q" pour envoyer la tuile vers la gauche
-            if (objectifx1 > 452) { // 452 : x de la grille1
-                objectifx1 -= (int) this.tailleCase;
+
+            Iterator value = m.getGrille3D().getGrilles()[1].getGrille().iterator();
+
+            while (value.hasNext()) {
+
+                Case cas = (Case) value.next();
+
+                if (cas.getObjectifx() > 452) { // possible uniquement si on est pas dans la colonne la plus à gauche
+                    cas.setObjectifx(cas.getObjectifx() - this.tailleCase); // on définit la position que devra atteindre la tuile en abscisse (modèle). Le thread se chargera de mettre la vue à jour
+                }
+
+                System.out.println(cas.toString() + ".getObjectifx() : " + cas.getObjectifx());
             }
-        } else if (touche.compareTo("d") == 0) { //vers la droite
-            if (objectifx1 < (int) this.taillePane - 5 * this.tailleCase - 24 * 2) { // possible uniquement si on est pas dans la colonne la plus à droite (taille de la fenêtre - 6*taille d'une case - taille entre la grille et le bord de la fenêtre*2)
-                objectifx1 += (int) this.tailleCase;
+
+        } else if (touche.compareTo("d") == 0) { // utilisateur appuie sur "d" pour envoyer la tuile vers la droite
+
+            Iterator value = m.getGrille3D().getGrilles()[1].getGrille().iterator();
+
+            while (value.hasNext()) {
+
+                Case cas = (Case) value.next();
+
+                if (cas.getObjectifx() < (int) this.taillePane - 5 * this.tailleCase - 24 * 2) { // possible uniquement si on est pas dans la colonne la plus à droite (taille de la fenêtre - 10*taille d'une case - taille entre la grille et le bord de la fenêtre*3)
+                    cas.setObjectifx(cas.getObjectifx() + (int) this.tailleCase);
+
+                }
+                score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1));
             }
+
         } else if (touche.compareTo("z") == 0) { // utilisateur appuie sur "d" pour envoyer la tuile en haut
-            if (objectify1 > 173) {
-                objectify1 -= (int) this.tailleCase;
+
+            Iterator value = m.getGrille3D().getGrilles()[1].getGrille().iterator();
+
+            while (value.hasNext()) {
+
+                Case cas = (Case) value.next();
+
+                if (cas.getObjectify() > 173) {
+                    objectify -= (int) this.tailleCase;
+                    cas.setObjectify(cas.getObjectify() - (int) this.tailleCase);
+                }
+                score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1));
             }
+
         } else if (touche.compareTo("s") == 0) { // utilisateur appuie sur "s" pour envoyer la tuile en bas
-            if (objectify1 < (int) this.taillePane - 6 * this.tailleCase - 24 * 3) {
-                objectify1 += (int) this.tailleCase;
+
+            Iterator value = m.getGrille3D().getGrilles()[1].getGrille().iterator();
+
+            while (value.hasNext()) {
+
+                Case cas = (Case) value.next();
+
+                if (cas.getObjectify() < (int) this.taillePane - 6 * this.tailleCase - 24 * 3) {
+                    cas.setObjectify(cas.getObjectify() + (int) this.tailleCase);
+                }
+                score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1));
             }
+
         }
 
         //Grille 2
         if (touche.compareTo("q") == 0) { // utilisateur appuie sur "q" pour envoyer la tuile vers la gauche
-            if (objectifx2 > 875) { // 875 : x de la grille2
-                objectifx2 -= (int) this.tailleCase;
+
+            Iterator value = m.getGrille3D().getGrilles()[2].getGrille().iterator();
+
+            while (value.hasNext()) {
+
+                Case cas = (Case) value.next();
+
+                if (cas.getObjectifx() > 875) { // possible uniquement si on est pas dans la colonne la plus à gauche
+                    cas.setObjectifx(cas.getObjectifx() - this.tailleCase); // on définit la position que devra atteindre la tuile en abscisse (modèle). Le thread se chargera de mettre la vue à jour
+                }
+
+                System.out.println(cas.toString() + ".getObjectifx() : " + cas.getObjectifx());
             }
+
         } else if (touche.compareTo("d") == 0) { // utilisateur appuie sur "d" pour envoyer la tuile vers la droite
-            if (objectifx2 < (int) this.taillePane - 2 * this.tailleCase - 24) { // possible uniquement si on est pas dans la colonne la plus à droite (taille de la fenêtre - 2*taille d'une case - taille entre la grille et le bord de la fenêtre)
-                objectifx2 += (int) this.tailleCase;
+
+            Iterator value = m.getGrille3D().getGrilles()[2].getGrille().iterator();
+
+            while (value.hasNext()) {
+
+                Case cas = (Case) value.next();
+
+                if (cas.getObjectifx() < (int) this.taillePane - 2 * this.tailleCase - 24) { // possible uniquement si on est pas dans la colonne la plus à droite (taille de la fenêtre - 10*taille d'une case - taille entre la grille et le bord de la fenêtre*3)
+                    cas.setObjectifx(cas.getObjectifx() + (int) this.tailleCase);
+
+                }
+                score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1));
             }
+
         } else if (touche.compareTo("z") == 0) { // utilisateur appuie sur "d" pour envoyer la tuile en haut
-            if (objectify2 > 173) {
-                objectify2 -= (int) this.tailleCase;
+
+            Iterator value = m.getGrille3D().getGrilles()[2].getGrille().iterator();
+
+            while (value.hasNext()) {
+
+                Case cas = (Case) value.next();
+
+                if (cas.getObjectify() > 173) {
+                    objectify -= (int) this.tailleCase;
+                    cas.setObjectify(cas.getObjectify() - (int) this.tailleCase);
+                }
+                score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1));
             }
+
         } else if (touche.compareTo("s") == 0) { // utilisateur appuie sur "s" pour envoyer la tuile en bas
-            if (objectify2 < (int) this.taillePane - 6 * this.tailleCase - 24 * 3) {
-                objectify2 += (int) this.tailleCase;
+
+            Iterator value = m.getGrille3D().getGrilles()[2].getGrille().iterator();
+
+            while (value.hasNext()) {
+
+                Case cas = (Case) value.next();
+
+                if (cas.getObjectify() < (int) this.taillePane - 6 * this.tailleCase - 24 * 3) {
+                    cas.setObjectify(cas.getObjectify() + (int) this.tailleCase);
+                }
+                score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1));
             }
+
         }
 
-        /*
         System.out.println("objectifx=" + objectifx);
         System.out.println("objectify=" + objectify);
-         *
+
         Task task0 = new Task<Void>() { // on définit une tâche parallèle pour mettre à jour la vue
-            @Override
-            public Void call() throws Exception { // implémentation de la méthode protected abstract V call() dans la classe Task
 
-                Iterator value = m.getGrille3D().getGrilles()[0].getGrille().iterator();
-
-                while (value.hasNext()) {
-
-                    Case cas = (Case) value.next();
-
-                    while ((cas.getX() == 0 && cas.getObjectifx() != x)
-                            || (cas.getX() == 1 && cas.getObjectifx() != x + tailleCase)
-                            || (cas.getX() == 2 && cas.getObjectifx() != x + tailleCase + tailleCase)
-                            || (cas.getY() == 0 && cas.getObjectify() != y)
-                            || (cas.getY() == 1 && cas.getObjectify() != y + tailleCase)
-                            || (cas.getY() == 2 && cas.getObjectify() != y + tailleCase + tailleCase)) { // si les tuiles n'est pas à la place qu'on souhaite attendre
-
-                        if ((cas.getX() == 0 && cas.getObjectifx() < x)
-                                || (cas.getX() == 1 && cas.getObjectifx() < x + tailleCase)
-                                || (cas.getX() == 2 && cas.getObjectifx() < x + tailleCase + tailleCase)) {
-
-                            cas.setX(cas.getX() + 1); // si on va vers la droite, on modifie la position des tuiles pixel par pixel vers la droite
-                            
-                        } else if (cas.getY() < cas.getObjectify()) {
-                            cas.setY(cas.getY() + 1);
-                        } else if (cas.getX() > cas.getObjectifx()) {
-                            cas.setX(cas.getX() - 1);
-                        } else if (cas.getY() > cas.getObjectify()) {
-                            cas.setY(cas.getY() - 1);
-                        }
-
-                        Platform.runLater(new Runnable() { // classe anonyme
-                            @Override
-                            public void run() {
-
-                                for (int i = 0; i < panes.size(); i++) {
-                                    if (panes.get(i).getLayoutX() == cas.getX() && panes.get(i).getLayoutY() == cas.getY()) {
-                                        panes.get(i).relocate(cas.getX(), cas.getY()); // on déplace la tuile d'un pixel sur la vue, on attend 5ms et on recommence jusqu'à atteindre l'objectif
-                                        panes.get(i).setVisible(true);
-                                        grille0.add(panes.get(i), (int) panes.get(i).getLayoutX(), (int) panes.get(i).getLayoutY());
-                                    }
-
-                                }
-
-                            }
-                        }
-                        );
-                        Thread.sleep(3);
-
-                    }
-                }
-                return null;
-            }
-
-        };
-         */
-        Task task1 = new Task<Void>() { // on définit une tâche parallèle pour mettre à jour la vue
-
-            // CountDownLatch latch = new CountDownLatch(panes0.size());
             @Override
             public Void call() throws Exception { // implémentation de la méthode protected abstract V call() dans la classe Task
 
@@ -804,48 +750,125 @@ public class JeuFXController implements Initializable {
             }
 
         };
-        /*
-        Task task2 = new Task<Void>() {
+        Task task1 = new Task<Void>() { // on définit une tâche parallèle pour mettre à jour la vue
+
+            // CountDownLatch latch = new CountDownLatch(panes0.size());
             @Override
             public Void call() throws Exception { // implémentation de la méthode protected abstract V call() dans la classe Task
-                while (x2 != objectifx || y2 != objectify) { // si les tuiles n'est pas à la place qu'on souhaite attendre en abscisse
 
-                    if (x2 < objectifx2) {
-                        x2 += 1; // si on va vers la droite, on modifie la position des tuiles pixel par pixel vers la droite
-                    } else if (y2 < objectify2) {
-                        y2 += 1;
-                    } else if (x2 > objectifx2) {
-                        x2 -= 1;
-                    } else if (y2 > objectify2) {
-                        y2 -= 1;
-                    }
-                    Platform.runLater(new Runnable() { // classe anonyme
-                        @Override
-                        public void run() {
-                            p2.relocate(x2, y2); // on déplace la tuile d'un pixel sur la vue, on attend 5ms et on recommence jusqu'à atteindre l'objectif
-                            p2.setVisible(true);
+                Iterator value = m.getGrille3D().getGrilles()[1].getGrille().iterator();
+
+                while (value.hasNext()) {
+
+                    Case cas = (Case) value.next();
+
+                    boolean allmoved = false;
+
+                    for (int i = 0; i < panes1.size(); i++) {
+
+                        if (cas.getX() == panes1.get(i).getLayoutX() && cas.getY() == panes1.get(i).getLayoutY()) {
+
+                            while (cas.getX() != cas.getObjectifx() || cas.getY() != cas.getObjectify()) { // si les tuiles n'est pas à la place qu'on souhaite attendre en abscisse
+                                if (cas.getX() < cas.getObjectifx()) {
+                                    cas.setX(cas.getX() + 1);// si on va vers la droite, on modifie la position des tuiles pixel par pixel vers la droite
+                                } else if (cas.getY() < cas.getObjectify()) {
+                                    cas.setY(cas.getY() + 1);
+                                } else if (cas.getX() > cas.getObjectifx()) {
+                                    cas.setX(cas.getX() - 1);
+                                } else if (cas.getY() > cas.getObjectify()) {
+                                    cas.setY(cas.getY() - 1);
+                                }
+
+                                int index = i;
+
+                                Platform.runLater(new Runnable() { // classe anonyme
+                                    @Override
+                                    public void run() {
+                                        panes1.get(index).relocate(cas.getX(), cas.getY()); // on déplace la tuile d'un pixel sur la vue, on attend 5ms et on recommence jusqu'à atteindre l'objectif
+                                        panes1.get(index).setVisible(true);
+                                    }
+                                }
+                                );
+
+                                Thread.sleep(5);
+
+                            }
                         }
+
                     }
-                    );
-                    Thread.sleep(5);
 
                 }
+
                 return null;
+
             }
 
         };
-         */
-        // Thread th0 = new Thread(task0); // on crée un contrôleur de Thread
+
+        Task task2 = new Task<Void>() {
+            @Override
+            public Void call() throws Exception { // implémentation de la méthode protected abstract V call() dans la classe Task
+
+                Iterator value = m.getGrille3D().getGrilles()[2].getGrille().iterator();
+
+                while (value.hasNext()) {
+
+                    Case cas = (Case) value.next();
+
+                    boolean allmoved = false;
+
+                    for (int i = 0; i < panes2.size(); i++) {
+
+                        if (cas.getX() == panes2.get(i).getLayoutX() && cas.getY() == panes2.get(i).getLayoutY()) {
+
+                            while (cas.getX() != cas.getObjectifx() || cas.getY() != cas.getObjectify()) { // si les tuiles n'est pas à la place qu'on souhaite attendre en abscisse
+                                if (cas.getX() < cas.getObjectifx()) {
+                                    cas.setX(cas.getX() + 1);// si on va vers la droite, on modifie la position des tuiles pixel par pixel vers la droite
+                                } else if (cas.getY() < cas.getObjectify()) {
+                                    cas.setY(cas.getY() + 1);
+                                } else if (cas.getX() > cas.getObjectifx()) {
+                                    cas.setX(cas.getX() - 1);
+                                } else if (cas.getY() > cas.getObjectify()) {
+                                    cas.setY(cas.getY() - 1);
+                                }
+
+                                int index = i;
+
+                                Platform.runLater(new Runnable() { // classe anonyme
+                                    @Override
+                                    public void run() {
+                                        panes2.get(index).relocate(cas.getX(), cas.getY()); // on déplace la tuile d'un pixel sur la vue, on attend 5ms et on recommence jusqu'à atteindre l'objectif
+                                        panes2.get(index).setVisible(true);
+                                    }
+                                }
+                                );
+
+                                Thread.sleep(5);
+
+                            }
+                        }
+
+                    }
+
+                }
+
+                return null;
+
+            }
+
+        };
+
+        Thread th0 = new Thread(task0); // on crée un contrôleur de Thread
         Thread th1 = new Thread(task1);
-        // Thread th2 = new Thread(task2);
+        Thread th2 = new Thread(task2);
 
-        // th0.setDaemon(true);// le Thread s'exécutera en arrière-plan (démon informatique)
+        th0.setDaemon(true);// le Thread s'exécutera en arrière-plan (démon informatique)
         th1.setDaemon(true);
-        // th2.setDaemon(true);*/
+        th2.setDaemon(true);
 
-        //  th0.start(); // et on exécute le Thread pour mettre à jour la vue (déplacement continu de la tuile horizontalement)
+        th0.start(); // et on exécute le Thread pour mettre à jour la vue (déplacement continu de la tuile horizontalement)
         th1.start();
-        //th2.start();
+        th2.start();
 
     }
 }
