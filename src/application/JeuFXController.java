@@ -34,6 +34,8 @@ import static model.Parametres.BAS;
 import static model.Parametres.DROITE;
 import static model.Parametres.GAUCHE;
 import static model.Parametres.HAUT;
+import static model.Parametres.GRILLEGAUCHE;
+import static model.Parametres.GRILLEDROITE;
 
 /**
  *
@@ -562,6 +564,32 @@ public class JeuFXController implements Initializable {
                 score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1));
                 this.uneCaseDeplace = false;
             }
+        } else if (touche.compareTo("a") == 0) { // utilisateur appuie sur "s" pour envoyer la tuile en bas
+                this.m.getGrille3D().deplacementCaseGrille3D(GRILLEGAUCHE);
+
+                for(int i=0;i<3;i++){
+                    Iterator value = m.getGrille3D().getGrilles()[i].getGrille().iterator();
+                    while (value.hasNext()) {
+
+                        Case cas = (Case) value.next();
+
+                        cas.updateObjectif(i);
+
+                    }
+                }
+        } else if (touche.compareTo("e") == 0) { // utilisateur appuie sur "s" pour envoyer la tuile en bas
+                this.m.getGrille3D().deplacementCaseGrille3D(GRILLEDROITE);
+
+                for(int i=0;i<3;i++){
+                    Iterator value = m.getGrille3D().getGrilles()[i].getGrille().iterator();
+                    while (value.hasNext()) {
+
+                        Case cas = (Case) value.next();
+
+                        cas.updateObjectif(i);
+
+                    }
+                }
         }
 
         Task task0 = new Task<Void>() { // on définit une tâche parallèle pour mettre à jour la vue
@@ -750,5 +778,6 @@ public class JeuFXController implements Initializable {
         th1.start();
         th2.start();
         initModele(m);
+        nouvelleCase(m);
     }
 }
