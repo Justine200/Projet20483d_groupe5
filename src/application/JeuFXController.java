@@ -34,8 +34,6 @@ import static model.Parametres.BAS;
 import static model.Parametres.DROITE;
 import static model.Parametres.GAUCHE;
 import static model.Parametres.HAUT;
-//import javafx.scene.paint.Color;
-//import javafx.scene.text.Font;
 
 /**
  *
@@ -411,35 +409,6 @@ public class JeuFXController implements Initializable {
         this.fond.getScene().getStylesheets().remove("/application/style/JeuStyle.css");
         this.fond.getScene().getStylesheets().add("/application/style/Dark.css");
     }
-<<<<<<< Updated upstream
-
-    @FXML
-    private void howToPlay() throws IOException {
-
-        Parent root = FXMLLoader.load(getClass().getResource("/application/HowToPlay.fxml"));
-
-        Scene sceneJeu = new Scene(root);
-
-        Stage stage = new Stage(); //stage du jeu
-
-        boolean add = sceneJeu.getStylesheets().add("/application/style/JeuStyle.css");
-
-        stage.setScene(sceneJeu);
-
-        stage.getIcons().add(new Image("/application/style/icon.png"));
-
-        stage.setTitle("HOW TO PLAY?");
-
-        stage.resizableProperty().setValue(false);
-
-        stage.show();
-    }
-
-    @FXML
-    private void aboutUs() throws IOException {
-        
-        Parent root = FXMLLoader.load(getClass().getResource("/application/aboutUs.fxml"));
-=======
 
     
     /*
@@ -449,7 +418,6 @@ public class JeuFXController implements Initializable {
     private void howToPlay() throws IOException {
 
         Parent root = FXMLLoader.load(getClass().getResource("/application/HowToPlay.fxml"));
->>>>>>> Stashed changes
 
         Scene sceneJeu = new Scene(root);
 
@@ -461,24 +429,9 @@ public class JeuFXController implements Initializable {
 
         stage.getIcons().add(new Image("/application/style/icon.png"));
 
-<<<<<<< Updated upstream
-        stage.setTitle("About Us :)");
-
-        stage.resizableProperty().setValue(false);
-
-        stage.show();
-    }
-
-    private void nouvelleCase(Modele2048 m) {
-
-        m.getGrille3D().nouvellesCases();
-        initModele(this.m);
-        System.out.println(this.m.getGrille3D());
-=======
         stage.setTitle("HOW TO PLAY?");
 
         stage.resizableProperty().setValue(false);
->>>>>>> Stashed changes
 
         stage.show();
     }
@@ -488,8 +441,6 @@ public class JeuFXController implements Initializable {
 
         Parent root = FXMLLoader.load(getClass().getResource("/application/aboutUs.fxml"));
 
-<<<<<<< Updated upstream
-=======
         Scene sceneJeu = new Scene(root);
 
         Stage stage = new Stage(); //stage du jeu
@@ -528,7 +479,6 @@ public class JeuFXController implements Initializable {
 
         System.out.println("touche appuyée");
 
->>>>>>> Stashed changes
         String touche = ke.getText();
 
         if (touche.compareTo("q") == 0) { // utilisateur appuie sur "q" pour envoyer la tuile vers la gauche
@@ -541,14 +491,7 @@ public class JeuFXController implements Initializable {
 
                         Case cas = (Case) value.next();
 
-<<<<<<< Updated upstream
-                        cas.updateObjectif(i);
-
-                        System.out.println(cas.toString() + ".getObjectifx() : " + cas.getObjectifx());
-
-=======
                         cas.updateObjectif(i); //changer l'objectif de chaque case dans l'HashSet après deplacer les cases sur le console
->>>>>>> Stashed changes
                     }
 
                     this.uneCaseDeplace = true; // True s'il y a au moins une case qui s'est déplacée
