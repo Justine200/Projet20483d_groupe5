@@ -50,8 +50,8 @@ public class Main implements Parametres {
             pseudo=sc.nextLine();
             System.out.println("Entrez votre mot de passe : ");
             String password = sc.nextLine();
-            boolean connect = con.connect(pseudo, password);
-            if(connect){
+            estconnecte = con.connect(pseudo, password);
+            if(estconnecte){
                 System.out.println("Vous êtes connectés !");
             }
         }

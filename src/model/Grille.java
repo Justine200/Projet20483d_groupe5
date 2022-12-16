@@ -165,10 +165,10 @@ public class Grille implements Parametres, java.io.Serializable {
     }
 
     /*
-    * Si direction = HAUT : retourne les 4 cases qui sont le plus en haut (une pour chaque colonne)
-    * Si direction = DROITE : retourne les 4 cases qui sont le plus à droite (une pour chaque ligne)
-    * Si direction = BAS : retourne les 4 cases qui sont le plus en bas (une pour chaque colonne)
-    * Si direction = GAUCHE : retourne les 4 cases qui sont le plus à gauche (une pour chaque ligne)
+    * Si direction = HAUT : retourne les 3 cases qui sont le plus en haut (une pour chaque colonne)
+    * Si direction = DROITE : retourne les 3 cases qui sont le plus à droite (une pour chaque ligne)
+    * Si direction = BAS : retourne les 3 cases qui sont le plus en bas (une pour chaque colonne)
+    * Si direction = GAUCHE : retourne les 3 cases qui sont le plus à gauche (une pour chaque ligne)
     * Attention : le tableau retourné peut contenir des null si les lignes/colonnes sont vides
      */
     public Case[] getCasesExtremites(int direction) {
