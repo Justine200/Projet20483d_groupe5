@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package application;
 
 import java.io.IOException;
@@ -33,14 +28,12 @@ import model.Modele2048;
 import static model.Parametres.BAS;
 import static model.Parametres.DROITE;
 import static model.Parametres.GAUCHE;
+import static model.Parametres.GRILLEDROITE;
+import static model.Parametres.GRILLEGAUCHE;
 import static model.Parametres.HAUT;
 import static model.Parametres.GRILLEGAUCHE;
 import static model.Parametres.GRILLEDROITE;
 
-/**
- *
- * @author Admin
- */
 public class JeuFXController implements Initializable {
 
     /*
@@ -65,12 +58,15 @@ public class JeuFXController implements Initializable {
     private Text topScore;
 
     //variables globales non définies dans la vue (fichier .fxml)
+    //List qui garde les panes de la grille3D
     private ArrayList<ArrayList<Pane>> panes = new ArrayList<>();
 
+    //Lists qui gardent les panes des 3 grilles 
     private ArrayList<Pane> panes0 = new ArrayList<>();
     private ArrayList<Pane> panes1 = new ArrayList<>();
     private ArrayList<Pane> panes2 = new ArrayList<>();
 
+    // True s'il y a au moins une case qui s'est déplacée
     private boolean uneCaseDeplace = false;
 
     /**
@@ -82,6 +78,9 @@ public class JeuFXController implements Initializable {
     public static final int x1 = 452, y1 = 173;//tuile de la 2ere grille
     public static final int x2 = 875, y2 = 173;//tuile de la 3ere grille
 
+    /**
+     * le modele du jeu
+     */
     private Modele2048 m;
 
     @Override
@@ -368,7 +367,7 @@ public class JeuFXController implements Initializable {
     @FXML
     private void undo(MouseEvent event) {
         System.out.println("undo");
-        this.nouvelleCase(this.m);
+        //this.nouvelleCase(this.m);
     }
 
     //Méthodes de MenuBar
@@ -412,10 +411,9 @@ public class JeuFXController implements Initializable {
         this.fond.getScene().getStylesheets().add("/application/style/Dark.css");
     }
 
-    
     /*
     * Méthodes qui lancent des fenetres nouvelles
-    */
+     */
     @FXML
     private void howToPlay() throws IOException {
 
@@ -460,9 +458,9 @@ public class JeuFXController implements Initializable {
         stage.show();
     }
 
-    
     /**
-     * Méthode pour ajouter une nouvelle case sur la grille3D et mettre l'interface à jour 
+     * Méthode pour ajouter une nouvelle case sur la grille3D et mettre
+     * l'interface à jour
      */
     private void nouvelleCase(Modele2048 m) {
 
@@ -474,7 +472,8 @@ public class JeuFXController implements Initializable {
 
     /**
      *
-     * La méthode qui déplace les cases sur l'interface et le modèle2048 après appuyer sur Q,D,Z,S
+     * La méthode qui déplace les cases sur l'interface et le modèle2048 après
+     * appuyer sur Q,D,Z,S
      */
     @FXML
     private void keyPressed(KeyEvent ke) throws InterruptedException {
@@ -565,6 +564,7 @@ public class JeuFXController implements Initializable {
                 this.uneCaseDeplace = false;
             }
         } else if (touche.compareTo("a") == 0) { // utilisateur appuie sur "s" pour envoyer la tuile en bas
+<<<<<<< Updated upstream
                 this.m.getGrille3D().deplacementCaseGrille3D(GRILLEGAUCHE);
 
                 for(int i=0;i<3;i++){
@@ -590,6 +590,33 @@ public class JeuFXController implements Initializable {
 
                     }
                 }
+=======
+            this.m.getGrille3D().deplacementCaseGrille3D(GRILLEGAUCHE);
+
+            for (int i = 0; i < 3; i++) {
+                Iterator value = m.getGrille3D().getGrilles()[i].getGrille().iterator();
+                while (value.hasNext()) {
+
+                    Case cas = (Case) value.next();
+
+                    cas.updateObjectif(i);
+
+                }
+            }
+        } else if (touche.compareTo("e") == 0) { // utilisateur appuie sur "s" pour envoyer la tuile en bas
+            this.m.getGrille3D().deplacementCaseGrille3D(GRILLEDROITE);
+
+            for (int i = 0; i < 3; i++) {
+                Iterator value = m.getGrille3D().getGrilles()[i].getGrille().iterator();
+                while (value.hasNext()) {
+
+                    Case cas = (Case) value.next();
+
+                    cas.updateObjectif(i);
+
+                }
+            }
+>>>>>>> Stashed changes
         }
 
         Task task0 = new Task<Void>() { // on définit une tâche parallèle pour mettre à jour la vue

@@ -1,16 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package model;
 
 import java.util.*;
 
-/**
- *
- * @author justineherolt
- */
 public class Grille implements Parametres, java.io.Serializable {
 
     private final HashSet<Case> grille;
@@ -186,73 +178,29 @@ public class Grille implements Parametres, java.io.Serializable {
                 case HAUT:
                     if ((result[c.getX()] == null) || (result[c.getX()].getY() > c.getY())) { // si on n'avait pas encore de case pour cette rangée ou si on a trouvé un meilleur candidat
                         result[c.getX()] = c;
-                        System.out.println("Before Update ; ");
-                        System.out.println("c.getxInterface() ; " + c.getxInterface());
-                        System.out.println("c.getyInterface() ; " + c.getyInterface());
-                        System.out.println("c.getObjectifx() ; " + c.getObjectifx());
-                        System.out.println("c.getObjectify() ; " + c.getObjectifx());
 
                         c.updateInterface(this);
 
-                        System.out.println("After Update ; ");
-                        System.out.println("c.getxInterface() ; " + c.getxInterface());
-                        System.out.println("c.getyInterface() ; " + c.getyInterface());
-                        System.out.println("c.getObjectifx() ; " + c.getObjectifx());
-                        System.out.println("c.getObjectify() ; " + c.getObjectifx());
                     }
                     break;
                 case BAS:
                     if ((result[c.getX()] == null) || (result[c.getX()].getY() < c.getY())) {
                         result[c.getX()] = c;
-                        System.out.println("Before Update ; ");
-                        System.out.println("c.getxInterface() ; " + c.getxInterface());
-                        System.out.println("c.getyInterface() ; " + c.getyInterface());
-                        System.out.println("c.getObjectifx() ; " + c.getObjectifx());
-                        System.out.println("c.getObjectify() ; " + c.getObjectifx());
-                        
+
                         c.updateInterface(this);
 
-                        System.out.println("After Update ; ");
-                        System.out.println("c.getxInterface() ; " + c.getxInterface());
-                        System.out.println("c.getyInterface() ; " + c.getyInterface());
-                        System.out.println("c.getObjectifx() ; " + c.getObjectifx());
-                        System.out.println("c.getObjectify() ; " + c.getObjectifx());
                     }
                     break;
                 case GAUCHE:
                     if ((result[c.getY()] == null) || (result[c.getY()].getX() > c.getX())) {
                         result[c.getY()] = c;
-                        System.out.println("Before Update ; ");
-                        System.out.println("c.getxInterface() ; " + c.getxInterface());
-                        System.out.println("c.getyInterface() ; " + c.getyInterface());
-                        System.out.println("c.getObjectifx() ; " + c.getObjectifx());
-                        System.out.println("c.getObjectify() ; " + c.getObjectifx());
-                        
                         c.updateInterface(this);
-
-                        System.out.println("After Update ; ");
-                        System.out.println("c.getxInterface() ; " + c.getxInterface());
-                        System.out.println("c.getyInterface() ; " + c.getyInterface());
-                        System.out.println("c.getObjectifx() ; " + c.getObjectifx());
-                        System.out.println("c.getObjectify() ; " + c.getObjectifx());
                     }
                     break;
                 default:
                     if ((result[c.getY()] == null) || (result[c.getY()].getX() < c.getX())) {
                         result[c.getY()] = c;
-                        System.out.println("Before Update ; ");
-                        System.out.println("c.getxInterface() ; " + c.getxInterface());
-                        System.out.println("c.getyInterface() ; " + c.getyInterface());
-                        System.out.println("c.getObjectifx() ; " + c.getObjectifx());
-                        System.out.println("c.getObjectify() ; " + c.getObjectifx());
-                        
                         c.updateInterface(this);
-
-                        System.out.println("After Update ; ");
-                        System.out.println("c.getxInterface() ; " + c.getxInterface());
-                        System.out.println("c.getyInterface() ; " + c.getyInterface());
-                        System.out.println("c.getObjectifx() ; " + c.getObjectifx());
-                        System.out.println("c.getObjectify() ; " + c.getObjectifx());
                     }
                     break;
             }

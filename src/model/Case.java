@@ -1,24 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package model;
 
 import application.JeuFXController;
 import javafx.scene.layout.GridPane;
 
-/**
- *
- * @author justineherolt
- */
 public class Case implements Parametres, java.io.Serializable {
 
-    private int x, y, valeur;
+    private int x, y, valeur; //x et y sont les cordonnées sur le console
     private Grille grille;
-    private int xInterface, yInterface;
-    private int objectifx, objectify;
-
+    private int xInterface, yInterface; // ( x == 0 ) ==> xInterface == JeuFXController.x == 29 et ( y == 0 ) ==> yInterface == JeuFXController.y == 173 ...s
+    private int objectifx, objectify; // les cordonnées du l'objectif mais sur l'interface
+    
     public Case(int abs, int ord, int v, Grille g) {
         this.x = abs;
         this.y = ord;
@@ -26,155 +18,9 @@ public class Case implements Parametres, java.io.Serializable {
         this.grille = g;
 
         updateInterface(g);
-        
+
         this.objectifx = this.xInterface;
         this.objectify = this.yInterface;
-
-    }
-
-    public void updateInterface(Grille grille) {
-
-        switch (grille.getGrilleNum()) {
-            case 0:
-                switch (x) {
-                    case 0:
-                        this.xInterface = JeuFXController.x;
-                        break;
-                    case 1:
-                        this.xInterface = JeuFXController.x + JeuFXController.tailleCase;
-                        break;
-                    default:
-                        this.xInterface = JeuFXController.x + JeuFXController.tailleCase * 2;
-                        break;
-                }   switch (y) {
-                    case 0:
-                        this.yInterface = JeuFXController.y;
-                        break;
-                    case 1:
-                        this.yInterface = JeuFXController.y + JeuFXController.tailleCase;
-                        break;
-                    default:
-                        this.yInterface = JeuFXController.y + JeuFXController.tailleCase * 2;
-                        break;
-                }   break;
-            case 1:
-                switch (x) {
-                    case 0:
-                        this.xInterface = JeuFXController.x1;
-                        break;
-                    case 1:
-                        this.xInterface = JeuFXController.x1 + JeuFXController.tailleCase;
-                        break;
-                    default:
-                        this.xInterface = JeuFXController.x1 + JeuFXController.tailleCase * 2;
-                        break;
-                }   switch (y) {
-                    case 0:
-                        this.yInterface = JeuFXController.y1;
-                        break;
-                    case 1:
-                        this.yInterface = JeuFXController.y1 + JeuFXController.tailleCase;
-                        break;
-                    default:
-                        this.yInterface = JeuFXController.y1 + JeuFXController.tailleCase * 2;
-                        break;
-                }   break;
-            default:
-                switch (x) {
-                    case 0:
-                        this.xInterface = JeuFXController.x2;
-                        break;
-                    case 1:
-                        this.xInterface = JeuFXController.x2 + JeuFXController.tailleCase;
-                        break;
-                    default:
-                        this.xInterface = JeuFXController.x2+ JeuFXController.tailleCase * 2;
-                        break;
-                }   switch (y) {
-                    case 0:
-                        this.yInterface = JeuFXController.y2;
-                        break;
-                    case 1:
-                        this.yInterface = JeuFXController.y2 + JeuFXController.tailleCase;
-                        break;
-                    default:
-                        this.yInterface = JeuFXController.y2 + JeuFXController.tailleCase * 2;
-                        break;
-                }   break;
-        }
-
-    }
-
-    public void updateObjectif(int grilleNum) {
-
-        switch (grilleNum) {
-            case 0:
-                switch (x) {
-                    case 0:
-                        this.objectifx = JeuFXController.x;
-                        break;
-                    case 1:
-                        this.objectifx = JeuFXController.x + JeuFXController.tailleCase;
-                        break;
-                    default:
-                        this.objectifx = JeuFXController.x + JeuFXController.tailleCase * 2;
-                        break;
-                }   switch (y) {
-                    case 0:
-                        this.objectify = JeuFXController.y;
-                        break;
-                    case 1:
-                        this.objectify = JeuFXController.y + JeuFXController.tailleCase;
-                        break;
-                    default:
-                        this.objectify = JeuFXController.y + JeuFXController.tailleCase * 2;
-                        break;
-                }   break;
-            case 1:
-                switch (x) {
-                    case 0:
-                        this.objectifx = JeuFXController.x1;
-                        break;
-                    case 1:
-                        this.objectifx = JeuFXController.x1 + JeuFXController.tailleCase;
-                        break;
-                    default:
-                        this.objectifx = JeuFXController.x1 + JeuFXController.tailleCase * 2;
-                        break;
-                }   switch (y) {
-                    case 0:
-                        this.objectify = JeuFXController.y1;
-                        break;
-                    case 1:
-                        this.objectify = JeuFXController.y1 + JeuFXController.tailleCase;
-                        break;
-                    default:
-                        this.objectify = JeuFXController.y1 + JeuFXController.tailleCase * 2;
-                        break;
-                }   break;
-            default:
-                switch (x) {
-                    case 0:
-                        this.objectifx = JeuFXController.x2;
-                        break;
-                    case 1:
-                        this.objectifx = JeuFXController.x2 + JeuFXController.tailleCase;
-                        break;
-                    default:
-                        this.objectifx = JeuFXController.x2+ JeuFXController.tailleCase * 2;
-                        break;
-                }   switch (y) {
-                    case 0:
-                        this.objectify = JeuFXController.y2;
-                        break;
-                    case 1:
-                        this.objectify = JeuFXController.y2 + JeuFXController.tailleCase;
-                        break;
-                    default:
-                        this.objectify = JeuFXController.y2 + JeuFXController.tailleCase * 2;
-                        break;
-                }   break;
-        }
 
     }
 
@@ -281,6 +127,167 @@ public class Case implements Parametres, java.io.Serializable {
             }
         }
         return null;
+    }
+
+    /**
+     *Methode pour mettre a jour les cordonnées de l'interface
+     */
+    public void updateInterface(Grille grille) {
+
+        switch (grille.getGrilleNum()) {
+            case 0:
+                switch (x) {
+                    case 0:
+                        this.xInterface = JeuFXController.x;
+                        break;
+                    case 1:
+                        this.xInterface = JeuFXController.x + JeuFXController.tailleCase;
+                        break;
+                    default:
+                        this.xInterface = JeuFXController.x + JeuFXController.tailleCase * 2;
+                        break;
+                }
+                switch (y) {
+                    case 0:
+                        this.yInterface = JeuFXController.y;
+                        break;
+                    case 1:
+                        this.yInterface = JeuFXController.y + JeuFXController.tailleCase;
+                        break;
+                    default:
+                        this.yInterface = JeuFXController.y + JeuFXController.tailleCase * 2;
+                        break;
+                }
+                break;
+            case 1:
+                switch (x) {
+                    case 0:
+                        this.xInterface = JeuFXController.x1;
+                        break;
+                    case 1:
+                        this.xInterface = JeuFXController.x1 + JeuFXController.tailleCase;
+                        break;
+                    default:
+                        this.xInterface = JeuFXController.x1 + JeuFXController.tailleCase * 2;
+                        break;
+                }
+                switch (y) {
+                    case 0:
+                        this.yInterface = JeuFXController.y1;
+                        break;
+                    case 1:
+                        this.yInterface = JeuFXController.y1 + JeuFXController.tailleCase;
+                        break;
+                    default:
+                        this.yInterface = JeuFXController.y1 + JeuFXController.tailleCase * 2;
+                        break;
+                }
+                break;
+            default:
+                switch (x) {
+                    case 0:
+                        this.xInterface = JeuFXController.x2;
+                        break;
+                    case 1:
+                        this.xInterface = JeuFXController.x2 + JeuFXController.tailleCase;
+                        break;
+                    default:
+                        this.xInterface = JeuFXController.x2 + JeuFXController.tailleCase * 2;
+                        break;
+                }
+                switch (y) {
+                    case 0:
+                        this.yInterface = JeuFXController.y2;
+                        break;
+                    case 1:
+                        this.yInterface = JeuFXController.y2 + JeuFXController.tailleCase;
+                        break;
+                    default:
+                        this.yInterface = JeuFXController.y2 + JeuFXController.tailleCase * 2;
+                        break;
+                }
+                break;
+        }
+
+    }
+
+    public void updateObjectif(int grilleNum) {
+
+        switch (grilleNum) {
+            case 0:
+                switch (x) {
+                    case 0:
+                        this.objectifx = JeuFXController.x;
+                        break;
+                    case 1:
+                        this.objectifx = JeuFXController.x + JeuFXController.tailleCase;
+                        break;
+                    default:
+                        this.objectifx = JeuFXController.x + JeuFXController.tailleCase * 2;
+                        break;
+                }
+                switch (y) {
+                    case 0:
+                        this.objectify = JeuFXController.y;
+                        break;
+                    case 1:
+                        this.objectify = JeuFXController.y + JeuFXController.tailleCase;
+                        break;
+                    default:
+                        this.objectify = JeuFXController.y + JeuFXController.tailleCase * 2;
+                        break;
+                }
+                break;
+            case 1:
+                switch (x) {
+                    case 0:
+                        this.objectifx = JeuFXController.x1;
+                        break;
+                    case 1:
+                        this.objectifx = JeuFXController.x1 + JeuFXController.tailleCase;
+                        break;
+                    default:
+                        this.objectifx = JeuFXController.x1 + JeuFXController.tailleCase * 2;
+                        break;
+                }
+                switch (y) {
+                    case 0:
+                        this.objectify = JeuFXController.y1;
+                        break;
+                    case 1:
+                        this.objectify = JeuFXController.y1 + JeuFXController.tailleCase;
+                        break;
+                    default:
+                        this.objectify = JeuFXController.y1 + JeuFXController.tailleCase * 2;
+                        break;
+                }
+                break;
+            default:
+                switch (x) {
+                    case 0:
+                        this.objectifx = JeuFXController.x2;
+                        break;
+                    case 1:
+                        this.objectifx = JeuFXController.x2 + JeuFXController.tailleCase;
+                        break;
+                    default:
+                        this.objectifx = JeuFXController.x2 + JeuFXController.tailleCase * 2;
+                        break;
+                }
+                switch (y) {
+                    case 0:
+                        this.objectify = JeuFXController.y2;
+                        break;
+                    case 1:
+                        this.objectify = JeuFXController.y2 + JeuFXController.tailleCase;
+                        break;
+                    default:
+                        this.objectify = JeuFXController.y2 + JeuFXController.tailleCase * 2;
+                        break;
+                }
+                break;
+        }
+
     }
 
     @Override

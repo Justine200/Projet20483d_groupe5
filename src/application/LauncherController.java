@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package application;
 
 import java.io.IOException;
@@ -48,8 +44,9 @@ public class LauncherController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         startButton.getStyleClass().add("button");
+        
         con = new ConnexionBDD();
-        System.out.println(con.meilleurScore());
+        
         topScore.setText(con.meilleurScore());
     }
 

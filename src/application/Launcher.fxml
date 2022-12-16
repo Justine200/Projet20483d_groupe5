@@ -28,9 +28,9 @@
                </children></Pane>
             <Pane layoutX="172.0" layoutY="40.0" prefHeight="43.0" prefWidth="66.0" style="-fx-background-color: linear-gradient(to right bottom,#cce6ff,  #b3b3b3); -fx-background-radius: 10px;">
                <children>
-                  <Text layoutX="17.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="150" textAlignment="CENTER">
+                  <Text layoutX="3.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login to see" textAlignment="CENTER">
                      <font>
-                        <Font size="20.0" />
+                        <Font size="11.0" />
                      </font>
                   </Text>
                </children></Pane>
@@ -133,7 +133,7 @@
                   <Font name="Book Antiqua Bold" size="14.0" />
                </font>
             </Text>
-            <Text fill="#e8f7ff" fontSmoothingType="LCD" layoutX="14.0" layoutY="429.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Save Your Scores By Creating An Account :)" wrappingWidth="225.0">
+            <Text fill="#e8f7ff" fontSmoothingType="LCD" layoutX="14.0" layoutY="429.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Save And Restore Your Scores By Loging in :)" wrappingWidth="225.0">
                <font>
                   <Font name="Book Antiqua Bold" size="13.0" />
                </font>
