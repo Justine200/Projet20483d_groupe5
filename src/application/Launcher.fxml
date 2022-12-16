@@ -111,11 +111,11 @@
             </TextFlow>
             <Pane layoutX="172.0" layoutY="14.0" prefHeight="20.0" prefWidth="66.0" style="-fx-background-color: linear-gradient(to right bottom,#cce6ff,  #b3b3b3); -fx-background-radius: 5px;">
                <children>
-                  <Text fill="#f2ffe6" layoutX="18.0" layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score" />
+                  <Text layoutX="18.0" layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score" />
                </children></Pane>
             <Pane layoutX="240.0" layoutY="14.0" prefHeight="20.0" prefWidth="66.0" style="-fx-background-color: linear-gradient(to right bottom,#cce6ff,  #ff8080); -fx-background-radius: 5px;">
                <children>
-                  <Text fill="#f2ffe6" layoutX="22.0" layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Best" />
+                  <Text layoutX="22.0" layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Best" />
                </children>
             </Pane>
             <TextFlow layoutX="38.0" layoutY="426.0" prefHeight="23.0" prefWidth="269.0">
