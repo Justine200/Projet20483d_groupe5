@@ -11,32 +11,34 @@ import java.util.*;
  *
  * @author justineherolt
  */
-public class Grille implements Parametres,java.io.Serializable {
+public class Grille implements Parametres, java.io.Serializable {
 
     private final HashSet<Case> grille;
     private int valeurMax = 0;
     private boolean deplacement;
     private int score;
+    private int grilleNum;
 
     public Grille() {
         this.grille = new HashSet<>();
         this.score = 0;
+        this.grilleNum = 0;
     }
 
-    public Grille(Grille g){
+    public Grille(Grille g) {
         HashSet<Case> copyG = new HashSet<Case>();
         g.getListCase().forEach(Case -> copyG.add((Case.copy())));
-        this.grille=copyG;
-        this.valeurMax=g.valeurMax;
-        this.deplacement=g.deplacement;
-        this.score=g.score;
+        this.grille = copyG;
+        this.valeurMax = g.valeurMax;
+        this.deplacement = g.deplacement;
+        this.score = g.score;
     }
 
-    public HashSet<Case> getListCase(){
+    public HashSet<Case> getListCase() {
         return grille;
     }
 
-    public Grille copy(){
+    public Grille copy() {
         return new Grille(this);
     }
 
@@ -69,8 +71,8 @@ public class Grille implements Parametres,java.io.Serializable {
     public HashSet<Case> getGrille() {
         return grille;
     }
-    
-    public void setGrille(Case c){
+
+    public void setGrille(Case c) {
         this.grille.add(c);
     }
 
@@ -114,6 +116,7 @@ public class Grille implements Parametres,java.io.Serializable {
                     break;
             }
         }
+
         return deplacement;
     }
 
@@ -183,21 +186,73 @@ public class Grille implements Parametres,java.io.Serializable {
                 case HAUT:
                     if ((result[c.getX()] == null) || (result[c.getX()].getY() > c.getY())) { // si on n'avait pas encore de case pour cette rangée ou si on a trouvé un meilleur candidat
                         result[c.getX()] = c;
+                        System.out.println("Before Update ; ");
+                        System.out.println("c.getxInterface() ; " + c.getxInterface());
+                        System.out.println("c.getyInterface() ; " + c.getyInterface());
+                        System.out.println("c.getObjectifx() ; " + c.getObjectifx());
+                        System.out.println("c.getObjectify() ; " + c.getObjectifx());
+
+                        c.updateInterface(this);
+
+                        System.out.println("After Update ; ");
+                        System.out.println("c.getxInterface() ; " + c.getxInterface());
+                        System.out.println("c.getyInterface() ; " + c.getyInterface());
+                        System.out.println("c.getObjectifx() ; " + c.getObjectifx());
+                        System.out.println("c.getObjectify() ; " + c.getObjectifx());
                     }
                     break;
                 case BAS:
                     if ((result[c.getX()] == null) || (result[c.getX()].getY() < c.getY())) {
                         result[c.getX()] = c;
+                        System.out.println("Before Update ; ");
+                        System.out.println("c.getxInterface() ; " + c.getxInterface());
+                        System.out.println("c.getyInterface() ; " + c.getyInterface());
+                        System.out.println("c.getObjectifx() ; " + c.getObjectifx());
+                        System.out.println("c.getObjectify() ; " + c.getObjectifx());
+                        
+                        c.updateInterface(this);
+
+                        System.out.println("After Update ; ");
+                        System.out.println("c.getxInterface() ; " + c.getxInterface());
+                        System.out.println("c.getyInterface() ; " + c.getyInterface());
+                        System.out.println("c.getObjectifx() ; " + c.getObjectifx());
+                        System.out.println("c.getObjectify() ; " + c.getObjectifx());
                     }
                     break;
                 case GAUCHE:
                     if ((result[c.getY()] == null) || (result[c.getY()].getX() > c.getX())) {
                         result[c.getY()] = c;
+                        System.out.println("Before Update ; ");
+                        System.out.println("c.getxInterface() ; " + c.getxInterface());
+                        System.out.println("c.getyInterface() ; " + c.getyInterface());
+                        System.out.println("c.getObjectifx() ; " + c.getObjectifx());
+                        System.out.println("c.getObjectify() ; " + c.getObjectifx());
+                        
+                        c.updateInterface(this);
+
+                        System.out.println("After Update ; ");
+                        System.out.println("c.getxInterface() ; " + c.getxInterface());
+                        System.out.println("c.getyInterface() ; " + c.getyInterface());
+                        System.out.println("c.getObjectifx() ; " + c.getObjectifx());
+                        System.out.println("c.getObjectify() ; " + c.getObjectifx());
                     }
                     break;
                 default:
                     if ((result[c.getY()] == null) || (result[c.getY()].getX() < c.getX())) {
                         result[c.getY()] = c;
+                        System.out.println("Before Update ; ");
+                        System.out.println("c.getxInterface() ; " + c.getxInterface());
+                        System.out.println("c.getyInterface() ; " + c.getyInterface());
+                        System.out.println("c.getObjectifx() ; " + c.getObjectifx());
+                        System.out.println("c.getObjectify() ; " + c.getObjectifx());
+                        
+                        c.updateInterface(this);
+
+                        System.out.println("After Update ; ");
+                        System.out.println("c.getxInterface() ; " + c.getxInterface());
+                        System.out.println("c.getyInterface() ; " + c.getyInterface());
+                        System.out.println("c.getObjectifx() ; " + c.getObjectifx());
+                        System.out.println("c.getObjectify() ; " + c.getObjectifx());
                     }
                     break;
             }
@@ -242,14 +297,14 @@ public class Grille implements Parametres,java.io.Serializable {
             return false;
         }
     }
-    
-    public boolean caseOccupe(int x,int y){
-        for(Case c:this.grille){
-            if(c.getY() == y && c.getX() == x){
+
+    public boolean caseOccupe(int x, int y) {
+        for (Case c : this.grille) {
+            if (c.getY() == y && c.getX() == x) {
                 return true;
             }
         }
-        return false ;
+        return false;
     }
 
     /*public int valeurCase(int x, int y){
@@ -260,4 +315,17 @@ public class Grille implements Parametres,java.io.Serializable {
         }
         return (-1);
     }*/
+    /**
+     * @return the grilleNum
+     */
+    public int getGrilleNum() {
+        return grilleNum;
+    }
+
+    /**
+     * @param grilleNum the grilleNum to set
+     */
+    public void setGrilleNum(int grilleNum) {
+        this.grilleNum = grilleNum;
+    }
 }
