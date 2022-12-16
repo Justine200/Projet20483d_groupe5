@@ -62,8 +62,8 @@ public class Main implements Parametres {
             System.out.println("Ecrire \"retour\" pour annuler le dernier coup, \"save\" pour sauvegarder et quitter, \"load\" pour charger une ancienne partie");
             String s = sc.nextLine();
             s.toLowerCase();
-            if( ! (s.equals("b") || s.equals("bas") || s.equals("h") || s.equals("haut") || s.equals("d") || s.equals("droite") || s.equals("g") || s.equals("gauche") || s.equals("retour")|| s.equals("save")||s.equals("load")||s.equals("f")||s.equals("r"))){
-                System.out.println("Veuillez écrire \"d\" pour droite, \"h\" pour haut, \"b\" pour bas \"g\" pour gauche, \"f\" pour aller vers la grille de droite ou \"r\" pour aller vers la grille de gauche");
+            if( ! (s.equals("b") || s.equals("bas") || s.equals("h") || s.equals("haut") || s.equals("d") || s.equals("droite") || s.equals("g") || s.equals("gauche") || s.equals("retour")|| s.equals("save")||s.equals("load")||s.equals("f")||s.equals("r")||s.equals("a"))){
+                System.out.println("Veuillez écrire \"d\" pour droite, \"h\" pour haut, \"b\" pour bas \"g\" pour gauche, \"f\" pour aller vers la grille de droite ou \"r\" pour aller vers la grille de gauche ou \"a\" pour un coup aléatoire");
                 System.out.println("Ecrire \"retour\" pour annuler le dernier coup, \"save\" pour sauvegarder et quitter, \"load\" pour charger une ancienne partie");
             }else if (s.equals("retour")|| s.equals("save")||s.equals("load")) {
                 switch (s){
@@ -86,6 +86,36 @@ public class Main implements Parametres {
                 }
             } else {
                 int direction;
+                if(s.equals("a")){
+                    int random = (int) (Math.random() * 6);
+                    System.out.println(random);
+                    switch ((int) (random)) {
+                        case 1 -> {
+                            s = "h";
+                            System.out.println("coup choisis : haut");
+                        }
+                        case 2 -> {
+                            s = "b";
+                            System.out.println("coup choisis : bas");
+                        }
+                        case 3 -> {
+                            s = "d";
+                            System.out.println("coup choisis : droite");
+                        }
+                        case 4 -> {
+                            s = "g";
+                            System.out.println("coup choisis : gauche");
+                        }
+                        case 5 -> {
+                            s = "f";
+                            System.out.println("coup choisis : grille à droite");
+                        }
+                        default -> {
+                            s = "r";
+                            System.out.println("coup choisis : grille à gauche");
+                        }
+                    }
+                }
                 switch (s){
                     case "h" :
                     case "haut" :
