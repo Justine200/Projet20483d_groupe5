@@ -31,8 +31,6 @@ import static model.Parametres.GAUCHE;
 import static model.Parametres.GRILLEDROITE;
 import static model.Parametres.GRILLEGAUCHE;
 import static model.Parametres.HAUT;
-import static model.Parametres.GRILLEGAUCHE;
-import static model.Parametres.GRILLEDROITE;
 
 public class JeuFXController implements Initializable {
 
@@ -564,33 +562,6 @@ public class JeuFXController implements Initializable {
                 this.uneCaseDeplace = false;
             }
         } else if (touche.compareTo("a") == 0) { // utilisateur appuie sur "s" pour envoyer la tuile en bas
-<<<<<<< Updated upstream
-                this.m.getGrille3D().deplacementCaseGrille3D(GRILLEGAUCHE);
-
-                for(int i=0;i<3;i++){
-                    Iterator value = m.getGrille3D().getGrilles()[i].getGrille().iterator();
-                    while (value.hasNext()) {
-
-                        Case cas = (Case) value.next();
-
-                        cas.updateObjectif(i);
-
-                    }
-                }
-        } else if (touche.compareTo("e") == 0) { // utilisateur appuie sur "s" pour envoyer la tuile en bas
-                this.m.getGrille3D().deplacementCaseGrille3D(GRILLEDROITE);
-
-                for(int i=0;i<3;i++){
-                    Iterator value = m.getGrille3D().getGrilles()[i].getGrille().iterator();
-                    while (value.hasNext()) {
-
-                        Case cas = (Case) value.next();
-
-                        cas.updateObjectif(i);
-
-                    }
-                }
-=======
             this.m.getGrille3D().deplacementCaseGrille3D(GRILLEGAUCHE);
 
             for (int i = 0; i < 3; i++) {
@@ -602,6 +573,11 @@ public class JeuFXController implements Initializable {
                     cas.updateObjectif(i);
 
                 }
+                this.uneCaseDeplace = true;
+            }
+            if (this.uneCaseDeplace) {
+                score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1));
+                this.uneCaseDeplace = false;
             }
         } else if (touche.compareTo("e") == 0) { // utilisateur appuie sur "s" pour envoyer la tuile en bas
             this.m.getGrille3D().deplacementCaseGrille3D(GRILLEDROITE);
@@ -615,8 +591,12 @@ public class JeuFXController implements Initializable {
                     cas.updateObjectif(i);
 
                 }
+                this.uneCaseDeplace = true;
             }
->>>>>>> Stashed changes
+            if (this.uneCaseDeplace) {
+                score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1));
+                this.uneCaseDeplace = false;
+            }
         }
 
         Task task0 = new Task<Void>() { // on définit une tâche parallèle pour mettre à jour la vue
