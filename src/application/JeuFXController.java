@@ -12,6 +12,8 @@ import java.util.Iterator;
 import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.concurrent.CountDownLatch;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
@@ -77,10 +79,6 @@ public class JeuFXController implements Initializable {
     private int x1 = 452, y1 = 173;//tuile de la 2ere grille
     private int x2 = 875, y2 = 173;//tuile de la 3ere grille
 
-    private int objectifx = 29, objectify = 173;
-    private int objectifx1 = 452, objectify1 = 173;
-    private int objectifx2 = 875, objectify2 = 173;
-
     private Modele2048 m;
 
     @Override
@@ -102,8 +100,19 @@ public class JeuFXController implements Initializable {
         // création du modèle
         m = new Modele2048();
 
-        m.getGrille3D().getGrilles()[0].nouvelleCase();
-        m.getGrille3D().getGrilles()[0].nouvelleCase();
+        initModele(m);
+
+    }
+
+    /*
+    *Méthode pour init une partie à partir d'un modele2048
+     */
+    private void initModele(Modele2048 m) {
+
+        supprimerPanes0();
+        supprimerPanes1();
+        supprimerPanes2();
+
         //Afficher les tuiles du modele sur le view
         for (int i = 0; i < 3; i++) {
 
@@ -252,12 +261,32 @@ public class JeuFXController implements Initializable {
                 p.setVisible(true);
                 c.setVisible(true);
 
-                System.out.println("P.X Layout : " + p.getLayoutX());
-                System.out.println("P.Y Layout : " + p.getLayoutY());
-
-                //System.out.println(m.getGrille3D());
             }
 
+        }
+    }
+
+    /*
+    * Méthodes pour supprimer les panes sur chaque grille.
+     */
+    private void supprimerPanes0() {
+        fond.getChildren().removeAll(panes0);
+        for (int i = 0; i < panes0.size(); i++) {
+            panes0.remove(i);
+        }
+    }
+
+    private void supprimerPanes1() {
+        fond.getChildren().removeAll(panes1);
+        for (int i = 0; i < panes1.size(); i++) {
+            panes1.remove(i);
+        }
+    }
+
+    private void supprimerPanes2() {
+        fond.getChildren().removeAll(panes2);
+        for (int i = 0; i < panes2.size(); i++) {
+            panes2.remove(i);
         }
     }
 
@@ -303,7 +332,6 @@ public class JeuFXController implements Initializable {
     private void start(MouseEvent event) {
         System.out.println("start");
 
-        this.nouvelleCase();
     }
 
     @FXML
@@ -315,6 +343,10 @@ public class JeuFXController implements Initializable {
     @FXML
     private void newGame(MouseEvent event) {
         System.out.println("newGame");
+        this.score.setText("0");
+
+        m = new Modele2048();
+        initModele(m);
     }
 
     @FXML
@@ -326,6 +358,10 @@ public class JeuFXController implements Initializable {
     @FXML
     private void newGame0() {
         System.out.println("newGame0");
+        this.score.setText("0");
+
+        m = new Modele2048();
+        initModele(m);
     }
 
     @FXML
@@ -547,7 +583,6 @@ public class JeuFXController implements Initializable {
                 Case cas = (Case) value.next();
 
                 if (cas.getObjectify() > 173) {
-                    objectify -= (int) this.tailleCase;
                     cas.setObjectify(cas.getObjectify() - (int) this.tailleCase);
                 }
                 score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1));
@@ -570,7 +605,6 @@ public class JeuFXController implements Initializable {
         }
 
         //Grille 1
-        
         if (touche.compareTo("q") == 0) { // utilisateur appuie sur "q" pour envoyer la tuile vers la gauche
 
             Iterator value = m.getGrille3D().getGrilles()[1].getGrille().iterator();
@@ -610,7 +644,6 @@ public class JeuFXController implements Initializable {
                 Case cas = (Case) value.next();
 
                 if (cas.getObjectify() > 173) {
-                    objectify -= (int) this.tailleCase;
                     cas.setObjectify(cas.getObjectify() - (int) this.tailleCase);
                 }
                 score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1));
@@ -672,7 +705,6 @@ public class JeuFXController implements Initializable {
                 Case cas = (Case) value.next();
 
                 if (cas.getObjectify() > 173) {
-                    objectify -= (int) this.tailleCase;
                     cas.setObjectify(cas.getObjectify() - (int) this.tailleCase);
                 }
                 score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1));
@@ -693,9 +725,6 @@ public class JeuFXController implements Initializable {
             }
 
         }
-
-        System.out.println("objectifx=" + objectifx);
-        System.out.println("objectify=" + objectify);
 
         Task task0 = new Task<Void>() { // on définit une tâche parallèle pour mettre à jour la vue
 
@@ -736,7 +765,7 @@ public class JeuFXController implements Initializable {
                                 }
                                 );
 
-                                Thread.sleep(5);
+                                Thread.sleep(2);
 
                             }
                         }
@@ -746,12 +775,12 @@ public class JeuFXController implements Initializable {
                 }
 
                 return null;
-
             }
 
         };
-        Task task1 = new Task<Void>() { // on définit une tâche parallèle pour mettre à jour la vue
+        Task task1 = new Task<Void>() {
 
+            // on définit une tâche parallèle pour mettre à jour la vue
             // CountDownLatch latch = new CountDownLatch(panes0.size());
             @Override
             public Void call() throws Exception { // implémentation de la méthode protected abstract V call() dans la classe Task
@@ -790,7 +819,7 @@ public class JeuFXController implements Initializable {
                                 }
                                 );
 
-                                Thread.sleep(5);
+                                Thread.sleep(2);
 
                             }
                         }
@@ -843,7 +872,7 @@ public class JeuFXController implements Initializable {
                                 }
                                 );
 
-                                Thread.sleep(5);
+                                Thread.sleep(2);
 
                             }
                         }
