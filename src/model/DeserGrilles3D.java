@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Scanner;
 
 public class DeserGrilles3D {
     public Grille3D main() {
@@ -11,10 +12,14 @@ public class DeserGrilles3D {
         ObjectOutputStream oos = null;
         ObjectInputStream ois = null;
         try {
-            final FileInputStream fichierIn = new FileInputStream("grilles3D.ser");
+            Scanner sc=new Scanner(System.in);
+            System.out.println("nom du fichier ?");
+            String nomF = sc.nextLine();
+            final FileInputStream fichierIn = new FileInputStream(nomF);
             ois = new ObjectInputStream(fichierIn);
             g = (Grille3D) ois.readObject();
-            System.out.println("Grilles : "+g.toString());
+            System.out.println("Grilles : ");
+            System.out.println(g.toString());
             System.out.println("score : " + g.score());
             return g;
         } catch (final java.io.IOException e) {
