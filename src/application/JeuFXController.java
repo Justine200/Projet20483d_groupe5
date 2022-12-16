@@ -9,14 +9,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Random;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.HPos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -72,6 +70,8 @@ public class JeuFXController implements Initializable {
     private ArrayList<Pane> panes0 = new ArrayList<>();
     private ArrayList<Pane> panes1 = new ArrayList<>();
     private ArrayList<Pane> panes2 = new ArrayList<>();
+
+    private boolean uneCaseDeplace = false;
 
     /**
      * taille de la fenêtre, //hauteur de la fenêtre, //taille d'une case
@@ -411,6 +411,7 @@ public class JeuFXController implements Initializable {
         this.fond.getScene().getStylesheets().remove("/application/style/JeuStyle.css");
         this.fond.getScene().getStylesheets().add("/application/style/Dark.css");
     }
+<<<<<<< Updated upstream
 
     @FXML
     private void howToPlay() throws IOException {
@@ -438,7 +439,57 @@ public class JeuFXController implements Initializable {
     private void aboutUs() throws IOException {
         
         Parent root = FXMLLoader.load(getClass().getResource("/application/aboutUs.fxml"));
+=======
 
+    
+    /*
+    * Méthodes qui lancent des fenetres nouvelles
+    */
+    @FXML
+    private void howToPlay() throws IOException {
+
+        Parent root = FXMLLoader.load(getClass().getResource("/application/HowToPlay.fxml"));
+>>>>>>> Stashed changes
+
+        Scene sceneJeu = new Scene(root);
+
+        Stage stage = new Stage(); //stage du jeu
+
+        boolean add = sceneJeu.getStylesheets().add("/application/style/JeuStyle.css");
+
+        stage.setScene(sceneJeu);
+
+        stage.getIcons().add(new Image("/application/style/icon.png"));
+
+<<<<<<< Updated upstream
+        stage.setTitle("About Us :)");
+
+        stage.resizableProperty().setValue(false);
+
+        stage.show();
+    }
+
+    private void nouvelleCase(Modele2048 m) {
+
+        m.getGrille3D().nouvellesCases();
+        initModele(this.m);
+        System.out.println(this.m.getGrille3D());
+=======
+        stage.setTitle("HOW TO PLAY?");
+
+        stage.resizableProperty().setValue(false);
+>>>>>>> Stashed changes
+
+        stage.show();
+    }
+
+    @FXML
+    private void aboutUs() throws IOException {
+
+        Parent root = FXMLLoader.load(getClass().getResource("/application/aboutUs.fxml"));
+
+<<<<<<< Updated upstream
+=======
         Scene sceneJeu = new Scene(root);
 
         Stage stage = new Stage(); //stage du jeu
@@ -456,6 +507,10 @@ public class JeuFXController implements Initializable {
         stage.show();
     }
 
+    
+    /**
+     * Méthode pour ajouter une nouvelle case sur la grille3D et mettre l'interface à jour 
+     */
     private void nouvelleCase(Modele2048 m) {
 
         m.getGrille3D().nouvellesCases();
@@ -466,18 +521,19 @@ public class JeuFXController implements Initializable {
 
     /**
      *
-     * @param ke
+     * La méthode qui déplace les cases sur l'interface et le modèle2048 après appuyer sur Q,D,Z,S
      */
     @FXML
     private void keyPressed(KeyEvent ke) throws InterruptedException {
 
         System.out.println("touche appuyée");
 
+>>>>>>> Stashed changes
         String touche = ke.getText();
 
         if (touche.compareTo("q") == 0) { // utilisateur appuie sur "q" pour envoyer la tuile vers la gauche
-            for (int i = 0; i < 3; i++) {
-                if (this.m.getGrille3D().getGrille(i).lanceurDeplacerCases(GAUCHE)) {
+            for (int i = 0; i < 3; i++) {// boucle qui parcours les 3 grilles
+                if (this.m.getGrille3D().getGrille(i).lanceurDeplacerCases(GAUCHE)) { //Déplacer les cases sur le modele2048 (sur le console)
 
                     Iterator value = m.getGrille3D().getGrilles()[i].getGrille().iterator();
 
@@ -485,13 +541,23 @@ public class JeuFXController implements Initializable {
 
                         Case cas = (Case) value.next();
 
+<<<<<<< Updated upstream
                         cas.updateObjectif(i);
 
                         System.out.println(cas.toString() + ".getObjectifx() : " + cas.getObjectifx());
 
+=======
+                        cas.updateObjectif(i); //changer l'objectif de chaque case dans l'HashSet après deplacer les cases sur le console
+>>>>>>> Stashed changes
                     }
+
+                    this.uneCaseDeplace = true; // True s'il y a au moins une case qui s'est déplacée
                 }
 
+            }
+            if (this.uneCaseDeplace) {
+                score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1)); // s'il y a au moins une case qui s'est déplacée ==> score =+ 1
+                this.uneCaseDeplace = false;
             }
 
         } else if (touche.compareTo("d") == 0) { // utilisateur appuie sur "d" pour envoyer la tuile vers la droite
@@ -505,9 +571,13 @@ public class JeuFXController implements Initializable {
                         Case cas = (Case) value.next();
 
                         cas.updateObjectif(i);
-                        score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1));
                     }
+                    this.uneCaseDeplace = true;
                 }
+            }
+            if (this.uneCaseDeplace) {
+                score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1));
+                this.uneCaseDeplace = false;
             }
         } else if (touche.compareTo("z") == 0) { // utilisateur appuie sur "d" pour envoyer la tuile en haut
             for (int i = 0; i < 3; i++) {
@@ -520,9 +590,14 @@ public class JeuFXController implements Initializable {
                         Case cas = (Case) value.next();
 
                         cas.updateObjectif(i);
-                        score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1));
+
                     }
+                    this.uneCaseDeplace = true;
                 }
+            }
+            if (this.uneCaseDeplace) {
+                score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1));
+                this.uneCaseDeplace = false;
             }
         } else if (touche.compareTo("s") == 0) { // utilisateur appuie sur "s" pour envoyer la tuile en bas
             for (int i = 0; i < 3; i++) {
@@ -535,9 +610,14 @@ public class JeuFXController implements Initializable {
                         Case cas = (Case) value.next();
 
                         cas.updateObjectif(i);
-                        score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1));
+
                     }
+                    this.uneCaseDeplace = true;
                 }
+            }
+            if (this.uneCaseDeplace) {
+                score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1));
+                this.uneCaseDeplace = false;
             }
         }
 
@@ -560,7 +640,7 @@ public class JeuFXController implements Initializable {
 
                             while (cas.getxInterface() != cas.getObjectifx() || cas.getyInterface() != cas.getObjectify()) { // si les tuiles n'est pas à la place qu'on souhaite attendre en abscisse
                                 if (cas.getxInterface() < cas.getObjectifx()) {
-                                    cas.setxInterface(cas.getxInterface() + 1);// si on va vers la droite, on modifie la position des tuiles pixel par pixel vers la droite
+                                    cas.setxInterface(cas.getxInterface() + 1); // si on va vers la droite, on modifie la position des tuiles pixel par pixel vers la droite
                                 } else if (cas.getyInterface() < cas.getObjectify()) {
                                     cas.setyInterface(cas.getyInterface() + 1);
                                 } else if (cas.getxInterface() > cas.getObjectifx()) {

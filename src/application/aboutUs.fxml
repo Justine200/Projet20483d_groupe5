@@ -43,7 +43,11 @@
                   <Image url="@style/univ.png" />
                </image>
             </ImageView>
+<<<<<<< Updated upstream
             <Text layoutX="14.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="L2 MIASHS SCIENCES COGNITIVES" textAlignment="CENTER" wrappingWidth="104.0">
+=======
+            <Text layoutX="14.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="L3 MIASHS SCIENCES COGNITIVES" textAlignment="CENTER" wrappingWidth="104.0">
+>>>>>>> Stashed changes
                <font>
                   <Font name="Book Antiqua Bold Italic" size="16.0" />
                </font>

@@ -103,7 +103,7 @@
                   </Text>
                </children>
             </Pane>
-            <Pane layoutX="228.0" layoutY="49.0" prefHeight="43.0" prefWidth="66.0" style="-fx-background-color: #ff8080; -fx-background-radius: 10px;">
+            <Pane layoutX="228.0" layoutY="49.0" prefHeight="43.0" prefWidth="66.0" style="-fx-background-color: linear-gradient(to right bottom,#cce6ff,  #ff8080); -fx-background-radius: 10px;">
                <children>
                   <Text fx:id="topScore" layoutX="17.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER">
                      <font>
@@ -112,7 +112,7 @@
                   </Text>
                </children>
             </Pane>
-            <Pane layoutX="162.0" layoutY="49.0" prefHeight="43.0" prefWidth="66.0" style="-fx-background-color: #b3b3b3; -fx-background-radius: 10px;">
+            <Pane layoutX="162.0" layoutY="49.0" prefHeight="43.0" prefWidth="66.0" style="-fx-background-color: linear-gradient(to right bottom,#cce6ff,  #b3b3b3); -fx-background-radius: 10px;">
                <children>
                   <Text layoutX="17.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="150" textAlignment="CENTER">
                      <font>
@@ -121,12 +121,12 @@
                   </Text>
                </children>
             </Pane>
-            <Pane layoutX="162.0" layoutY="23.0" prefHeight="20.0" prefWidth="66.0" style="-fx-background-color: #b3b3b3; -fx-background-radius: 5px;">
+            <Pane layoutX="162.0" layoutY="23.0" prefHeight="20.0" prefWidth="66.0" style="-fx-background-color: linear-gradient(to right bottom,#cce6ff,  #b3b3b3); -fx-background-radius: 5px;">
                <children>
                   <Text fill="#f2ffe6" layoutX="18.0" layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score" />
                </children>
             </Pane>
-            <Pane layoutX="228.0" layoutY="23.0" prefHeight="20.0" prefWidth="66.0" style="-fx-background-color: #ff8080; -fx-background-radius: 5px;">
+            <Pane layoutX="228.0" layoutY="23.0" prefHeight="20.0" prefWidth="66.0" style="-fx-background-color: linear-gradient(to right bottom,#cce6ff,  #ff8080); -fx-background-radius: 5px;">
                <children>
                   <Text fill="#f2ffe6" layoutX="22.0" layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Best" />
                </children>
