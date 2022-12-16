@@ -49,51 +49,9 @@ and open the template in the editor.
 
 .tuile {
     -fx-text-fill: #ffffff;
-    -fx-font-size: 32px;
+    -fx-font-size: 32;
     -fx-padding: 43 57 43 57;
 }
-
-.tuile10 {
-    -fx-background-color: #cc3399;
-    -fx-text-fill: #ffffff;
-    -fx-font-size: 32px;
-    -fx-alignment: CENTER;  
-    -fx-padding: 40 40 43 57;
-    -fx-background-radius: 5px;
-    -fx-border-radius: 5px;
-}
-
-.tuile64 {
-    -fx-background-color: #ff0000;
-    -fx-text-fill: #ffffff;
-    -fx-font-size: 32px;
-    -fx-alignment: CENTER;  
-    -fx-padding: 40 40 43 57;
-    -fx-background-radius: 5px;
-    -fx-border-radius: 5px;
-}
-
-.tuile100 {
-    -fx-text-fill: #ff9900;
-    -fx-font-size: 32px;
-    -fx-padding: 43 57 43 57;
-    -fx-background-radius: 5px;
-    -fx-border-radius: 5px;
-}
-
-.tuile512 {
-    -fx-text-fill: #99ff66;
-    -fx-font-size: 32px;
-    -fx-background-radius: 5px;
-    -fx-border-radius: 5px;
-    -fx-padding: 43 57 43 57;
-}
-.tuile1000 {
-    -fx-text-fill: #ffff66;
-    -fx-font-size: 32px;
-    -fx-padding: 43 57 43 57;
-}
-
 
 .fond {
     -fx-background-color: linear-gradient(to right bottom,#cce6ff, #ccffff);

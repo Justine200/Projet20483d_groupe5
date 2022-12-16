@@ -5,6 +5,7 @@
  */
 package application;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -13,16 +14,21 @@ import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import model.Case;
 import model.ConnexionBDD;
 import model.Modele2048;
@@ -124,7 +130,20 @@ public class JeuFXController implements Initializable {
 
                 p.getStyleClass().add("pane");
                 c.getStyleClass().add("tuile");
-                GridPane.setHalignment(c, HPos.CENTER);
+
+                if (cas.getValeur() >= 10) {
+                    c.getStyleClass().add("tuile10");
+                } else if (cas.getValeur() >= 63) {
+                    c.getStyleClass().add("tuile64");
+                } else if (cas.getValeur() >= 99) {
+                    c.getStyleClass().add("tuile100");
+                } else if (cas.getValeur() >= 511) {
+                    c.getStyleClass().add("tuile512");
+                } else if (cas.getValeur() >= 999) {
+                    c.getStyleClass().add("tuile1000");
+                }
+
+                //GridPane.setHalignment(c, HPos.CENTER);
                 fond.getChildren().add(p);
                 p.getChildren().add(c);
 
@@ -378,24 +397,63 @@ public class JeuFXController implements Initializable {
         System.exit(0);
     }
 
+    /*
+    *Méthodes pour changer le style de la fenetre
+     */
     @FXML
     private void cssClassique() {
-        System.out.println("cssClassique");
+        this.fond.getScene().getStylesheets().remove("/application/style/Dark.css");
+        this.fond.getScene().getStylesheets().add("/application/style/JeuStyle.css");
     }
 
     @FXML
     private void cssDark() {
-        System.out.println("cssDark");
+        this.fond.getScene().getStylesheets().remove("/application/style/JeuStyle.css");
+        this.fond.getScene().getStylesheets().add("/application/style/Dark.css");
     }
 
     @FXML
-    private void howToPlay() {
-        System.out.println("howToPlay");
+    private void howToPlay() throws IOException {
+
+        Parent root = FXMLLoader.load(getClass().getResource("/application/HowToPlay.fxml"));
+
+        Scene sceneJeu = new Scene(root);
+
+        Stage stage = new Stage(); //stage du jeu
+
+        boolean add = sceneJeu.getStylesheets().add("/application/style/JeuStyle.css");
+
+        stage.setScene(sceneJeu);
+
+        stage.getIcons().add(new Image("/application/style/icon.png"));
+
+        stage.setTitle("HOW TO PLAY?");
+
+        stage.resizableProperty().setValue(false);
+
+        stage.show();
     }
 
     @FXML
-    private void aboutUs() {
-        System.out.println("aboutUs");
+    private void aboutUs() throws IOException {
+        
+        Parent root = FXMLLoader.load(getClass().getResource("/application/aboutUs.fxml"));
+
+        Scene sceneJeu = new Scene(root);
+
+        Stage stage = new Stage(); //stage du jeu
+
+        boolean add = sceneJeu.getStylesheets().add("/application/style/JeuStyle.css");
+
+        stage.setScene(sceneJeu);
+
+        stage.getIcons().add(new Image("/application/style/icon.png"));
+
+        stage.setTitle("About Us :)");
+
+        stage.resizableProperty().setValue(false);
+
+        stage.show();
     }
 
     private void nouvelleCase(Modele2048 m) {
@@ -405,100 +463,6 @@ public class JeuFXController implements Initializable {
         System.out.println(this.m.getGrille3D());
 
     }
-
-    // Apparition tuile début    
-    private void apparitionTuiles(KeyEvent but) {
-        System.out.println("ApparitionTuiles");
-
-        Random r1 = new Random();
-        Random r2 = new Random();
-        Random r3 = new Random();
-        Random r4 = new Random();
-
-        int x = r1.nextInt(3);// variable pour choisir aléatoirement à quelle coordonées de x la tuile va apparaitre
-        int y = r2.nextInt(3);// variable pour choisir aléatoirement à quelle coordonées de y la tuile va apparaitre
-        int numGrille = r3.nextInt(3);// variable pour choisir aléatoirement dans quelle grille la tuille va apparaitre
-
-        int nbSpawnChoisi = (1 + r4.nextInt(2)) * 2; // variable qui vient choisir aléatoirement 2 ou 4 dans la liste nbspawn
-        String nbSpawnChoisi2 = String.valueOf(nbSpawnChoisi); // On convertie nbSpawnChoisi en String pour qu'il puisse être accepté pour le Label 
-
-        switch (numGrille) {
-            case 1: // la tuile va apparaitre dans la grille 0
-                for (int i = 0; i < 3; i++) {
-                    for (int j = 0; j < 3; j++) {
-                        if (i == x && j == y) {
-                            Pane a = new Pane();
-                            Label z = new Label(nbSpawnChoisi2);
-
-                            a.getStyleClass().add("pane");
-                            z.getStyleClass().add("tuile");
-                            GridPane.setHalignment(z, HPos.CENTER);
-                            fond.getChildren().add(a);
-                            a.getChildren().add(z);
-
-                            a.setLayoutX(x);
-                            a.setLayoutY(y);
-
-                            a.setVisible(true);
-                            z.setVisible(true);
-
-                            this.grille0.add(a, i, j);
-                        }
-                    }
-                }
-                break;
-            case 2: // La tuile va apparaitre dans la grille 1
-                for (int i = 0; i < 3; i++) {
-                    for (int j = 0; j < 3; j++) {
-                        if (i == x && j == y) {
-                            Pane a = new Pane();
-                            Label z = new Label(nbSpawnChoisi2);
-
-                            a.getStyleClass().add("pane");
-                            z.getStyleClass().add("tuile");
-                            GridPane.setHalignment(z, HPos.CENTER);
-                            fond.getChildren().add(a);
-                            a.getChildren().add(z);
-
-                            a.setLayoutX(x);
-                            a.setLayoutY(y);
-
-                            a.setVisible(true);
-                            z.setVisible(true);
-
-                            this.grille1.add(a, i, j);
-                        }
-                    }
-                }
-                break;
-            case 3: // La tuile va appaitre dans la grille 2
-                for (int i = 0; i < 3; i++) {
-                    for (int j = 0; j < 3; j++) {
-                        if (i == x && j == y) {
-                            Pane a = new Pane();
-                            Label z = new Label(nbSpawnChoisi2);
-
-                            a.getStyleClass().add("pane");
-                            z.getStyleClass().add("tuile");
-                            GridPane.setHalignment(z, HPos.CENTER);
-                            fond.getChildren().add(a);
-                            a.getChildren().add(z);
-
-                            a.setLayoutX(x);
-                            a.setLayoutY(y);
-
-                            a.setVisible(true);
-                            z.setVisible(true);
-
-                            this.grille2.add(a, i, j);
-                        }
-                    }
-                }
-
-        }
-
-    }
-//Apparition tuile fin
 
     /**
      *
@@ -510,66 +474,6 @@ public class JeuFXController implements Initializable {
         System.out.println("touche appuyée");
 
         String touche = ke.getText();
-        /*
-        //Grille 0
-        if (touche.compareTo("q") == 0) { // utilisateur appuie sur "q" pour envoyer la tuile vers la gauche
-
-            if (this.m.getGrille3D().getGrille(0).lanceurDeplacerCases(GAUCHE)) {
-                Iterator value = m.getGrille3D().getGrilles()[0].getGrille().iterator();
-
-                while (value.hasNext()) {
-
-                    Case cas = (Case) value.next();
-                    cas.updateObjectif();
-
-                }
-                System.out.println(m.getGrille3D());
-            }
-
-        } else if (touche.compareTo("d") == 0) { // utilisateur appuie sur "d" pour envoyer la tuile vers la droite
-
-            if (this.m.getGrille3D().getGrille(0).lanceurDeplacerCases(DROITE)) {
-                Iterator value = m.getGrille3D().getGrilles()[0].getGrille().iterator();
-
-                while (value.hasNext()) {
-
-                    Case cas = (Case) value.next();
-                    cas.updateObjectif();
-                    score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1));
-                }
-
-                System.out.println(m.getGrille3D());
-            }
-
-        } else if (touche.compareTo("z") == 0) { // utilisateur appuie sur "d" pour envoyer la tuile en haut
-            if (this.m.getGrille3D().getGrille(0).lanceurDeplacerCases(HAUT)) {
-
-                Iterator value = m.getGrille3D().getGrilles()[0].getGrille().iterator();
-
-                while (value.hasNext()) {
-
-                    Case cas = (Case) value.next();
-                    cas.updateObjectif();
-                    score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1));
-                }
-                System.out.println(m.getGrille3D());
-            }
-        } else if (touche.compareTo("s") == 0) { // utilisateur appuie sur "s" pour envoyer la tuile en bas
-            if (this.m.getGrille3D().getGrille(0).lanceurDeplacerCases(BAS)) {
-
-                Iterator value = m.getGrille3D().getGrilles()[0].getGrille().iterator();
-
-                while (value.hasNext()) {
-
-                    Case cas = (Case) value.next();
-                    cas.updateObjectif();
-                    score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1));
-                }
-                System.out.println(m.getGrille3D());
-            }
-        }
-         */
-        //Grille 1
 
         if (touche.compareTo("q") == 0) { // utilisateur appuie sur "q" pour envoyer la tuile vers la gauche
             for (int i = 0; i < 3; i++) {
@@ -584,6 +488,7 @@ public class JeuFXController implements Initializable {
                         cas.updateObjectif(i);
 
                         System.out.println(cas.toString() + ".getObjectifx() : " + cas.getObjectifx());
+
                     }
                 }
 
@@ -635,8 +540,6 @@ public class JeuFXController implements Initializable {
                 }
             }
         }
-
-        
 
         Task task0 = new Task<Void>() { // on définit une tâche parallèle pour mettre à jour la vue
 
@@ -727,6 +630,18 @@ public class JeuFXController implements Initializable {
                                     public void run() {
                                         panes1.get(index).relocate(cas.getxInterface(), cas.getyInterface()); // on déplace la tuile d'un pixel sur la vue, on attend 5ms et on recommence jusqu'à atteindre l'objectif
                                         panes1.get(index).setVisible(true);
+
+                                        if (cas.getValeur() >= 10) {
+                                            panes1.get(index).getChildren().get(index).getStyleClass().add("tuile10");
+                                        } else if (cas.getValeur() >= 63) {
+                                            panes1.get(index).getChildren().get(index).getStyleClass().add("tuile64");
+                                        } else if (cas.getValeur() >= 99) {
+                                            panes1.get(index).getChildren().get(index).getStyleClass().add("tuile100");
+                                        } else if (cas.getValeur() >= 511) {
+                                            panes1.get(index).getChildren().get(index).getStyleClass().add("tuile512");
+                                        } else if (cas.getValeur() >= 999) {
+                                            panes1.get(index).getChildren().get(index).getStyleClass().add("tuile1000");
+                                        }
                                     }
                                 }
                                 );
@@ -780,6 +695,7 @@ public class JeuFXController implements Initializable {
                                     public void run() {
                                         panes2.get(index).relocate(cas.getxInterface(), cas.getyInterface()); // on déplace la tuile d'un pixel sur la vue, on attend 5ms et on recommence jusqu'à atteindre l'objectif
                                         panes2.get(index).setVisible(true);
+
                                     }
                                 }
                                 );
