@@ -30,10 +30,12 @@ public class Main implements Parametres {
         int nbdeplacements=0;
         ConnexionBDD con = new ConnexionBDD();
         System.out.println("Voulez-vous créer un compte ? Cela permettra d'enregistrer votre score et de vous classer parmis les autres joueurs (o pour oui et n pour non)");
+        System.out.println("Déjà un compte ? Connectez-vous (c pour se connecter)");
         String pseudo = sc.nextLine();
         pseudo.toLowerCase();
-        while(!(pseudo.equals("oui") || pseudo.equals("o") || pseudo.equals("non") || pseudo.equals("n"))){
+        while(!(pseudo.equals("oui") || pseudo.equals("o") || pseudo.equals("non") || pseudo.equals("n") || pseudo.equals("c"))){
             System.out.println("Voulez-vous créer un compte ? Cela permettra d'enregistrer votre score et de vous classer parmis les autres joueurs (o pour oui et n pour non");
+            System.out.println("Déjà un compte ? Connectez-vous (c pour se connecter)");
             pseudo = sc.nextLine();
             pseudo.toLowerCase();
         }
@@ -45,8 +47,20 @@ public class Main implements Parametres {
                 pseudo=sc.nextLine();
             }
             if(con.availableUsername(pseudo)){
-                con.nouveauJoueur(pseudo);
+                System.out.println("Ce pseudo est disponible ! Veuillez entrer votre mot de passe : ");
+                String password=sc.nextLine();
+                con.nouveauJoueur(pseudo, password);
                 estconnecte=true;
+            }
+        }
+        if(pseudo.equals("c")){
+            System.out.println("Entrez votre pseudonyme : ");
+            pseudo=sc.nextLine();
+            System.out.println("Entrez votre mot de passe : ");
+            String password = sc.nextLine();
+            boolean connect = con.connect(pseudo, password);
+            if(connect){
+                System.out.println("Vous êtes connectés !");
             }
         }
 

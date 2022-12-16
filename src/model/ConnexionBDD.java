@@ -98,8 +98,8 @@ public class ConnexionBDD {
     }
     
     //Permet d'ajouter un joueur dans la base de donnée
-    public void insertJoueur(String pseudo, int nbDeplacements){
-        String query = "INSERT INTO Joueur VALUES ('"+pseudo+"' ,"+nbDeplacements+");";
+    public void insertJoueur(String pseudo, int nbDeplacements, String password){
+        String query = "INSERT INTO Joueur VALUES ('"+pseudo+"' ,'"+password+"' ,"+nbDeplacements+");";
         try{
             this.openConnexion();
             Statement stmt = this.con.createStatement();
@@ -116,8 +116,8 @@ public class ConnexionBDD {
     
     //Inscription d'un nouveau joueur avec seulement son pseudo (avant qu'il ne commence à jouer) 
     //Le nombre de déplacements est à 0 par défaut, mais le nouveau joueur ne sera pas pris en compte dans le classement
-    public void nouveauJoueur(String pseudo){
-        String query = "INSERT INTO Joueur VALUES ('"+pseudo+"' ,0,0);";
+    public void nouveauJoueur(String pseudo, String password){
+        String query = "INSERT INTO Joueur VALUES ('"+pseudo+"' ,'"+password+"' ,0,0);";
         try{
             this.openConnexion();
             Statement stmt = this.con.createStatement();
@@ -217,5 +217,36 @@ public class ConnexionBDD {
             this.closeConnexion();
         }
         return(a);
+    }
+    
+    //Connexion : 
+    public boolean connect (String pseudo, String motdepasse){
+        String query = "SELECT Pseudo FROM Joueur WHERE Pseudo = '"+pseudo+"'";
+        boolean connected=false;
+         try{
+            this.openConnexion();
+            Statement stmt = this.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            if(rs.next()){
+                query = "SELECT Password FROM Joueur WHERE Password = '"+motdepasse+"'";
+                Statement stmt1 = this.con.createStatement();
+                ResultSet rs1 = stmt1.executeQuery(query);
+                if(rs1.next()){
+                        connected = true;
+                    }else{
+                        System.out.println("Mot de passe incorrect");
+                        connected = false;
+                    }
+            } else {
+                System.out.println("Pseudo incorrect");
+                connected = false;
+            }
+            stmt.close();
+        }catch (SQLException e) {
+            System.out.println("Problème avec la requete");
+        } finally {
+            this.closeConnexion();
+            return connected;
+        }
     }
 }
