@@ -30,8 +30,14 @@ public class LauncherController implements Initializable {
     @FXML
     private Button startButton; // boutons
     @FXML
+    private Button login; // boutons
+    @FXML
+    private Button signup; // boutons
+    @FXML
     private Text topScore;
     
+    private ConnexionBDD con;
+
     /**
      * Initializes the controller class.
      *
@@ -42,7 +48,7 @@ public class LauncherController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         startButton.getStyleClass().add("button");
-        ConnexionBDD con=new ConnexionBDD();
+        con = new ConnexionBDD();
         System.out.println(con.meilleurScore());
         topScore.setText(con.meilleurScore());
     }
@@ -51,27 +57,76 @@ public class LauncherController implements Initializable {
     private void startClicked(MouseEvent event) throws IOException { //bouton Start
 
         Stage launcher = Main.getPrimaryStage(); //Stage du lanceur
-        
+
         launcher.hide();//cacher le lanceur
 
-        
-        Parent root = FXMLLoader.load(getClass().getResource("/application/JeuFX.fxml")); 
+        Parent root = FXMLLoader.load(getClass().getResource("/application/JeuFX.fxml"));
 
         Scene sceneJeu = new Scene(root);
-        
+
         Stage stage = new Stage(); //stage du jeu
 
         boolean add = sceneJeu.getStylesheets().add("/application/style/JeuStyle.css");
 
         stage.setScene(sceneJeu);
-        
+
         stage.getIcons().add(new Image("/application/style/icon.png"));
-        
+
         stage.setTitle("2048 3D");
-        
+
         stage.resizableProperty().setValue(false);
 
         stage.show();
+
+    }
+
+    @FXML
+    private void login(MouseEvent event) throws IOException { //bouton login
+        
+        
+        Parent root = FXMLLoader.load(getClass().getResource("/application/Login.fxml"));
+
+        Scene sceneJeu = new Scene(root);
+
+        Stage stage = new Stage(); //stage du jeu
+
+        boolean add = sceneJeu.getStylesheets().add("/application/style/JeuStyle.css");
+
+        stage.setScene(sceneJeu);
+
+        stage.getIcons().add(new Image("/application/style/icon.png"));
+
+        stage.setTitle("Login");
+
+        stage.resizableProperty().setValue(false);
+
+        stage.show();
+
+
+    }
+
+    @FXML
+    private void signup(MouseEvent event) throws IOException { //bouton signup
+        
+        
+        Parent root = FXMLLoader.load(getClass().getResource("/application/Signup.fxml"));
+
+        Scene sceneJeu = new Scene(root);
+
+        Stage stage = new Stage(); //stage du jeu
+
+        boolean add = sceneJeu.getStylesheets().add("/application/style/JeuStyle.css");
+
+        stage.setScene(sceneJeu);
+
+        stage.getIcons().add(new Image("/application/style/icon.png"));
+
+        stage.setTitle("Signup");
+
+        stage.resizableProperty().setValue(false);
+
+        stage.show();
+
 
     }
 

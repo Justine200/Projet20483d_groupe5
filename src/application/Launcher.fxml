@@ -14,7 +14,7 @@
    <children>
       <Pane prefHeight="515.0" prefWidth="342.0" style="-fx-background-color: linear-gradient(to right bottom,#cce6ff, #E839F6);">
          <children>
-            <Button fx:id="startButton" layoutX="37.0" layoutY="221.0" mnemonicParsing="false" onMouseClicked="#startClicked" prefHeight="44.0" prefWidth="269.0" text="Start" textFill="WHITE">
+            <Button fx:id="startButton" layoutX="37.0" layoutY="221.0" mnemonicParsing="false" onMouseClicked="#startClicked" prefHeight="44.0" prefWidth="269.0" text="Play As Guest" textFill="WHITE">
                <font>
                   <Font name="Book Antiqua Bold" size="20.0" />
                </font></Button>
@@ -118,15 +118,26 @@
                   <Text layoutX="22.0" layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Best" />
                </children>
             </Pane>
-            <TextFlow layoutX="38.0" layoutY="426.0" prefHeight="23.0" prefWidth="269.0">
-               <children>
-                  <Text fill="#e8f7ff" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Github :" wrappingWidth="234.0">
-                     <font>
-                        <Font name="Book Antiqua Bold" size="18.0" />
-                     </font>
-                  </Text>
-               </children>
-            </TextFlow>
+            <Button fx:id="login" layoutX="220.0" layoutY="418.0" mnemonicParsing="false" onMouseClicked="#login" prefHeight="24.0" prefWidth="107.0" text="Log In" textFill="WHITE">
+               <font>
+                  <Font name="Book Antiqua Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="signup" layoutX="220.0" layoutY="463.0" mnemonicParsing="false" onMouseClicked="#signup" prefHeight="24.0" prefWidth="107.0" text="Sign Up" textFill="WHITE">
+               <font>
+                  <Font name="Book Antiqua Bold" size="12.0" />
+               </font>
+            </Button>
+            <Text fill="#e8f7ff" fontSmoothingType="LCD" layoutX="14.0" layoutY="484.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Don't Have An Account? :(" wrappingWidth="210.0">
+               <font>
+                  <Font name="Book Antiqua Bold" size="14.0" />
+               </font>
+            </Text>
+            <Text fill="#e8f7ff" fontSmoothingType="LCD" layoutX="14.0" layoutY="429.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Save Your Scores By Creating An Account :)" wrappingWidth="225.0">
+               <font>
+                  <Font name="Book Antiqua Bold" size="13.0" />
+               </font>
+            </Text>
          </children></Pane>
    </children>
 </AnchorPane>
