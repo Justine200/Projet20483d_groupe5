@@ -32,7 +32,7 @@ public class Main implements Parametres {
             pseudo.toLowerCase();
         }
         if(pseudo.equals("oui") || pseudo.equals("o")){
-            System.out.println("Quel peudo voulez-vous prendre ? ");
+            System.out.println("Quel pseudo voulez-vous prendre ? ");
             pseudo=sc.nextLine();
             while(!con.availableUsername(pseudo)){
                 System.out.println("Ce pseudo est déjà utilisé, veuillez en choisir un autre");
